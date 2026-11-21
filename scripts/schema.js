@@ -7,11 +7,19 @@ export function validateCourse(course) {
     for (const lesson of chapter.lessons) {
       if (!text(lesson.id) || !/^[a-z0-9-]+$/.test(lesson.id) || ids.has(lesson.id)) throw new Error(`Invalid or duplicate lesson ID: ${lesson.id}`);
       ids.add(lesson.id);
+      if (lesson.original !== undefined && typeof lesson.original !== 'boolean') throw new Error(`Invalid original lesson flag: ${lesson.id}`);
       if (!text(lesson.title) || !text(lesson.summary) || !Array.isArray(lesson.nodes) || lesson.nodes.length < 2 || lesson.nodes.length > 4 || !lesson.nodes.every(text)) throw new Error(`Invalid lesson: ${lesson.id}`);
+      const labels = lesson.statusLabels;
+      if (labels !== undefined && (!Array.isArray(labels) || !labels.length || !labels.every(text))) throw new Error(`Invalid status labels: ${lesson.id}`);
       if (!Array.isArray(lesson.sections) || !lesson.sections.length) throw new Error(`Lesson needs sections: ${lesson.id}`);
       for (const section of lesson.sections) {
         if (!text(section.title) || !text(section.body) || (section.note !== undefined && !text(section.note)) || !Array.isArray(section.active) || !section.active.length || !section.active.every(i => Number.isInteger(i) && i >= 0 && i < lesson.nodes.length)) throw new Error(`Invalid section in ${lesson.id}`);
         if (section.links !== undefined && (!Array.isArray(section.links) || !section.links.every(link => Array.isArray(link) && link.length === 2 && link[0] !== link[1] && link.every(i => Number.isInteger(i) && i >= 0 && i < lesson.nodes.length)))) throw new Error(`Invalid links in ${lesson.id}`);
+        if ((labels || section.status !== undefined) &&
+            (!Array.isArray(section.status) || section.status.length !== labels?.length || !section.status.every(text))) {
+          throw new Error(`Invalid diagram status in ${lesson.id}: ${section.title}`);
+        }
+        if (section.visualNote !== undefined && !text(section.visualNote)) throw new Error(`Invalid diagram note in ${lesson.id}: ${section.title}`);
       }
     }
   }
