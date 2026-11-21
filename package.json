@@ -1,0 +1,15 @@
+{
+  "name": "clone-of-designed-to-scale",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.js",
+    "start": "node scripts/serve.js",
+    "build": "node scripts/check.js",
+    "lint": "node scripts/check.js",
+    "test": "node --test",
+    "coverage": "node --experimental-test-coverage --test"
+  },
+  "engines": { "node": ">=20" }
+}

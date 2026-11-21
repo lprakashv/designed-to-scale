@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive system design study course.">
+  <title>System Design — Local Course</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/">▧ <strong>System Design</strong></a>
+    <span class="nav-active">▣ &nbsp; Learn</span>
+    <label class="search"><span class="sr-only">Search lessons</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search lessons & concepts…"><kbd>/</kbd></label>
+    <button id="theme" class="icon-button" aria-label="Switch theme" title="Switch theme">◐</button>
+    <a class="credit" href="https://designed-to-scale.vercel.app/">Inspired by<br><strong>Designed to Scale ↗</strong></a>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation"><div class="sidebar-heading">▰ &nbsp; Course <span id="lesson-count"></span></div><nav id="course"></nav><div id="progress" class="progress"></div></aside>
+    <main id="main" tabindex="-1"></main>
+    <aside id="guide" class="guide-column" aria-label="Lesson guide"></aside>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
