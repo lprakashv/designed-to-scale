@@ -11,10 +11,14 @@ const lessons = course.chapters.flatMap((chapter, chapterIndex) =>
   chapter.lessons.map((lesson, lessonIndex) => ({ ...lesson, chapter, chapterIndex, lessonIndex })));
 const $ = selector => document.querySelector(selector);
 const search = $('#search');
+const courseMenu = $('#course-menu');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
-const compact = matchMedia('(max-width: 650px)');
+const narrow = matchMedia('(max-width: 42rem)');
+const compactDiagram = matchMedia('(max-width: 60rem), (min-width: 76rem)');
 const openChapters = new Set();
 let displayedLesson;
+let displayedSection;
+let previousStatus;
 let paused = false;
 
 function read(key, fallback) {
@@ -42,13 +46,13 @@ function renderNav(lesson) {
   const query = search.value.trim().toLowerCase();
   $('#course').innerHTML = course.chapters.map((chapter, index) => {
     const matches = chapter.lessons.filter(item => [
-      chapter.title, item.title, item.summary, ...item.sections.flatMap(section => [section.title, section.body]),
+      chapter.title, item.title, item.summary, ...(item.statusLabels ?? []),
+      ...item.sections.flatMap(section => [section.title, section.body, section.visualNote]),
     ].join(' ').toLowerCase().includes(query));
     if (!matches.length) return '';
     const expanded = query || openChapters.has(index);
     return `<details data-chapter="${index}" ${expanded ? 'open' : ''}>
-      <summary><span class="folder ${escapeHtml(chapter.color || '')}">▰</span>
-        ${String(index + 1).padStart(2, '0')}. ${escapeHtml(chapter.title)} <small></small>
+      <summary><span>${String(index + 1).padStart(2, '0')}. ${escapeHtml(chapter.title)}</span> <small></small>
       </summary>
       <ul>${matches.map(item => `
         <li><a href="${link(item)}" ${item.id === lesson.id ? 'class="selected" aria-current="page"' : ''}>
@@ -65,7 +69,7 @@ function updateProgress() {
     const count = chapter.lessons.filter(lesson => completed.has(lesson.id)).length;
     item.querySelector('small').textContent = `${count}/${chapter.lessons.length}`;
   });
-  $('#progress').innerHTML = `<strong>PROGRESS</strong><span>${completed.size} / ${lessons.length}</span>`;
+  $('#progress').innerHTML = `<strong>Progress</strong><span>${completed.size} / ${lessons.length}</span>`;
 }
 
 function applyPlayback() {
@@ -92,6 +96,10 @@ function replay() {
 function render() {
   const { index, lesson, step } = route();
   const section = lesson.sections[step];
+  if (displayedSection !== section) {
+    previousStatus = displayedLesson === lesson ? displayedSection?.status : undefined;
+    displayedSection = section;
+  }
   const focusId = document.activeElement.id;
   if (displayedLesson !== lesson) {
     openChapters.add(lesson.chapterIndex);
@@ -107,50 +115,58 @@ function render() {
   const nextTitle = last ? lessons[index + 1]?.title : lesson.sections[step + 1].title;
   const animated = !!section.links?.length && !motion.matches;
   $('#main').innerHTML = `
-    <div class="lesson-head">
-      <div>
-        <div class="eyebrow">${escapeHtml(lesson.chapter.title)} / Lesson ${lesson.lessonIndex + 1} of ${lesson.chapter.lessons.length}</div>
-        <h1 id="lesson-title" tabindex="-1">${escapeHtml(lesson.title)}</h1>
-        <p>${escapeHtml(lesson.summary)}</p>
+    <header class="lesson-head">
+      <div class="lesson-meta">
+        <p>${escapeHtml(lesson.chapter.title)} · Lesson ${lesson.lessonIndex + 1} of ${lesson.chapter.lessons.length}</p>
+        ${lesson.original === true ? `<a href="https://designed-to-scale.vercel.app/${link(lesson)}">Original lesson <span aria-hidden="true">↗</span></a>` : ''}
       </div>
-    </div>
-    <div class="visual card">
-      <div class="visual-top">
-        <span class="visual-label">${escapeHtml(section.title)}</span>
-        <div class="playback">
-          <button id="replay" title="Replay this step (R)" ${animated ? '' : 'disabled'}>↻ Replay</button>
-          <button id="pause" title="Pause or resume traffic (Space)" ${animated ? '' : 'disabled'}></button>
+      <h1 id="lesson-title" tabindex="-1">${escapeHtml(lesson.title)}</h1>
+      <p>${escapeHtml(lesson.summary)}</p>
+    </header>
+    <div class="lesson-workspace">
+      <section class="guide card" aria-labelledby="step-title">
+        <p class="step-count">Step ${step + 1} of ${lesson.sections.length}</p>
+        <h2 id="step-title" tabindex="-1">${escapeHtml(section.title)}</h2>
+        <div class="reading">
+          ${section.body.split('\n\n').map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}
+          ${section.note ? `<div class="note"><strong>Key idea</strong><p>${escapeHtml(section.note)}</p></div>` : ''}
         </div>
-      </div>
-      <div class="diagram">${diagram(lesson, section, { animated, compact: compact.matches })}</div>
-      <div class="legend"><span class="focus-key">● In focus</span><span>○ Context</span>
-        ${section.links?.length ? '<span class="traffic-key">● Traffic →</span>' : ''}
-      </div>
+        <div class="guide-actions">
+          ${previous ? `<a id="back" class="button" href="${previous}">← ${step ? 'Back' : 'Previous lesson'}</a>` : '<button class="button" disabled>← Back</button>'}
+          ${next ? `<a id="next" class="button primary" href="${next}">${last ? 'Next lesson' : 'Next'} →<small>${escapeHtml(nextTitle)}</small></a>` : ''}
+        </div>
+        ${last ? '<button id="complete" class="button complete"></button>' : ''}
+      </section>
+      <figure class="visual card">
+        <div class="visual-top">
+          <h2>Diagram</h2>
+          <div class="playback">
+            <button class="button" id="replay" title="Replay this step (R)" ${animated ? '' : 'disabled'}>↻ Replay</button>
+            <button class="button" id="pause" title="Pause or resume traffic (Space)" ${animated ? '' : 'disabled'}></button>
+          </div>
+        </div>
+        ${lesson.statusLabels ? `<dl class="visual-status" aria-label="Example state">${lesson.statusLabels.map((label, i) => `
+          <div ${previousStatus && previousStatus[i] !== section.status[i] ? 'class="status-changed"' : ''}>
+            <dt>${escapeHtml(label)}</dt>
+            <dd>${escapeHtml(section.status[i])}</dd>
+          </div>`).join('')}</dl>` : ''}
+        <div class="diagram">${diagram(lesson, section, { animated, compact: compactDiagram.matches })}</div>
+        <figcaption>
+          ${section.visualNote ? `<p class="visual-note">${escapeHtml(section.visualNote)}</p>` : ''}
+          <div class="legend"><span class="focus-key">● In focus</span><span>○ Context</span>
+            ${section.links?.length ? '<span class="traffic-key">● Traffic →</span>' : ''}
+          </div>
+        </figcaption>
+      </figure>
     </div>
     <nav class="timeline card" aria-label="Lesson steps">
-      <div class="timeline-head"><strong>IN THIS LESSON</strong><span>Step ${step + 1} of ${lesson.sections.length}</span></div>
-      <div class="steps">${lesson.sections.map((item, i) => `
-        <a class="step ${i === step ? 'current' : ''} ${i < step ? 'past' : ''}" href="${link(lesson, i)}" ${i === step ? 'aria-current="step"' : ''}>
-          <span>${i + 1}</span><small>${escapeHtml(item.title)}</small>
-        </a>`).join('')}</div>
+      <h2>Lesson steps</h2>
+      <ol class="steps">${lesson.sections.map((item, i) => `
+        <li><a class="step" href="${link(lesson, i)}" ${i === step ? 'aria-current="step"' : ''}>
+          <span>${i + 1}</span>${escapeHtml(item.title)}
+        </a></li>`).join('')}</ol>
     </nav>`;
 
-  $('#guide').innerHTML = `
-    <div class="guide card">
-      <div class="guide-top"><strong>STEP ${step + 1} / ${lesson.sections.length}</strong></div>
-      <h2 id="step-title" tabindex="-1">${escapeHtml(section.title)}</h2>
-      <p>${escapeHtml(section.body)}</p>
-      ${section.note ? `<div class="note"><strong>GOOD TO KNOW</strong><p>${escapeHtml(section.note)}</p></div>` : ''}
-      <div class="guide-actions">
-        ${previous ? `<a id="back" class="button" href="${previous}">← ${step ? 'Back' : 'Previous lesson'}</a>` : '<button disabled>← Back</button>'}
-        ${next ? `<a id="next" class="button primary" href="${next}">${last ? 'Next lesson' : 'Next'} →<small>${escapeHtml(nextTitle)}</small></a>` : ''}
-      </div>
-      ${last ? '<button id="complete" class="complete"></button>' : ''}
-      <div class="shortcuts">← → Step · R Replay · Space Pause</div>
-    </div>
-    <div class="goals card"><strong>LESSON OUTLINE</strong>
-      <ul>${lesson.sections.map((item, i) => `<li><span>${i === step ? '●' : i < step ? '✓' : '○'}</span> ${escapeHtml(item.title)}</li>`).join('')}</ul>
-    </div>`;
   applyPlayback();
   $('#pause').addEventListener('click', togglePlayback);
   $('#replay').addEventListener('click', replay);
@@ -168,7 +184,8 @@ function render() {
       updateProgress();
     });
   }
-  const restore = ['back', 'next', 'pause', 'replay'].includes(focusId) && document.getElementById(focusId);
+  const restore = ['lesson-title', 'step-title', 'back', 'next', 'pause', 'replay', 'complete'].includes(focusId)
+    && document.getElementById(focusId);
   if (restore && !restore.disabled) restore.focus({ preventScroll: true });
 }
 
@@ -182,7 +199,12 @@ $('#course').addEventListener('click', event => {
     else openChapters.add(index);
   }
 });
-search.addEventListener('input', () => renderNav(route().lesson));
+narrow.addEventListener('change', () => { courseMenu.open = !narrow.matches; });
+courseMenu.open = !narrow.matches;
+search.addEventListener('input', () => {
+  courseMenu.open = true;
+  renderNav(route().lesson);
+});
 search.addEventListener('keydown', event => {
   if (event.key === 'Enter') $('#course a')?.click();
   if (event.key === 'Escape') {
@@ -192,19 +214,19 @@ search.addEventListener('keydown', event => {
   }
 });
 
-let anchorSection;
 document.addEventListener('click', event => {
   const anchor = event.target.closest('a[href^="#/"]');
   if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  anchorSection = anchor.closest('#course, .brand') ? '#lesson-title'
-    : anchor.closest('.steps') ? '.step.current' : null;
-  if (anchor.closest('#course') && search.value) {
-    search.value = '';
-    renderNav(route().lesson);
+  const courseLink = anchor.closest('#course');
+  if (courseLink) {
+    if (narrow.matches) courseMenu.open = false;
+    if (search.value) {
+      search.value = '';
+      renderNav(route().lesson);
+    }
   }
-  if (anchor.hash === location.hash && anchorSection) {
-    $(anchorSection)?.focus();
-    anchorSection = null;
+  if (anchor.hash === location.hash) {
+    $(courseLink || anchor.matches('.brand') ? '#lesson-title' : '#step-title').focus();
   }
 });
 
@@ -217,12 +239,10 @@ document.documentElement.classList.toggle('dark', read('course-theme', 'light') 
 window.addEventListener('hashchange', () => {
   const previousLesson = displayedLesson;
   render();
-  if (previousLesson !== displayedLesson) $('#lesson-title').focus();
-  else if (anchorSection) $(anchorSection)?.focus();
-  anchorSection = null;
+  $(previousLesson !== displayedLesson ? '#lesson-title' : '#step-title').focus();
 });
 motion.addEventListener('change', render);
-compact.addEventListener('change', render);
+compactDiagram.addEventListener('change', render);
 window.addEventListener('keydown', event => {
   if (event.defaultPrevented) return;
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {

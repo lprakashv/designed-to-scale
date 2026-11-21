@@ -1,8 +1,10 @@
-# Clone of Designed to Scale
+# System Design Study Course
 
-A local, editable system design course inspired by [Designed to Scale](https://designed-to-scale.vercel.app/), created by Dilum Sanjaya. It has 40 introductory lessons in nine chapters. Each lesson has short steps and a responsive isometric diagram. Every lesson includes at least one step with animated traffic. Use the timeline, Back and Next, or the arrow keys to move through steps and between lessons. Use Replay or R to restart traffic. Pause or Space freezes traffic until you resume it. Steps without a flow and browsers set to reduce motion show static diagrams. Use / or Ctrl+K (Command+K on Mac) to search. Enter opens the first result and Escape clears the search.
+A local, editable system design course with 40 introductory lessons in nine chapters. The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). Select **Original lesson** for the source walkthrough. The local text and diagrams are independently written. The request and load-balancing lessons cover 10 and 12 steps, respectively. The other lessons give three-step introductions.
 
-This is an independent implementation. Its lesson text, diagrams, and step counts differ from the original. The original site's Practice and Design Lab features showed “coming soon” during review; this version does not include them. The course is an introduction, not a complete interview preparation syllabus.
+On a wide screen, the guide and diagram appear side by side. On a narrow screen, the guide appears above the diagram. Open **Course** to browse the chapters on a phone. Use **Lesson steps**, **Back**, **Next**, or the arrow keys to move through the material. Use **Replay** or R to restart traffic, and **Pause** or Space to pause or resume it. Steps without a flow and browsers set to reduce motion show static diagrams. Use / or Ctrl+K (Command+K on Mac) to search. Enter opens the first result and Escape clears the search.
+
+The status cards above the diagram show the example state for the current step. A highlight marks each value that changed from the last step you viewed in the lesson. The note below the diagram describes an assumption, a decision, or what to look for. Numeric values are examples for the lesson.
 
 ## Requirements
 
@@ -41,13 +43,23 @@ Edit [content/course.json](content/course.json). A chapter contains `title`, opt
   "title": "Example Topic",
   "summary": "A short overview.",
   "nodes": ["Client", "Service", "Store"],
+  "statusLabels": ["Lookup path", "Cache state"],
   "sections": [
-    {"title": "First step", "body": "Explain this step.", "active": [0, 1], "links": [[0, 1]], "note": "An optional detail."}
+    {
+      "title": "First step",
+      "body": "Explain this step.",
+      "active": [0, 1],
+      "links": [[0, 1]],
+      "status": ["Cache first", "Hit"],
+      "visualNote": "This request can use the cached value."
+    }
   ]
 }
 ```
 
-Add a lesson to an existing chapter or add another chapter to `chapters`. Save the file, run `npm run build`, and reload the browser. IDs form links and identify completed lessons; keep existing IDs stable. Progress and theme are stored in the current browser's local storage, not synced between devices. Mark or unmark a lesson on its last step.
+Set `statusLabels` on a lesson to show status cards. Give each step one `status` string per label in the same order. Use the optional `visualNote` for the text below the diagram.
+
+Use `\n\n` between paragraphs in a step body. Add a lesson to an existing chapter or add another chapter to `chapters`. Save the file, run `npm run build`, and reload the browser. IDs form links and identify completed lessons. Keep existing IDs stable. Set `"original": true` only if Designed to Scale has a lesson with the same ID. This adds a link to the first step of the original lesson. Step numbers in local links follow the current section order. Progress and theme are stored in the current browser’s local storage. Mark or unmark a lesson on its last step.
 
 ## Checks
 
