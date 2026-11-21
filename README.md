@@ -22,7 +22,7 @@ PORT=4174 npm run dev
 
 ## Deploy
 
-The site is static. Upload `index.html`, `app.js`, `styles.css`, `content/`, `scripts/schema.js`, and `scripts/diagram.js` to a static web host. Configure the host to serve `index.html` at its root. The server below is for local use and listens only on the loopback interface:
+The site is static. Pushes to `main` run the GitHub Actions workflow, validate the course, and publish the website files to `gh-pages`. Enable GitHub Pages for this repository with the `gh-pages` branch as its source. GitHub Pages project sites use the repository name in their URL. The current repository therefore publishes at `/clone-of-designed-to-scale/`. The requested `/designed-to-scale` path needs a route in the account site (`lprakashv.github.io`) or a repository rename. The server below is for local use and listens only on the loopback interface:
 
 ```sh
 npm run build
