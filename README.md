@@ -2,11 +2,13 @@
 
 A local, editable system design course with 40 lessons in nine chapters. The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The local text and diagrams are independently written. Foundations, load balancing, and Whole Systems have expanded walkthroughs. The remaining 32 lessons give three-step introductions.
 
-On a wide screen, drag the two dividers to resize the navigation, reading guide, and whiteboard. The minimum widths are 144 px for navigation, 224 px for lesson text, and 480 px for the whiteboard. With a divider focused, use **Left** and **Right** to resize or **Home** and **End** to reach its limits. On a narrow screen, the board and guide stack. The full diagram fits at first, and all steps use the same scale at the same board width. Browse all chapters in the navigation pane. The current chapter opens automatically. Open another chapter to preview its lessons in muted text. Use **Back**, **Next**, or the step selector beside the lesson title. The title and controls stay visible as you scroll. The arrow keys also move between steps. Steps without arrows and browsers set to reduce motion show static diagrams. Use / or Ctrl+K (Command+K on Mac) to search. Enter opens the first result and Escape clears the search.
+Browse chapters in the navigation pane. The current chapter opens automatically. Use **Back**, **Next**, the step selector, or the arrow keys to move between steps. Use **/** or **Ctrl+K** (**Command+K** on Mac) to search. Enter opens the first result; Escape closes and clears the search.
 
-Select **+** or pinch outward to zoom in, then drag the board to pan. Select **Fit** to restore the full diagram. With the board focused, use **+**, **−**, or **0** to change zoom. The arrow keys pan while zoomed in. The view is kept as you move between steps in the same lesson.
+On wide screens, drag the dividers to resize the navigation, guide, and whiteboard. With a divider focused, use **Left** and **Right** to resize or **Home** and **End** to reach its limits. On narrow screens, the board and guide stack. The title and lesson controls stay visible as you scroll.
 
-Each lesson builds one whiteboard. Components keep their positions as the design changes. A component marked **Added** first appears on that step. Purple boxes show the current focus, and plain boxes show earlier context. Short notes inside the boxes explain a decision or state change. Most arrows go straight to their destination. An arrow can bend to clear a component or another arrow. Opposite directions use their own strokes. Read the short label next to each arrow. Each step animates once in the order of its links. Context can include idle, unavailable, or earlier components. An arrow shows an operation in the current step. The state cards compare each step with the preceding step in the lesson, including when you open a direct link.
+The board starts fitted to the diagram. Use **+** or pinch outward to zoom, then drag to pan. Select **Fit** to restore the full view. With the board focused, use **+**, **−**, or **0** to change zoom; the arrow keys pan while zoomed in. The view stays in place between steps of the same lesson.
+
+Each lesson builds one board with fixed component positions. **Added** marks a component's first step. Purple boxes show the current focus; plain boxes show context. Box notes explain decisions or state changes. Labeled arrows show the current operations and animate once in link order. Steps without arrows and browsers set to reduce motion show static diagrams. State cards compare each step with the preceding step, including when you open a direct link.
 
 The Excalidraw-style boards use [Rough.js](https://github.com/rough-stuff/rough) and [Virgil](https://github.com/excalidraw/virgil). The build serves the drawing code and font locally.
 
@@ -21,7 +23,7 @@ npm ci
 npm run dev
 ```
 
-Open <http://127.0.0.1:4173>. Save a course document and reload the page to see the changes. The development server restarts when its JavaScript modules change. Press `Ctrl+C` to stop the server. Set `PORT` to use another port. If a server started before this update is still running, stop and restart it once.
+Open <http://127.0.0.1:4173>. Save a course document and reload the page to see the changes. The server restarts when its JavaScript modules change. Press `Ctrl+C` to stop it. Set `PORT` to use another port:
 
 ```sh
 PORT=4174 npm run dev
