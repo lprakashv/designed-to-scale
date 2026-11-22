@@ -23,9 +23,7 @@ const course = await fetch('./content/course.json')
 const lessons = course.chapters.flatMap((chapter, chapterIndex) =>
   chapter.lessons.map((lesson, lessonIndex) => ({ ...lesson, chapter, chapterIndex, lessonIndex })));
 const search = $('#search');
-const courseMenu = $('#course-menu');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
-const narrow = matchMedia('(max-width: 64rem)');
 const openChapters = new Set();
 let displayedLesson;
 let readView;
@@ -60,7 +58,7 @@ function renderNav(lesson) {
     ].join(' ').toLowerCase().includes(query));
     if (!matches.length) return '';
     const expanded = query || openChapters.has(index);
-    return `<details data-chapter="${index}" ${expanded ? 'open' : ''}>
+    return `<details data-chapter="${index}" ${index === lesson.chapterIndex ? 'class="active-chapter"' : ''} ${expanded ? 'open' : ''}>
       <summary><span>${escapeHtml(chapter.title)}</span>
       </summary>
       <ul>${matches.map(item => `
@@ -97,6 +95,7 @@ function render() {
   const stepsOpen = $('.timeline')?.open;
   const focusId = document.activeElement.id;
   if (displayedLesson !== lesson) {
+    if (displayedLesson?.chapterIndex !== lesson.chapterIndex) openChapters.clear();
     openChapters.add(lesson.chapterIndex);
     renderNav(lesson);
     displayedLesson = lesson;
@@ -131,7 +130,6 @@ function render() {
     <div class="lesson-head">
       <div class="lesson-meta">
         <p>${escapeHtml(lesson.chapter.title)} · Lesson ${lesson.lessonIndex + 1} of ${lesson.chapter.lessons.length}</p>
-        ${lesson.original === true ? `<a href="https://designed-to-scale.vercel.app/${link(lesson)}">Original lesson <span aria-hidden="true">↗</span></a>` : ''}
       </div>
       <p>${escapeHtml(lesson.summary)}</p>
     </div>
@@ -175,7 +173,6 @@ function render() {
   if (restore && !restore.disabled) restore.focus({ preventScroll: true });
 }
 
-$('#lesson-count').textContent = lessons.length === 1 ? '1 lesson' : `${lessons.length} lessons`;
 $('#course').addEventListener('click', event => {
   const summary = event.target.closest('summary');
   if (summary && !search.value.trim()) {
@@ -185,18 +182,14 @@ $('#course').addEventListener('click', event => {
     else openChapters.add(index);
   }
 });
-narrow.addEventListener('change', () => { courseMenu.open = !narrow.matches; });
-courseMenu.open = !narrow.matches;
 $('#search-toggle').addEventListener('click', openSearch);
 function dismissSearch() {
   closeSearch();
-  if (narrow.matches) courseMenu.open = false;
   $('#search-toggle').focus();
 }
 
 $('#search-close').addEventListener('click', dismissSearch);
 search.addEventListener('input', () => {
-  courseMenu.open = true;
   renderNav(route().lesson);
 });
 search.addEventListener('keydown', event => {
@@ -210,10 +203,7 @@ document.addEventListener('click', event => {
   const anchor = event.target.closest('a[href^="#/"]');
   if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   const courseLink = anchor.closest('#course');
-  if (courseLink) {
-    closeSearch();
-    if (narrow.matches) courseMenu.open = false;
-  }
+  if (courseLink) closeSearch();
   if (anchor.hash === location.hash) {
     $(courseLink || anchor.matches('.brand') ? '#lesson-title' : '#step-title').focus();
   }
