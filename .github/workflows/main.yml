@@ -23,6 +23,8 @@ jobs:
           node-version: 20
 
       - name: Validate course and prepare website
+        env:
+          GOOGLE_TAG_ID: ${{ vars.GOOGLE_TAG_ID }}
         run: |
           npm ci
           npm test

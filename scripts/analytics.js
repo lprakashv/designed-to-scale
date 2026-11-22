@@ -1,5 +1,5 @@
-// Google tag ID supplied by the GA4 web data stream.
-const tagId = 'GTM-P54692MZ';
+// The build replaces this value with the GOOGLE_TAG_ID environment variable.
+const tagId = /* GOOGLE_TAG_ID */ '';
 
 if (tagId && !['localhost', '127.0.0.1'].includes(location.hostname)) {
   const script = document.createElement('script');

@@ -69,9 +69,9 @@ To use another static host, publish the contents of `dist/`. The build writes th
 
 ## Website analytics
 
-The site uses Google Analytics 4 (GA4) for page-view tracking. The integration tracks the first view and each lesson or step change. It loads the configured Google tag on the deployed site. Local previews on `localhost` and `127.0.0.1` are not tracked.
+The site uses Google Analytics 4 (GA4) for page-view tracking. The integration tracks the first view and each lesson or step change. The Pages workflow reads `GOOGLE_TAG_ID` from a GitHub Actions repository variable and injects it into the built site. Local previews on `localhost` and `127.0.0.1` are not tracked.
 
-The tag ID came from the GA4 web stream setup. Make sure that its Google tag sends data to this stream. Google recommends managing tag destinations in the Google tag interface. If you change the tag ID later, update `tagId` in [scripts/analytics.js](scripts/analytics.js) and deploy the change.
+Add the ID from the GA4 web stream setup as a repository variable named `GOOGLE_TAG_ID`: open **Settings → Secrets and variables → Actions → Variables**, then select **New repository variable**. This tag ID is public in the website source, so a variable is sufficient; do not store it in the code. Make sure that its Google tag sends data to this stream. Google recommends managing tag destinations in the Google tag interface.
 
 To verify tracking, open the deployed site and check **Reports → Realtime** in Analytics. Google says initial data can take up to 30 minutes to appear; use [Tag Assistant](https://tagassistant.google.com/) to check the tag.
 
