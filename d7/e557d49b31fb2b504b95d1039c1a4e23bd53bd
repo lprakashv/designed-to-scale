@@ -1,0 +1,27 @@
+index.html
+  s_3b5c959b758c0b::t_fcc39560f1f8ae 26
+app.js
+  s_3b5c959b758c0b::t_610d1d1fd0e4ae 206
+  s_3b5c959b758c0b::t_fcc39560f1f8ae 61,98
+styles.css
+  s_3b5c959b758c0b::t_610d1d1fd0e4ae 190
+README.md
+  s_3b5c959b758c0b::t_fcc39560f1f8ae 5
+  s_3b5c959b758c0b::t_cc97b7186cf9fd 3,90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d7e557d49b31fb2b504b95d1039c1a4e23bd53bd",
+  "prompts": {},
+  "sessions": {
+    "s_3b5c959b758c0b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a201d7-7214-79f0-8bfd-d4d96b3dc8d2",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
