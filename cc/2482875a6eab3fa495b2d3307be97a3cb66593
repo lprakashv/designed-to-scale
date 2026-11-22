@@ -1,0 +1,19 @@
+README.md
+  s_81ed1d75316782::t_c3f7c673749da4 72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cc2482875a6eab3fa495b2d3307be97a3cb66593",
+  "prompts": {},
+  "sessions": {
+    "s_81ed1d75316782": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20245-470a-7ce0-af5b-b0ccf62b35ee",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
