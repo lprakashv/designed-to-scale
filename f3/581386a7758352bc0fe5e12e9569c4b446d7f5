@@ -1,0 +1,25 @@
+scripts/check.js
+  s_81ed1d75316782::t_1184f771f7c862 2,12-21
+scripts/analytics.js
+  s_81ed1d75316782::t_1184f771f7c862 1-2
+README.md
+  s_81ed1d75316782::t_1184f771f7c862 72,74
+.github/workflows/main.yml
+  s_81ed1d75316782::t_1184f771f7c862 26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f3581386a7758352bc0fe5e12e9569c4b446d7f5",
+  "prompts": {},
+  "sessions": {
+    "s_81ed1d75316782": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20245-470a-7ce0-af5b-b0ccf62b35ee",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
