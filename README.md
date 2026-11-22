@@ -1,6 +1,14 @@
 # System Design Study Course
 
-A local, editable system design course with 40 lessons in nine chapters. The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The local text and diagrams are independently written. Foundations, load balancing, and Whole Systems have expanded walkthroughs. The remaining 32 lessons give three-step introductions.
+A local, editable course for learning system design one step at a time. 📚 Explore 40 lessons in nine chapters, from request lifecycles and caching to URL shorteners, news feeds, and chat systems.
+
+**[Open the course](https://www.lprakashv.com/designed-to-scale/)** · [Run locally](#run-locally) · [Add a lesson](#add-content) · [Contribute](CONTRIBUTING.md)
+
+![A request lifecycle lesson with its reading guide, state cards, and whiteboard](showcase/request-lifecycle.jpg)
+
+The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The local text and diagrams are independently written. Foundations, load balancing, and Whole Systems have expanded walkthroughs. The remaining 32 lessons give three-step introductions.
+
+## Explore the course 🔍
 
 Browse chapters in the navigation pane. The current chapter opens automatically. Use **Back**, **Next**, the step selector, or the arrow keys to move between steps. Use **/** or **Ctrl+K** (**Command+K** on Mac) to search. Enter opens the first result; Escape closes and clears the search.
 
@@ -11,6 +19,23 @@ The board starts fitted to the diagram. Use **+** or pinch outward to zoom, then
 Each lesson builds one board with fixed component positions. **Added** marks a component's first step. Purple boxes show the current focus; plain boxes show context. Box notes explain decisions or state changes. Labeled arrows show the current operations and animate once in link order. Steps without arrows and browsers set to reduce motion show static diagrams. State cards compare each step with the preceding step, including when you open a direct link.
 
 The Excalidraw-style boards use [Rough.js](https://github.com/rough-stuff/rough) and [Virgil](https://github.com/excalidraw/virgil). The build serves the drawing code and font locally.
+
+![A walkthrough of successive request lifecycle steps](showcase/walkthrough.gif)
+
+See the [URL shortener example](showcase/url-shortener.jpg) and [dark theme](showcase/dark-mode.jpg) for more views.
+
+## Project map 🗂️
+
+| Path | Purpose |
+| --- | --- |
+| `content/index.json`, `content/lessons/` | Chapter order and Markdown lesson sources |
+| `app.js`, `index.html`, `styles.css` | Course interface, navigation, and styling |
+| `scripts/` | Content compiler, validation, diagrams, pane controls, and local server |
+| `test/` | Node tests for content and interface logic |
+| `showcase/` | Screenshots and the walkthrough recording |
+| `.github/workflows/` | Pull request checks and Pages deployment |
+
+The compiler converts lesson sources into `content/course.json` in the build. The browser loads and validates this data, then renders the selected lesson and diagram. See [AGENTS.md](AGENTS.md) for development conventions.
 
 ## Requirements
 
@@ -100,7 +125,7 @@ A component first appears when a step references it in `active`, `links`, or `ca
 
 Write short paragraphs and put one action in each list item. Use numbered lists for a sequence and tables for comparisons. Prefer two columns so tables fit in the reading pane. Use bold for facts and values to remember. Use `> **Note.**` for a note and `> **Warning.**` for a caution. The prose also supports links and fenced code. Use `###` or smaller headings within a step. The renderer displays raw HTML as text.
 
-Keep existing lesson IDs stable to preserve links and completion. The order of the step headings sets the step numbers in local links. The browser saves pane widths, the last lesson and step, and the theme locally. Opening a direct lesson link takes you to that step.
+Keep existing lesson IDs stable to preserve links and saved position. The order of the step headings sets the step numbers in local links. The browser saves pane widths, the last lesson and step, and the theme locally. Opening a direct lesson link takes you to that step.
 
 ## Checks
 
@@ -112,3 +137,11 @@ npm run coverage
 ```
 
 `lint` checks the source documents. `build` runs the same checks and writes the static site. Tests cover the authoring example, invalid metadata, and the diagram renderer.
+
+## Contributing 🤝
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, content guidelines, checks, and pull requests. The CI workflow runs lint, tests, and build on Node.js 20 and 22.
+
+## License
+
+The original work in this repository is available under the [MIT License](LICENSE). The referenced Designed to Scale course and third-party assets remain subject to their own terms; see the notices in `assets/` and the Rough.js package.
