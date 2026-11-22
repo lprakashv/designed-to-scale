@@ -67,6 +67,16 @@ npm start
 
 To use another static host, publish the contents of `dist/`. The build writes the compiled data to `dist/content/course.json`. Edit the source documents to change it. The browser downloads the compiled course, so keep secrets out of the lesson files.
 
+## Website analytics
+
+The site uses Google Analytics 4 (GA4) for page-view tracking. The integration tracks the first view and each lesson or step change. It loads the Google tag `GTM-P54692MZ` on the deployed site. Local previews on `localhost` and `127.0.0.1` are not tracked.
+
+The tag ID came from the GA4 web stream setup. Make sure that its Google tag sends data to this stream. Google recommends managing tag destinations in the Google tag interface. If you change the tag ID later, update `tagId` in [scripts/analytics.js](scripts/analytics.js) and deploy the change.
+
+To verify tracking, open the deployed site and check **Reports → Realtime** in Analytics. Google says initial data can take up to 30 minutes to appear; use [Tag Assistant](https://tagassistant.google.com/) to check the tag.
+
+Review Google's data collection and privacy settings for your audience and region, and update the site's privacy notice if required. See Google's [GA4 setup guide](https://support.google.com/analytics/answer/14183469), [Google tag setup guide](https://developers.google.com/tag-platform/gtagjs), and [tag destination settings](https://support.google.com/analytics/answer/12329709).
+
 ## Add content
 
 1. Create a Markdown file in [content/lessons](content/lessons), with a name such as `cache-example.md`. Use lowercase letters, digits, and hyphens for the lesson ID.

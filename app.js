@@ -39,6 +39,14 @@ function write(key, value) {
 const syncPanes = setupPanes($('.layout'), read('course-pane-widths', {}), widths => write('course-pane-widths', widths));
 const link = (lesson, step = 0) => `#/${lesson.id}/${step + 1}`;
 
+function trackPageView() {
+  window.gtag?.('event', 'page_view', {
+    page_title: document.title,
+    page_location: location.href,
+    page_path: `${location.pathname}${location.hash}`,
+  });
+}
+
 function route() {
   const hash = location.hash || read('course-position', '');
   const match = typeof hash === 'string' && hash.match(/^#\/([a-z0-9-]+)(?:\/(\d+))?\/?$/);
@@ -229,6 +237,7 @@ window.addEventListener('hashchange', () => {
   } else {
     window.scrollTo(0, 0);
   }
+  trackPageView();
   $(sameLesson ? '#step-title' : '#lesson-title').focus({ preventScroll: true });
 });
 motion.addEventListener('change', render);
@@ -257,3 +266,4 @@ window.addEventListener('keydown', event => {
   }
 });
 render();
+trackPageView();
