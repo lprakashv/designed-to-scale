@@ -1,25 +1,34 @@
 import { validateCourse } from './scripts/schema.js';
 import { diagram, escapeHtml } from './scripts/diagram.js';
+import { setupViewport } from './scripts/diagram-viewport.js';
+import { setupPanes } from './scripts/panes.js';
 
-const course = await fetch('./content/course.json').then(response => {
-  if (!response.ok) throw new Error('Could not load course content');
-  return response.json();
-});
-validateCourse(course);
+const $ = selector => document.querySelector(selector);
+const course = await fetch('./content/course.json')
+  .then(async response => {
+    if (response.status === 500) throw new Error(await response.text());
+    if (!response.ok) throw new Error('Course data is unavailable.');
+    const data = await response.json();
+    validateCourse(data);
+    return data;
+  })
+  .catch(error => {
+    const message = document.createElement('p');
+    message.setAttribute('role', 'alert');
+    message.textContent = `Could not load the course. ${error.message}`;
+    $('#main').append(message);
+    throw error;
+  });
 
 const lessons = course.chapters.flatMap((chapter, chapterIndex) =>
   chapter.lessons.map((lesson, lessonIndex) => ({ ...lesson, chapter, chapterIndex, lessonIndex })));
-const $ = selector => document.querySelector(selector);
 const search = $('#search');
 const courseMenu = $('#course-menu');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
-const narrow = matchMedia('(max-width: 42rem)');
-const compactDiagram = matchMedia('(max-width: 60rem), (min-width: 76rem)');
+const narrow = matchMedia('(max-width: 64rem)');
 const openChapters = new Set();
 let displayedLesson;
-let displayedSection;
-let previousStatus;
-let paused = false;
+let readView;
 
 function read(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
@@ -29,12 +38,12 @@ function write(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
 }
 
-const saved = read('course-completed', []);
-const completed = new Set(lessons.filter(lesson => Array.isArray(saved) && saved.includes(lesson.id)).map(lesson => lesson.id));
+const syncPanes = setupPanes($('.layout'), read('course-pane-widths', {}), widths => write('course-pane-widths', widths));
 const link = (lesson, step = 0) => `#/${lesson.id}/${step + 1}`;
 
 function route() {
-  const match = location.hash.match(/^#\/([a-z0-9-]+)(?:\/(\d+))?\/?$/);
+  const hash = location.hash || read('course-position', '');
+  const match = typeof hash === 'string' && hash.match(/^#\/([a-z0-9-]+)(?:\/(\d+))?\/?$/);
   const index = match ? lessons.findIndex(lesson => lesson.id === match[1]) : -1;
   if (index < 0) return { index: 0, lesson: lessons[0], step: 0 };
   const lesson = lessons[index];
@@ -47,12 +56,12 @@ function renderNav(lesson) {
   $('#course').innerHTML = course.chapters.map((chapter, index) => {
     const matches = chapter.lessons.filter(item => [
       chapter.title, item.title, item.summary, ...(item.statusLabels ?? []),
-      ...item.sections.flatMap(section => [section.title, section.body, section.visualNote]),
+      ...item.sections.flatMap(section => [section.title, section.body, section.visualNote, ...section.callouts.map(([, note]) => note)]),
     ].join(' ').toLowerCase().includes(query));
     if (!matches.length) return '';
     const expanded = query || openChapters.has(index);
     return `<details data-chapter="${index}" ${expanded ? 'open' : ''}>
-      <summary><span>${String(index + 1).padStart(2, '0')}. ${escapeHtml(chapter.title)}</span> <small></small>
+      <summary><span>${escapeHtml(chapter.title)}</span>
       </summary>
       <ul>${matches.map(item => `
         <li><a href="${link(item)}" ${item.id === lesson.id ? 'class="selected" aria-current="page"' : ''}>
@@ -60,46 +69,32 @@ function renderNav(lesson) {
         </a></li>`).join('')}</ul>
     </details>`;
   }).join('') || '<p class="empty">No lessons match your search.</p>';
-  updateProgress();
 }
 
-function updateProgress() {
-  document.querySelectorAll('#course details').forEach(item => {
-    const chapter = course.chapters[Number(item.dataset.chapter)];
-    const count = chapter.lessons.filter(lesson => completed.has(lesson.id)).length;
-    item.querySelector('small').textContent = `${count}/${chapter.lessons.length}`;
-  });
-  $('#progress').innerHTML = `<strong>Progress</strong><span>${completed.size} / ${lessons.length}</span>`;
+const controlLabel = (text, symbol) => `<span class="control-caption">${text}</span><span class="control-symbol" aria-hidden="true">${symbol}</span>`;
+
+function openSearch() {
+  $('.course-header').classList.add('search-open');
+  $('#search-toggle').setAttribute('aria-expanded', 'true');
+  search.focus();
 }
 
-function applyPlayback() {
-  const svg = $('.diagram svg');
-  if (paused || motion.matches) svg.pauseAnimations();
-  else svg.unpauseAnimations();
-  const button = $('#pause');
-  button.textContent = paused ? '▶ Play' : 'Ⅱ Pause';
-}
-
-function togglePlayback() {
-  if ($('#pause').disabled) return;
-  paused = !paused;
-  applyPlayback();
-}
-
-function replay() {
-  if ($('#replay').disabled) return;
-  $('.diagram svg').setCurrentTime(0);
-  paused = false;
-  applyPlayback();
+function closeSearch() {
+  $('.course-header').classList.remove('search-open');
+  $('#search-toggle').setAttribute('aria-expanded', 'false');
+  if (search.value) {
+    search.value = '';
+    renderNav(route().lesson);
+  }
+  search.blur();
 }
 
 function render() {
   const { index, lesson, step } = route();
   const section = lesson.sections[step];
-  if (displayedSection !== section) {
-    previousStatus = displayedLesson === lesson ? displayedSection?.status : undefined;
-    displayedSection = section;
-  }
+  const previousView = displayedLesson === lesson ? readView?.() : undefined;
+  const previousStatus = lesson.sections[step - 1]?.status;
+  const stepsOpen = $('.timeline')?.open;
   const focusId = document.activeElement.id;
   if (displayedLesson !== lesson) {
     openChapters.add(lesson.chapterIndex);
@@ -107,42 +102,49 @@ function render() {
     displayedLesson = lesson;
   }
   document.title = `${lesson.title} · System Design`;
+  const current = link(lesson, step);
+  if (!location.hash) history.replaceState(null, '', current);
+  write('course-position', current);
 
   const last = step === lesson.sections.length - 1;
   const previous = step > 0 ? link(lesson, step - 1)
     : lessons[index - 1] && link(lessons[index - 1], lessons[index - 1].sections.length - 1);
   const next = last ? lessons[index + 1] && link(lessons[index + 1]) : link(lesson, step + 1);
-  const nextTitle = last ? lessons[index + 1]?.title : lesson.sections[step + 1].title;
   const animated = !!section.links?.length && !motion.matches;
   $('#main').innerHTML = `
-    <header class="lesson-head">
+    <header class="lesson-title-row">
+      <h1 id="lesson-title" tabindex="-1">${escapeHtml(lesson.title)}</h1>
+      <nav id="lesson-controls" class="lesson-controls" aria-label="Lesson navigation">
+        ${previous ? `<a id="back" class="button" href="${previous}" aria-label="${step ? 'Previous step' : 'Previous lesson'}" title="Back">${controlLabel('Back', '←')}</a>` : `<button id="back" class="button" aria-label="Back" disabled>${controlLabel('Back', '←')}</button>`}
+        <details class="timeline" ${stepsOpen ? 'open' : ''}>
+          <summary id="step-menu" class="button" aria-label="Lesson steps, step ${step + 1} of ${lesson.sections.length}" title="Lesson steps">
+            ${controlLabel(`Step ${step + 1} of ${lesson.sections.length}`, `${step + 1}/${lesson.sections.length}`)}
+          </summary>
+          <ol class="steps" aria-label="Lesson steps">${lesson.sections.map((item, i) => `
+            <li><a class="step" href="${link(lesson, i)}" ${i === step ? 'aria-current="step"' : ''}>
+              <span>${i + 1}</span>${escapeHtml(item.title)}
+            </a></li>`).join('')}</ol>
+        </details>
+        ${next ? `<a id="next" class="button primary" href="${next}" aria-label="${last ? 'Next lesson' : 'Next step'}" title="Next">${controlLabel('Next', '→')}</a>` : `<button id="next" class="button primary" aria-label="Next" disabled>${controlLabel('Next', '→')}</button>`}
+      </nav>
+    </header>
+    <div class="lesson-head">
       <div class="lesson-meta">
         <p>${escapeHtml(lesson.chapter.title)} · Lesson ${lesson.lessonIndex + 1} of ${lesson.chapter.lessons.length}</p>
         ${lesson.original === true ? `<a href="https://designed-to-scale.vercel.app/${link(lesson)}">Original lesson <span aria-hidden="true">↗</span></a>` : ''}
       </div>
-      <h1 id="lesson-title" tabindex="-1">${escapeHtml(lesson.title)}</h1>
       <p>${escapeHtml(lesson.summary)}</p>
-    </header>
+    </div>
+    <h2 class="stage-heading" id="step-title" tabindex="-1">${escapeHtml(section.title)}</h2>
     <div class="lesson-workspace">
-      <section class="guide card" aria-labelledby="step-title">
-        <p class="step-count">Step ${step + 1} of ${lesson.sections.length}</p>
-        <h2 id="step-title" tabindex="-1">${escapeHtml(section.title)}</h2>
-        <div class="reading">
-          ${section.body.split('\n\n').map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}
-          ${section.note ? `<div class="note"><strong>Key idea</strong><p>${escapeHtml(section.note)}</p></div>` : ''}
-        </div>
-        <div class="guide-actions">
-          ${previous ? `<a id="back" class="button" href="${previous}">← ${step ? 'Back' : 'Previous lesson'}</a>` : '<button class="button" disabled>← Back</button>'}
-          ${next ? `<a id="next" class="button primary" href="${next}">${last ? 'Next lesson' : 'Next'} →<small>${escapeHtml(nextTitle)}</small></a>` : ''}
-        </div>
-        ${last ? '<button id="complete" class="button complete"></button>' : ''}
-      </section>
-      <figure class="visual card">
-        <div class="visual-top">
-          <h2>Diagram</h2>
-          <div class="playback">
-            <button class="button" id="replay" title="Replay this step (R)" ${animated ? '' : 'disabled'}>↻ Replay</button>
-            <button class="button" id="pause" title="Pause or resume traffic (Space)" ${animated ? '' : 'disabled'}></button>
+      <figure class="visual card" aria-labelledby="diagram-title">
+        <div class="visual-head">
+          <h3 id="diagram-title">Whiteboard</h3>
+          <div class="board-tools" role="group" aria-label="Diagram zoom">
+            <button class="button" id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+            <span id="zoom-level">100%</span>
+            <button class="button" id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+            <button class="button" id="zoom-fit" type="button" aria-label="Fit diagram" title="Fit the full diagram">Fit</button>
           </div>
         </div>
         ${lesson.statusLabels ? `<dl class="visual-status" aria-label="Example state">${lesson.statusLabels.map((label, i) => `
@@ -150,46 +152,30 @@ function render() {
             <dt>${escapeHtml(label)}</dt>
             <dd>${escapeHtml(section.status[i])}</dd>
           </div>`).join('')}</dl>` : ''}
-        <div class="diagram">${diagram(lesson, section, { animated, compact: compactDiagram.matches })}</div>
+        <div id="diagram-view" class="diagram" role="region" tabindex="0" aria-label="System diagram" aria-describedby="diagram-instructions">${diagram(lesson, step, { animated })}</div>
+        <span class="sr-only" id="diagram-instructions">Use plus and minus to zoom and zero to fit. While zoomed in, drag or use the arrow keys to pan.</span>
         <figcaption>
           ${section.visualNote ? `<p class="visual-note">${escapeHtml(section.visualNote)}</p>` : ''}
-          <div class="legend"><span class="focus-key">● In focus</span><span>○ Context</span>
-            ${section.links?.length ? '<span class="traffic-key">● Traffic →</span>' : ''}
-          </div>
+          <div class="legend"><span class="focus-key">In focus</span><span class="context-key">Context</span></div>
         </figcaption>
       </figure>
-    </div>
-    <nav class="timeline card" aria-label="Lesson steps">
-      <h2>Lesson steps</h2>
-      <ol class="steps">${lesson.sections.map((item, i) => `
-        <li><a class="step" href="${link(lesson, i)}" ${i === step ? 'aria-current="step"' : ''}>
-          <span>${i + 1}</span>${escapeHtml(item.title)}
-        </a></li>`).join('')}</ol>
-    </nav>`;
+      <div id="reading-divider" class="pane-divider" data-resize="reading" role="separator" aria-orientation="vertical" aria-label="Lesson text width" aria-controls="lesson-reading" tabindex="0"></div>
+      <section class="guide card" id="lesson-reading" aria-labelledby="step-title">
+        <div class="reading">
+          ${section.bodyHtml ?? section.body.split('\n\n').map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}
+          ${section.note ? `<div class="note"><strong>Key idea</strong><p>${escapeHtml(section.note)}</p></div>` : ''}
+        </div>
+      </section>
+    </div>`;
 
-  applyPlayback();
-  $('#pause').addEventListener('click', togglePlayback);
-  $('#replay').addEventListener('click', replay);
-  const complete = $('#complete');
-  if (complete) {
-    const sync = () => {
-      complete.textContent = completed.has(lesson.id) ? '✓ Completed' : 'Mark lesson complete';
-      complete.setAttribute('aria-pressed', completed.has(lesson.id));
-    };
-    sync();
-    complete.addEventListener('click', () => {
-      if (!completed.delete(lesson.id)) completed.add(lesson.id);
-      write('course-completed', [...completed]);
-      sync();
-      updateProgress();
-    });
-  }
-  const restore = ['lesson-title', 'step-title', 'back', 'next', 'pause', 'replay', 'complete'].includes(focusId)
+  readView = setupViewport($('.diagram'), $('.board-tools'), previousView);
+  syncPanes();
+  const restore = ['lesson-title', 'step-title', 'back', 'next', 'step-menu', 'reading-divider', 'zoom-out', 'zoom-in', 'zoom-fit', 'diagram-view'].includes(focusId)
     && document.getElementById(focusId);
   if (restore && !restore.disabled) restore.focus({ preventScroll: true });
 }
 
-$('#lesson-count').textContent = `${lessons.length} lessons`;
+$('#lesson-count').textContent = lessons.length === 1 ? '1 lesson' : `${lessons.length} lessons`;
 $('#course').addEventListener('click', event => {
   const summary = event.target.closest('summary');
   if (summary && !search.value.trim()) {
@@ -201,29 +187,32 @@ $('#course').addEventListener('click', event => {
 });
 narrow.addEventListener('change', () => { courseMenu.open = !narrow.matches; });
 courseMenu.open = !narrow.matches;
+$('#search-toggle').addEventListener('click', openSearch);
+function dismissSearch() {
+  closeSearch();
+  if (narrow.matches) courseMenu.open = false;
+  $('#search-toggle').focus();
+}
+
+$('#search-close').addEventListener('click', dismissSearch);
 search.addEventListener('input', () => {
   courseMenu.open = true;
   renderNav(route().lesson);
 });
 search.addEventListener('keydown', event => {
   if (event.key === 'Enter') $('#course a')?.click();
-  if (event.key === 'Escape') {
-    search.value = '';
-    renderNav(route().lesson);
-    search.blur();
-  }
+  if (event.key === 'Escape') dismissSearch();
 });
 
 document.addEventListener('click', event => {
+  const steps = $('.timeline[open]');
+  if (steps && (!steps.contains(event.target) || event.target.closest('.step'))) steps.open = false;
   const anchor = event.target.closest('a[href^="#/"]');
   if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   const courseLink = anchor.closest('#course');
   if (courseLink) {
+    closeSearch();
     if (narrow.matches) courseMenu.open = false;
-    if (search.value) {
-      search.value = '';
-      renderNav(route().lesson);
-    }
   }
   if (anchor.hash === location.hash) {
     $(courseLink || anchor.matches('.brand') ? '#lesson-title' : '#step-title').focus();
@@ -237,32 +226,42 @@ $('#theme').addEventListener('click', () => {
 document.documentElement.classList.toggle('dark', read('course-theme', 'light') === 'dark');
 
 window.addEventListener('hashchange', () => {
-  const previousLesson = displayedLesson;
+  const sameLesson = displayedLesson === route().lesson;
+  const board = $('.diagram').getBoundingClientRect();
+  const headerBottom = $('.lesson-title-row').getBoundingClientRect().bottom;
+  $('.timeline').open = false;
+  const readingBoard = sameLesson && window.scrollY > 0
+    && board.top < innerHeight && board.bottom > headerBottom;
   render();
-  $(previousLesson !== displayedLesson ? '#lesson-title' : '#step-title').focus();
+  if (readingBoard) {
+    const nextTop = $('.diagram').getBoundingClientRect().top;
+    window.scrollBy(0, nextTop - Math.max(board.top, headerBottom + 8));
+  } else {
+    window.scrollTo(0, 0);
+  }
+  $(sameLesson ? '#step-title' : '#lesson-title').focus({ preventScroll: true });
 });
 motion.addEventListener('change', render);
-compactDiagram.addEventListener('change', render);
 window.addEventListener('keydown', event => {
   if (event.defaultPrevented) return;
+  const openSteps = event.target.closest('.timeline[open]');
+  if (event.key === 'Escape' && openSteps) {
+    openSteps.open = false;
+    $('#step-menu').focus();
+    return;
+  }
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
     event.preventDefault();
-    search.focus();
+    openSearch();
     return;
   }
   if (event.target.matches('input, textarea, select, [contenteditable]') || event.ctrlKey || event.metaKey || event.altKey) return;
   if (event.key === '/') {
     event.preventDefault();
-    search.focus();
-  } else if (event.key.toLowerCase() === 'r') {
-    replay();
-  } else if (event.code === 'Space' && !event.target.closest('a, button, summary')) {
-    if ($('#pause').disabled) return;
-    event.preventDefault();
-    togglePlayback();
+    openSearch();
   } else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
     const target = $(event.key === 'ArrowRight' ? '#next' : '#back');
-    if (!target) return;
+    if (!target?.hash) return;
     event.preventDefault();
     location.hash = target.hash;
   }

@@ -1,22 +1,27 @@
 # System Design Study Course
 
-A local, editable system design course with 40 introductory lessons in nine chapters. The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). Select **Original lesson** for the source walkthrough. The local text and diagrams are independently written. The request and load-balancing lessons cover 10 and 12 steps, respectively. The other lessons give three-step introductions.
+A local, editable system design course with 40 lessons in nine chapters. The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). Select **Original lesson** for the source walkthrough. The local text and diagrams are independently written. Foundations, load balancing, and Whole Systems have expanded walkthroughs. The remaining 32 lessons give three-step introductions.
 
-On a wide screen, the guide and diagram appear side by side. On a narrow screen, the guide appears above the diagram. Open **Course** to browse the chapters on a phone. Use **Lesson steps**, **Back**, **Next**, or the arrow keys to move through the material. Use **Replay** or R to restart traffic, and **Pause** or Space to pause or resume it. Steps without a flow and browsers set to reduce motion show static diagrams. Use / or Ctrl+K (Command+K on Mac) to search. Enter opens the first result and Escape clears the search.
+On a wide screen, drag the two dividers to resize the navigation, reading guide, and whiteboard. The minimum widths are 144 px for navigation, 224 px for lesson text, and 480 px for the whiteboard. With a divider focused, use **Left** and **Right** to resize or **Home** and **End** to reach its limits. On a narrow screen, the board and guide stack. The full diagram fits at first, and all steps use the same scale at the same board width. Open **Course** to browse chapters. Use **Back**, **Next**, or the step selector beside the lesson title. The title and controls stay visible as you scroll. The arrow keys also move between steps. Steps without arrows and browsers set to reduce motion show static diagrams. Use / or Ctrl+K (Command+K on Mac) to search. Enter opens the first result and Escape clears the search.
 
-The status cards above the diagram show the example state for the current step. A highlight marks each value that changed from the last step you viewed in the lesson. The note below the diagram describes an assumption, a decision, or what to look for. Numeric values are examples for the lesson.
+Select **+** or pinch outward to zoom in, then drag the board to pan. Select **Fit** to restore the full diagram. With the board focused, use **+**, **−**, or **0** to change zoom. The arrow keys pan while zoomed in. The view is kept as you move between steps in the same lesson.
+
+Each lesson builds one whiteboard. Components keep their positions as the design changes. A component marked **Added** first appears on that step. Purple boxes show the current focus, and plain boxes show earlier context. Short notes inside the boxes explain a decision or state change. Most arrows go straight to their destination. An arrow can bend to clear a component or another arrow. Opposite directions use their own strokes. Read the short label next to each arrow. Each step animates once in the order of its links. Context can include idle, unavailable, or earlier components. An arrow shows an operation in the current step. The state cards compare each step with the preceding step in the lesson, including when you open a direct link.
+
+The Excalidraw-style boards use [Rough.js](https://github.com/rough-stuff/rough) and [Virgil](https://github.com/excalidraw/virgil). The build serves the drawing code and font locally.
 
 ## Requirements
 
-Node.js 20 or later. There are no external dependencies.
+Node.js 20.19 or later and npm. The development server and build use Markdown-it and YAML. A deployed site serves static files.
 
 ## Run locally
 
 ```sh
+npm ci
 npm run dev
 ```
 
-Open <http://127.0.0.1:4173>. Press `Ctrl+C` to stop the server. Set `PORT` to use another port, for example:
+Open <http://127.0.0.1:4173>. Save a course document and reload the page to see the changes. The development server restarts when its JavaScript modules change. Press `Ctrl+C` to stop the server. Set `PORT` to use another port. If a server started before this update is still running, stop and restart it once.
 
 ```sh
 PORT=4174 npm run dev
@@ -24,42 +29,76 @@ PORT=4174 npm run dev
 
 ## Deploy
 
-The site is static. Pushes to `main` run the GitHub Actions workflow, validate the course, and publish the website files to `gh-pages`. GitHub Pages serves the `gh-pages` branch at <https://www.lprakashv.com/designed-to-scale/>. The server below is for local use and listens only on the loopback interface:
+Pushes to `main` run the GitHub Actions workflow. The workflow installs the locked dependencies, validates and builds the course, and publishes `dist/` to the `gh-pages` branch. GitHub Pages serves that branch at <https://www.lprakashv.com/designed-to-scale/>.
+
+To preview the static build locally, use these commands after `npm ci`.
 
 ```sh
 npm run build
 npm start
 ```
 
-The build command validates content; it does not generate files. For production, use a static host with HTTPS and its own access controls if the course contains private material. Do not put secrets in the content: the browser downloads it.
+To use another static host, publish the contents of `dist/`. The build writes the compiled data to `dist/content/course.json`. Edit the source documents to change it. The browser downloads the compiled course, so keep secrets out of the lesson files.
 
 ## Add content
 
-Edit [content/course.json](content/course.json). A chapter contains `title`, optional `color`, and `lessons`. Each lesson has a unique URL-safe lowercase `id`, `title`, `summary`, two to four short diagram `nodes`, and one or more `sections`. Each section has `title`, `body`, optional `note`, and an `active` array of zero-based node indexes. Keep node labels short so they fit the diagram. The diagram uses illustrated component types based on the node labels. The optional `links` array lists pairs of zero-based node indexes to connect for that section. Add links only when the lesson describes a relationship; each dot travels from the first node to the second. The dots illustrate direction. The order in the file is the order in the course.
+1. Create a Markdown file in [content/lessons](content/lessons), with a name such as `cache-example.md`. Use lowercase letters, digits, and hyphens for the lesson ID.
+2. Add the ID without `.md` to a chapter’s `lessons` list in [content/index.json](content/index.json). Set the chapter title with `title`. The index sets chapter and lesson order.
+3. Run `npm run lint` to check the documents. Reload the development preview to see your changes.
 
-```json
-{
-  "id": "example-topic",
-  "title": "Example Topic",
-  "summary": "A short overview.",
-  "nodes": ["Client", "Service", "Store"],
-  "statusLabels": ["Lookup path", "Cache state"],
-  "sections": [
-    {
-      "title": "First step",
-      "body": "Explain this step.",
-      "active": [0, 1],
-      "links": [[0, 1]],
-      "status": ["Cache first", "Hit"],
-      "visualNote": "This request can use the cached value."
-    }
-  ]
-}
+Start the document with YAML front matter. Use a top-level `##` heading for each step. Place a fenced `step` block with its YAML settings immediately after the heading. Then write the lesson prose in Markdown.
+
+````markdown
+---
+title: Cache Example
+summary: Compare a cache hit with a cache miss.
+nodes: [[Service, Handles reads], [Cache, Temporary copies], [Database, Source of truth]]
+statusLabels: [Cache state]
+---
+
+## Read from the cache
+
+```step
+active: [0, 1]
+links: [[0, 1, Look up record], [1, 0, Return cached record]]
+callouts: [[1, Fresh entry]]
+status: [Hit]
+note: A hit can avoid a database read.
+visualNote: The request stops at the cache.
 ```
 
-Set `statusLabels` on a lesson to show status cards. Give each step one `status` string per label in the same order. Use the optional `visualNote` for the text below the diagram.
+The service asks the cache for a record. The cache has a **fresh entry** and returns it.
 
-Use `\n\n` between paragraphs in a step body. Add a lesson to an existing chapter or add another chapter to `chapters`. Save the file, run `npm run build`, and reload the browser. IDs form links and identify completed lessons. Keep existing IDs stable. Set `"original": true` only if Designed to Scale has a lesson with the same ID. This adds a link to the first step of the original lesson. Step numbers in local links follow the current section order. Progress and theme are stored in the current browser’s local storage. Mark or unmark a lesson on its last step.
+## Read from the database
+
+```step
+active: [0, 1, 2]
+links: [[0, 1, Look up record], [1, 0, Report miss], [0, 2, Read source record], [2, 0, Return record]]
+callouts: [[2, Read only on a miss]]
+status: [Miss]
+visualNote: The service reads the source after a cache miss.
+```
+
+The service reads the record from the database and fills the cache for the next request.
+````
+
+| Field | Use |
+| --- | --- |
+| `title`, `summary` | Set the lesson title and introduction. |
+| `nodes` | List the components once for the whole lesson, using `[name, caption]` pairs. Keep labels and captions short. |
+| `layout` | Optionally set a list of `[column, row]` positions in node order. Positions start at zero and may use half steps to center a component between rows or columns. |
+| `original` | Set to `true` only if Designed to Scale has a lesson with the same ID. This adds the original lesson link. |
+| `active` | List the component indexes to highlight. The first component has index 0. |
+| `links` | Add `[from, to, label]` entries in the order to animate them. Use a short label that fits next to the arrow. Omit this field for a step without a flow. |
+| `callouts` | Add at least one `[node, note]` pair to each step. Keep the note short enough to read inside its component. |
+| `statusLabels`, `status` | Set optional labels for the lesson and one value per label for each step. Quote numeric values so YAML reads them as text. |
+| `note`, `visualNote` | Add an optional key idea in the guide and a required caption below the whiteboard. |
+
+A component first appears when a step references it in `active`, `links`, or `callouts`. It stays visible in later steps. Use stable names when the component changes state. Use the default layout for a simple chain. For a branch or a return path, set positions that keep connected components close and leave space for their arrows.
+
+Write short paragraphs and put one action in each list item. Use numbered lists for a sequence and tables for comparisons. Prefer two columns so tables fit in the reading pane. Use bold for facts and values to remember. Use `> **Note.**` for a note and `> **Warning.**` for a caution. The prose also supports links and fenced code. Use `###` or smaller headings within a step. The renderer displays raw HTML as text.
+
+Keep existing lesson IDs stable to preserve links and completion. The order of the step headings sets the step numbers in local links. The browser saves pane widths, the last lesson and step, and the theme locally. Opening a direct lesson link takes you to that step.
 
 ## Checks
 
@@ -70,4 +109,4 @@ npm test
 npm run coverage
 ```
 
-`lint` and `build` validate the course content contract; they do not run a JavaScript style linter or bundle the app. Tests cover the content contract and invalid data.
+`lint` checks the source documents. `build` runs the same checks and writes the static site. Tests cover the authoring example, invalid metadata, and the diagram renderer.

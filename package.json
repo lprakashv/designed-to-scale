@@ -4,12 +4,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/serve.js",
+    "dev": "node --watch scripts/serve.js --dev",
     "start": "node scripts/serve.js",
-    "build": "node scripts/check.js",
+    "build": "node scripts/check.js --build",
     "lint": "node scripts/check.js",
     "test": "node --test",
     "coverage": "node --experimental-test-coverage --test"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "devDependencies": {
+    "markdown-it": "^15.0.3",
+    "roughjs": "4.6.6",
+    "yaml": "^2.9.1"
+  }
 }

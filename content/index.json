@@ -1,0 +1,98 @@
+{
+  "chapters": [
+    {
+      "title": "Foundations",
+      "color": "sand",
+      "lessons": [
+        "request-lifecycle",
+        "latency-throughput",
+        "napkin-math"
+      ]
+    },
+    {
+      "title": "Scaling",
+      "color": "green",
+      "lessons": [
+        "vertical-horizontal",
+        "load-balancing",
+        "stateless",
+        "caching",
+        "cdn"
+      ]
+    },
+    {
+      "title": "Data & Storage",
+      "color": "purple",
+      "lessons": [
+        "sql-nosql",
+        "indexes",
+        "storage-engines",
+        "replication",
+        "sharding",
+        "consistent-hashing",
+        "unique-ids",
+        "cap",
+        "consensus",
+        "transactions",
+        "files"
+      ]
+    },
+    {
+      "title": "Communication",
+      "color": "orange",
+      "lessons": [
+        "apis",
+        "queues",
+        "pubsub",
+        "realtime"
+      ]
+    },
+    {
+      "title": "Reliability",
+      "color": "blue",
+      "lessons": [
+        "redundancy",
+        "rate-limiting",
+        "timeouts-retries",
+        "observability"
+      ]
+    },
+    {
+      "title": "Architecture",
+      "color": "teal",
+      "lessons": [
+        "microservices",
+        "service-discovery",
+        "sagas",
+        "batch-stream"
+      ]
+    },
+    {
+      "title": "Security",
+      "color": "rose",
+      "lessons": [
+        "authentication",
+        "authorization",
+        "encryption"
+      ]
+    },
+    {
+      "title": "Shipping",
+      "color": "olive",
+      "lessons": [
+        "testing",
+        "cicd"
+      ]
+    },
+    {
+      "title": "Whole Systems",
+      "color": "slate",
+      "lessons": [
+        "hld-lld",
+        "design-url-shortener",
+        "design-news-feed",
+        "design-chat"
+      ]
+    }
+  ]
+}

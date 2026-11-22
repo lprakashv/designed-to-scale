@@ -8,21 +8,30 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#/">System Design</a>
-    <label class="search"><span class="sr-only">Search lessons</span><input id="search" type="search" placeholder="Search"><kbd aria-hidden="true">/</kbd></label>
+  <header class="course-header">
+    <a class="brand" href="#/" aria-label="System Design home">
+      <span class="brand-name">System Design</span><span class="brand-short" aria-hidden="true">SD</span>
+    </a>
+    <button id="search-toggle" class="icon-button" aria-label="Search lessons" aria-controls="search-panel" aria-expanded="false" title="Search lessons">⌕</button>
+    <div id="search-panel" class="search" role="search">
+      <label class="sr-only" for="search">Search lessons</label>
+      <input id="search" type="search" placeholder="Search lessons">
+      <kbd aria-hidden="true">/</kbd>
+      <button id="search-close" class="icon-button" aria-label="Close search" title="Close search">×</button>
+    </div>
     <button id="theme" class="icon-button" aria-label="Switch theme" title="Switch theme">◐</button>
   </header>
   <div class="layout">
-    <aside class="sidebar">
+    <aside class="sidebar" id="course-sidebar">
       <details id="course-menu" open>
         <summary class="sidebar-heading">Course <span id="lesson-count"></span></summary>
         <nav id="course" aria-label="Course lessons"></nav>
-        <div id="progress" class="progress"></div>
       </details>
     </aside>
+    <div id="navigation-divider" class="pane-divider" data-resize="nav" role="separator" aria-orientation="vertical" aria-label="Course navigation width" aria-controls="course-sidebar" tabindex="0"></div>
     <main id="main" tabindex="-1"></main>
   </div>
+  <script type="importmap">{"imports":{"roughjs":"./assets/rough.js"}}</script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -24,15 +24,13 @@ jobs:
 
       - name: Validate course and prepare website
         run: |
+          npm ci
           npm run build
-          mkdir -p site
-          cp index.html app.js styles.css site/
-          cp -R content scripts site/
-          touch site/.nojekyll
+          touch dist/.nojekyll
 
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./site
+          publish_dir: ./dist
