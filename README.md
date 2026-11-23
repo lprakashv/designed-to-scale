@@ -10,9 +10,9 @@ The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Desi
 
 ## Use the course
 
-Select a lesson in the outline. Use the step links, **Previous**, **Next**, or the arrow keys to move between steps. On a narrow screen, select **Course** to open the outline.
+Select a lesson in the outline. Use the step links, **Previous**, **Next**, or the arrow keys to move between steps. On a narrow screen, select **Outline** to open the outline.
 
-Use **Search** to find chapters, lessons, and step titles. Select **Mark complete** at the end of a lesson. Course Board saves the completion status in your browser.
+Use **Find a lesson** to search chapters, lessons, and step titles. Select **Mark complete** at the end of a lesson. Course Board saves the completion status in your browser. Use the display controls to change the theme. On a wide screen, drag the pane dividers or use the arrow keys to resize the panes.
 
 Share a step with a link such as [Find the address](https://www.lprakashv.com/designed-to-scale/#/request-lifecycle/2). The course uses one whiteboard image for each existing step. The diagrams keep the component positions across steps. Green marks a component that first appears in that step. Purple marks a component in focus.
 
@@ -27,7 +27,7 @@ npm run dev
 
 Open [the development preview](http://127.0.0.1:4173/). Save a source file and reload the page to build it again. Set `PORT` to use a different port.
 
-The lockfile pins [Course Board commit `046dd2c`](https://github.com/lprakashv/course-board/commit/046dd2ca02dfdea90ac7a94d817898096b712c6c). It includes the CLI importer and Studio added after the v0.1.2 tag.
+The lockfile pins [Course Board commit `eec136f`](https://github.com/lprakashv/course-board/commit/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772). It includes the CLI importer and Studio added after the v0.1.2 tag.
 
 ## Edit in Studio
 
@@ -41,11 +41,11 @@ node src/cli.js author ../designed-to-scale
 
 Open [Course Board Studio](http://127.0.0.1:4175/). Edit the outline, lesson text, diagrams, and course settings. Select **Save course** to write the source files. Reload the learner preview to see the saved changes.
 
-The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/046dd2ca02dfdea90ac7a94d817898096b712c6c/docs/authoring.md#edit-a-course-in-the-browser).
+The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772/docs/authoring.md#edit-a-course-in-the-browser).
 
 ## Add content
 
-Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/046dd2ca02dfdea90ac7a94d817898096b712c6c/src/browser/course.css).
+Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772/src/browser/course.css).
 
 Add a Markdown file in `content/lessons/` and list its ID in the chapter that will contain it. Use a top-level `##` heading for each step. Put an optional fenced `step` block just after the heading. A diagram `src` is relative to `public/`.
 
@@ -71,7 +71,7 @@ Keep lesson IDs and the order of published steps stable to preserve numbered lin
 
 ### Import a course bundle
 
-Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/046dd2ca02dfdea90ac7a94d817898096b712c6c/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
+Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
 
 ```sh
 npm run ingest -- /path/to/course-bundle.json /path/to/review-course
