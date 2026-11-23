@@ -1,11 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-course-id="designed-to-scale" data-theme="slate">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Course Board</title>
+  <script>
+    {
+      const root = document.documentElement;
+      const path = location.pathname.replace(/index\.html$/, '');
+      const key = `course-board:${path}:${root.dataset.courseId}:color-mode`;
+      try {
+        const mode = localStorage.getItem(key);
+        if (mode === 'light' || mode === 'dark') root.dataset.colorMode = mode;
+      } catch { /* The course default also works without storage. */ }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const control = document.getElementById('color-mode');
+        control.value = root.dataset.colorMode ?? '';
+        control.addEventListener('change', () => {
+          if (control.value) root.dataset.colorMode = control.value;
+          else delete root.dataset.colorMode;
+          try { localStorage.setItem(key, control.value); }
+          catch { /* The choice still applies to the current page. */ }
+        });
+      });
+    }
+  </script>
   <link rel="icon" href="./_board/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./_board/course.css">
+  
   <script type="module" src="./_board/app.js"></script>
 </head>
 <body>
@@ -28,12 +51,21 @@
         <progress id="progress" aria-label="Course progress"></progress>
       </div>
     </aside>
+    <div id="outline-divider" class="pane-divider" role="separator" aria-label="Course outline width"
+      aria-orientation="vertical" aria-controls="outline" tabindex="0"></div>
     <div class="workspace">
       <header class="top">
-        <button id="outline-toggle" aria-expanded="false" aria-controls="outline" type="button">Course outline</button>
+        <button id="outline-toggle" aria-label="Course outline" aria-expanded="false" aria-controls="outline" type="button">Outline</button>
         <p id="breadcrumb"></p>
         <p id="mobile-course-name"></p>
         <p id="lesson-count"></p>
+        <label class="theme-control">Theme
+          <select id="color-mode" aria-label="Color theme">
+            <option value="">Default</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
       </header>
       <main id="lesson" tabindex="-1" aria-busy="true"></main>
     </div>
