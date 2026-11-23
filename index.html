@@ -3,33 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An interactive system design study course.">
-  <title>System Design — Local Course</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="scripts/analytics.js"></script>
+  <title>Course Board</title>
+  <link rel="icon" href="./_board/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./_board/course.css">
+  <script type="module" src="./_board/app.js"></script>
 </head>
 <body>
-  <header class="course-header">
-    <a class="brand" href="#/" aria-label="System Design home">
-      <span class="brand-name">System Design</span><span class="brand-short" aria-hidden="true">SD</span>
-    </a>
-    <button id="search-toggle" class="icon-button" aria-label="Search lessons" aria-controls="search-panel" aria-expanded="false" title="Search lessons">⌕</button>
-    <div id="search-panel" class="search" role="search">
-      <label class="sr-only" for="search">Search lessons</label>
-      <input id="search" type="search" placeholder="Search lessons">
-      <kbd aria-hidden="true">/</kbd>
-      <button id="search-close" class="icon-button" aria-label="Close search" title="Close search">×</button>
-    </div>
-    <button id="theme" class="icon-button" aria-label="Switch theme" title="Switch theme">◐</button>
-  </header>
+  <a class="skip" href="#lesson">Skip to lesson</a>
   <div class="layout">
-    <aside class="sidebar" id="course-sidebar">
-      <nav id="course" aria-label="Course lessons"></nav>
+    <aside id="outline" class="outline" aria-label="Course outline">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v14H4zM9 5v14m3-9h5m-5 4h3"/></svg>
+        </span>
+        <div><strong id="course-name"></strong><p id="course-description"></p></div>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg>
+        <input id="search" type="search" placeholder="Find a lesson" aria-label="Find a lesson">
+      </label>
+      <nav id="chapters" aria-label="Chapters"></nav>
+      <div class="progress">
+        <p><span>Course progress</span><span id="progress-text"></span></p>
+        <progress id="progress" aria-label="Course progress"></progress>
+      </div>
     </aside>
-    <div id="navigation-divider" class="pane-divider" data-resize="nav" role="separator" aria-orientation="vertical" aria-label="Course navigation width" aria-controls="course-sidebar" tabindex="0"></div>
-    <main id="main" tabindex="-1"></main>
+    <div class="workspace">
+      <header class="top">
+        <button id="outline-toggle" aria-expanded="false" aria-controls="outline" type="button">Course outline</button>
+        <p id="breadcrumb"></p>
+        <p id="mobile-course-name"></p>
+        <p id="lesson-count"></p>
+      </header>
+      <main id="lesson" tabindex="-1" aria-busy="true"></main>
+    </div>
   </div>
-  <script type="importmap">{"imports":{"roughjs":"./assets/rough.js"}}</script>
-  <script type="module" src="app.js"></script>
+  <noscript>Enable JavaScript to open this course.</noscript>
 </body>
 </html>
