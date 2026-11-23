@@ -1,0 +1,25 @@
+test/course.test.js
+  s_b48a5a251f350e::t_11c14e719f2c5a 29-30
+README.md
+  s_b48a5a251f350e::t_89d44fa0f206a7 13,30,44,48,74
+package.json
+  s_b48a5a251f350e::t_1a16225c775090 19
+package-lock.json
+  s_b48a5a251f350e::t_c745e179dd6792 11,19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b69a4d6ea95e238e3eb3eac90c926cf27dedaf23",
+  "prompts": {},
+  "sessions": {
+    "s_b48a5a251f350e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20951-2757-7dd3-9b71-204283065145",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
