@@ -32,7 +32,7 @@ try {
   $('mobile-course-name').textContent = course.title;
   $('course-description').textContent = course.description ?? '';
   $('progress').max = lessons.length;
-  main.innerHTML = `<header class="lesson-intro"><h1 id="lesson-title"></h1><p id="lesson-summary" hidden></p></header>
+  main.innerHTML = `<section id="home" class="home" hidden></section><div id="lesson-view"><header class="lesson-intro"><h1 id="lesson-title"></h1><p id="lesson-summary" hidden></p></header>
     <nav id="steps" class="steps" aria-label="Steps"></nav>
     <div id="step-layout" class="step-layout">
       <article id="reading" class="reading" aria-labelledby="step-title">
@@ -48,7 +48,13 @@ try {
         <figcaption id="board-caption" hidden></figcaption>
       </figure>
     </div>
-    <footer id="lesson-footer" class="lesson-footer"></footer>`;
+    <footer id="lesson-footer" class="lesson-footer"></footer></div>`;
+  $('home').innerHTML = `<header class="lesson-intro"><h1 tabindex="-1">${text(course.title)}</h1>
+    ${course.description ? `<p>${text(course.description)}</p>` : ''}</header>
+    <div class="home-chapters">${chapters.map(chapter => `<section><h2>${text(chapter.title)}</h2><ul>
+      ${chapter.lessons.map(lesson => `<li><a href="${stepHref(lesson)}">${text(lesson.title)}</a></li>`).join('')}
+    </ul></section>`).join('')}</div>
+    <p class="home-credit">Powered by <a href="https://github.com/lprakashv/course-board">Course Board</a></p>`;
   for (const pane of ['outline', 'reading']) {
     setupPaneResize($(`${pane}-divider`), $(pane), {
       width: widths[pane],
@@ -83,7 +89,7 @@ try {
       return `<section class="chapter"><h2>${text(chapter.title)}</h2><ul>
         ${matches.map(lesson => {
           const done = completed.has(lesson.id);
-          return `<li><a href="${stepHref(lesson)}" ${lesson.id === current.id ? 'aria-current="page"' : ''}>
+          return `<li><a href="${stepHref(lesson)}" ${lesson.id === current?.id ? 'aria-current="page"' : ''}>
             <span class="lesson-dot ${done ? 'done' : ''}" aria-hidden="true">${done ? '✓' : ''}</span>
             <span>${text(lesson.title)}</span>${done ? '<span class="sr-only"> (complete)</span>' : ''}
           </a></li>`;
@@ -170,7 +176,23 @@ try {
   }
 
   function render() {
-    const { lesson, index, step } = shell.route();
+    const route = shell.route();
+    $('home').hidden = Boolean(route);
+    $('lesson-view').hidden = !route;
+    if (route) document.querySelector('.home-link').removeAttribute('aria-current');
+    else document.querySelector('.home-link').setAttribute('aria-current', 'page');
+    if (!route) {
+      currentLesson = undefined;
+      document.title = course.title;
+      $('breadcrumb').textContent = '';
+      $('lesson-count').textContent = '';
+      renderOutline();
+      main.removeAttribute('aria-busy');
+      if (focusStep) $('home').querySelector('h1').focus({ preventScroll: true });
+      focusStep = false;
+      return;
+    }
+    const { lesson, index, step } = route;
     const active = lesson.steps[step];
     const previousLesson = lessons[index - 1];
     const nextLesson = lessons[index + 1];
@@ -230,7 +252,7 @@ try {
   }
 
   toggle.addEventListener('click', () => setOutline(!outline.classList.contains('is-open')));
-  search.addEventListener('input', () => renderOutline(shell.route().lesson));
+  search.addEventListener('input', () => renderOutline(shell.route()?.lesson));
   document.querySelector('.skip').addEventListener('click', event => {
     event.preventDefault();
     main.focus();
@@ -241,7 +263,8 @@ try {
     setOutline(false);
     if (link.hash === location.hash) {
       event.preventDefault();
-      focusActiveStep();
+      if (shell.route()) focusActiveStep();
+      else $('home').querySelector('h1').focus({ preventScroll: true });
     } else {
       focusStep = true;
     }
@@ -249,13 +272,13 @@ try {
   document.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey ||
       event.target.closest('input, select, textarea, [contenteditable], .diagram, .pane-divider')) return;
+    if (!shell.route()) return;
     const link = event.key === 'ArrowLeft' ? $('previous') : event.key === 'ArrowRight' ? $('next') : null;
     if (!link) return;
     event.preventDefault();
     focusStep = true;
     location.hash = link.hash;
   });
-  if (!location.hash) history.replaceState(null, '', stepHref(lessons[0]));
   shell.start({ render });
 } catch (error) {
   const message = document.createElement('p');

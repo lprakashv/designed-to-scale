@@ -3,6 +3,7 @@ export function lessonHref(id, step = 0) {
 }
 
 export function getRoute(hash, lessons) {
+  if (!hash || hash === '#' || hash === '#/') return null;
   const match = /^#\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?\/?$/.exec(hash);
   const index = lessons.findIndex(lesson => lesson.id === match?.[1]);
   if (index < 0) return { lesson: lessons[0], index: 0, step: 0 };

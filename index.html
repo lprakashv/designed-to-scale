@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Course Board</title>
+  <title>System Design</title>
+  <meta property="og:title" content="System Design">
+  <meta name="twitter:title" content="System Design">
+  <meta name="description" content="Learn system design one step at a time.">
+  <meta property="og:description" content="Learn system design one step at a time.">
+  <meta name="twitter:description" content="Learn system design one step at a time.">
   <script>
     {
       const root = document.documentElement;
@@ -38,7 +43,7 @@
   <script type="module" src="./_board/app.js"></script>
 </head>
 <body>
-  <a class="skip" href="#lesson">Skip to lesson</a>
+  <a class="skip" href="#lesson">Skip to content</a>
   <div class="layout">
     <aside id="outline" class="outline" aria-label="Course outline">
       <div class="brand">
@@ -62,6 +67,7 @@
     <div class="workspace">
       <header class="top">
         <button id="outline-toggle" aria-label="Course outline" aria-expanded="false" aria-controls="outline" type="button">Outline</button>
+        <a class="home-link" href="#/">Home</a>
         <p id="breadcrumb"></p>
         <p id="mobile-course-name"></p>
         <p id="lesson-count"></p>
