@@ -2,6 +2,7 @@ import { validateCourse } from './scripts/schema.js';
 import { diagram, escapeHtml } from './scripts/diagram.js';
 import { setupViewport } from './scripts/diagram-viewport.js';
 import { setupPanes } from './scripts/panes.js';
+import { renderDiagram } from './scripts/vendor/course-board.js';
 
 const $ = selector => document.querySelector(selector);
 const course = await fetch('./content/course.json')
@@ -118,6 +119,10 @@ function render() {
     : lessons[index - 1] && link(lessons[index - 1], lessons[index - 1].sections.length - 1);
   const next = last ? lessons[index + 1] && link(lessons[index + 1]) : link(lesson, step + 1);
   const animated = !!section.links?.length && !motion.matches;
+  const boardMarkup = renderDiagram(
+    { type: 'custom', name: 'system-scene', alt: section.title },
+    { renderers: { 'system-scene': () => diagram(lesson, step, { animated }) } },
+  );
   $('#main').innerHTML = `
     <header class="lesson-title-row">
       <h1 id="lesson-title" tabindex="-1">${escapeHtml(lesson.title)}</h1>
@@ -158,7 +163,7 @@ function render() {
             <dt>${escapeHtml(label)}</dt>
             <dd>${escapeHtml(section.status[i])}</dd>
           </div>`).join('')}</dl>` : ''}
-        <div id="diagram-view" class="diagram" role="region" tabindex="0" aria-label="System diagram" aria-describedby="diagram-instructions">${diagram(lesson, step, { animated })}</div>
+        <div id="diagram-view" class="diagram" role="region" tabindex="0" aria-label="System diagram" aria-describedby="diagram-instructions">${boardMarkup}</div>
         <span class="sr-only" id="diagram-instructions">Use plus and minus to zoom and zero to fit. While zoomed in, drag or use the arrow keys to pan.</span>
         <figcaption>
           ${section.visualNote ? `<p class="visual-note">${escapeHtml(section.visualNote)}</p>` : ''}
