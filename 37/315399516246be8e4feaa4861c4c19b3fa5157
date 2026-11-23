@@ -1,0 +1,627 @@
+public/diagrams/napkin-math/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/caching/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/lessons/hld-lld.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,27-34,38-42,53-60,64-68,79-86,90-94,104-111,115-119,130-137,141-145,154-161,165-169,180-187,191-195,208-215
+public/diagrams/design-news-feed/6.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58
+test/course.test.js
+  s_8b943f1cf08ddc::t_da6391d815acc3 1-11,13,15-38
+  s_8b943f1cf08ddc::t_2fd666f8dd4f13 12,14
+public/diagrams/napkin-math/6.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,43-44
+content/lessons/cap.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,49-56,60-64,70-77
+content/lessons/cdn.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,46-53,57-61,67-74
+content/lessons/sagas.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+public/diagrams/load-balancing/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/sharding/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/hld-lld/7.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,53-54
+public/diagrams/queues/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/testing/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+package.json
+  s_8b943f1cf08ddc::t_8fb482357db6e7 7-10,13,19
+public/diagrams/latency-throughput/5.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+content/lessons/consistent-hashing.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,45-52,56-60,66-73
+public/diagrams/cdn/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+public/diagrams/design-chat/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,28-31,34-36,39-41,44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27,32-33,37-38,42-43
+content/lessons/request-lifecycle.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,26-33,37-41,50-59,63-67,76-85,89-93,100-107,111-115,122-129,133-137,148-155,159-163,173-180,184-188,198-207,211-215,222-229,233-237,247-256
+public/diagrams/redundancy/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/sql-nosql/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/sql-nosql/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/lessons/transactions.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,26-33,37-41,48-55,59-63,69-76
+content/lessons/microservices.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,46-53,57-61,67-74
+content/lessons/design-chat.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,26-33,37-41,55-62,66-70,79-86,90-94,107-114,118-122,132-139,143-147,158-165,169-173,182-189,193-197,208-215,219-223,236-243
+public/diagrams/consistent-hashing/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/authorization/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/design-news-feed/9.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58,62-63
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59-61,64
+public/diagrams/design-chat/8.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58
+public/diagrams/load-balancing/5.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+public/diagrams/latency-throughput/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/load-balancing/7.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/napkin-math/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/realtime/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,28-31,34
+public/diagrams/hld-lld/8.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54
+public/diagrams/realtime/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+content/lessons/design-url-shortener.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,26-34,38-42,56-64,68-72,84-92,96-100,111-119,123-127,138-146,150-154,163-171,175-179,195-203,207-211,221-229,233-237,246-254,258-262,272-280,284-288,298-306,310-314,326-334
+content/lessons/replication.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+public/diagrams/hld-lld/6.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48
+public/diagrams/request-lifecycle/4.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/request-lifecycle/9.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/sagas/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/microservices/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+public/diagrams/napkin-math/4.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+public/diagrams/design-url-shortener/10.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59-61,63-66,68-69
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58,62,67
+public/diagrams/napkin-math/7.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,48-49
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47
+public/diagrams/storage-engines/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+content/lessons/load-balancing.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,23-30,34-38,49-58,62-66,79-88,92-96,103-110,114-118,126-135,139-143,152-161,165-169,176-183,187-191,201-208,212-216,223-232,236-240,252-259,263-267,277-286,290-294,304-311
+AGENTS.md
+  s_8b943f1cf08ddc::t_da6391d815acc3 3,5,7-11,13,15-20,24
+content/lessons/batch-stream.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,20-27,31-35,42-49,53-57,63-70
+public/diagrams/design-url-shortener/5.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,43-46,49
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42,47-48
+public/diagrams/load-balancing/11.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+public/diagrams/replication/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/request-lifecycle/8.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+content/lessons/caching.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,23-30,34-38,45-52,56-60,67-74
+public/diagrams/sharding/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/lessons/indexes.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+public/diagrams/files/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+public/diagrams/cap/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/request-lifecycle/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23
+public/diagrams/vertical-horizontal/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+README.md
+  s_8b943f1cf08ddc::t_da6391d815acc3 3,5,7,9,11,13,15,17,21-22,28,30,32,34,37-39,42,44,48,50,61-64,70,72,74,76-80,82,88-89,92,96-105,107,111
+  s_8b943f1cf08ddc::t_203a1fda90283e 94-95
+  s_8b943f1cf08ddc::t_2fd666f8dd4f13 54-55,58,67
+public/diagrams/hld-lld/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+public/diagrams/microservices/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/cicd/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+content/lessons/unique-ids.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,24-31,35-39,46-53,57-61,67-74
+public/diagrams/design-news-feed/7.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59
+public/diagrams/observability/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/design-chat/9.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59
+public/diagrams/caching/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/storage-engines/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/testing/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/stateless/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/cdn/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+public/diagrams/microservices/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/hld-lld/5.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,48-49
+content/lessons/design-news-feed.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,26-33,37-41,53-60,64-68,79-86,90-94,103-110,114-118,129-136,140-144,156-163,167-171,182-189,193-197,206-213,217-221,233-240
+public/diagrams/observability/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+public/diagrams/design-url-shortener/6.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48
+public/diagrams/transactions/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+public/diagrams/transactions/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/vertical-horizontal/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+public/diagrams/consistent-hashing/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+public/diagrams/authentication/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/design-chat/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/design-url-shortener/8.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53
+content/lessons/consensus.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,64-71
+public/diagrams/authorization/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/load-balancing/12.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+public/diagrams/cdn/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/queues/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/service-discovery/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/encryption/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/load-balancing/8.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,43-44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42
+public/diagrams/design-url-shortener/11.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59-61,64-66,69-71,73-76,78-79
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58,62-63,67-68,72,77
+content/lessons/queues.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+public/diagrams/load-balancing/9.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+public/diagrams/queues/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+public/diagrams/design-news-feed/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-36,39-41,44-46,48-49
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32,37-38,42-43,47
+public/diagrams/design-news-feed/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+content/lessons/stateless.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,45-52,56-60,66-73
+public/diagrams/hld-lld/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-36,38-41,43-44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32,37,42
+public/diagrams/sql-nosql/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/design-chat/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+public/diagrams/design-chat/7.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59
+public/diagrams/design-url-shortener/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/hld-lld/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+public/diagrams/consensus/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+content/lessons/rate-limiting.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+content/lessons/encryption.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,67-74
+content/lessons/files.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,43-50,54-58,64-71
+public/diagrams/rate-limiting/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/design-url-shortener/9.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47,52-53,57-58
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,48-51,54-56,59
+public/diagrams/design-url-shortener/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+content/lessons/service-discovery.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+public/diagrams/service-discovery/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,23-26,29-31,34
+public/diagrams/sagas/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/stateless/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+content/lessons/timeouts-retries.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,66-73
+public/diagrams/authentication/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+public/diagrams/stateless/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+public/diagrams/design-url-shortener/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,28-31,34-36,38-39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27,32-33,37
+public/diagrams/observability/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/authorization/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/course.json
+  s_8b943f1cf08ddc::t_8fb482357db6e7 91-94
+public/diagrams/redundancy/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/latency-throughput/4.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/design-news-feed/8.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59-61,63-64
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58,62
+public/diagrams/design-url-shortener/12.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59-61,64-66,69-71,74-76,79
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58,62-63,67-68,72-73,77-78
+public/diagrams/encryption/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+public/diagrams/indexes/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/design-news-feed/5.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52,57
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,53-56,58-59
+public/diagrams/napkin-math/8.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49
+content/lessons/vertical-horizontal.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,24-31,35-39,46-53,57-61,69-76
+public/diagrams/batch-stream/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/load-balancing/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+public/diagrams/cicd/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/cap/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/batch-stream/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+content/lessons/observability.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,25-32,36-40,47-54,58-62,68-75
+content/lessons/redundancy.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,46-53,57-61,70-77
+content/lessons/authentication.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+content/lessons/latency-throughput.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,29-36,40-44,53-60,64-68,77-84,88-92,103-110,114-118,127-134,138-142,151-158,162-166,178-185
+public/diagrams/apis/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/indexes/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/latency-throughput/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/batch-stream/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/load-balancing/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/load-balancing/10.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+public/diagrams/load-balancing/6.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/files/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/rate-limiting/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/sagas/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/sharding/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+content/lessons/pubsub.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+public/diagrams/latency-throughput/7.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+public/diagrams/load-balancing/4.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+public/diagrams/pubsub/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/request-lifecycle/5.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+public/diagrams/request-lifecycle/6.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+public/diagrams/rate-limiting/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/apis/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+content/lessons/napkin-math.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,25-32,36-40,52-59,63-67,77-84,88-92,102-109,113-117,129-136,140-144,153-160,164-168,179-186,190-194,205-212
+content/lessons/authorization.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,24-31,35-39,46-53,57-61,67-74
+content/lessons/sql-nosql.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,27-34,38-42,50-57,61-65,75-82
+public/diagrams/cap/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/encryption/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/hld-lld/4.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+public/diagrams/realtime/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/redundancy/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/replication/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/request-lifecycle/7.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/storage-engines/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/timeouts-retries/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/lessons/realtime.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,23-30,34-38,46-53,57-61,67-74
+public/diagrams/design-chat/5.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,48-51,53-56,58-59
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47,52,57
+public/diagrams/cicd/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/napkin-math/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/timeouts-retries/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/transactions/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/unique-ids/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/vertical-horizontal/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/testing/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28
+public/diagrams/files/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+public/diagrams/timeouts-retries/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/unique-ids/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/indexes/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/pubsub/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/design-url-shortener/7.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-41,44-46,49-51,54
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37,42-43,47-48,52-53
+public/diagrams/authentication/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/consistent-hashing/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,43-44
+public/diagrams/request-lifecycle/10.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+public/diagrams/design-news-feed/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39
+public/diagrams/service-discovery/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/design-news-feed/4.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48
+public/diagrams/latency-throughput/6.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,43-44
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42
+content/lessons/cicd.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,65-72
+content/lessons/apis.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,28-35,39-43,50-57,61-65,74-81
+public/diagrams/apis/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/caching/1.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+public/diagrams/design-chat/6.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44-46,49-51,54-56,59
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43,47-48,52-53,57-58
+public/diagrams/design-url-shortener/4.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,43-44
+public/diagrams/request-lifecycle/2.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,28-29
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27
+public/diagrams/napkin-math/5.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,38-39
+public/diagrams/pubsub/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/lessons/sharding.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,22-29,33-37,44-51,55-59,66-73
+content/lessons/storage-engines.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,24-31,35-39,47-54,58-62,71-78
+public/diagrams/consensus/2.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,23-26,29-31,34
+public/diagrams/replication/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/design-chat/4.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33,37-38,42-43
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34-36,39-41,44
+public/diagrams/latency-throughput/1.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+public/diagrams/request-lifecycle/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,33-34
+public/diagrams/unique-ids/3.svg
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+CONTRIBUTING.md
+  s_8b943f1cf08ddc::t_da6391d815acc3 7,10,14-17,21,23
+public/diagrams/consensus/3.svg
+  s_8b943f1cf08ddc::t_8fb482357db6e7 1-21,24-26,29-31,34
+  s_8b943f1cf08ddc::t_ced25cda1c0c14 22-23,27-28,32-33
+content/lessons/testing.md
+  s_8b943f1cf08ddc::t_8fb482357db6e7 11-15,23-30,34-38,45-52,56-60,66-73
+package-lock.json
+  s_8b943f1cf08ddc::t_5fe192650ee9bf 11,18-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "37315399516246be8e4feaa4861c4c19b3fa5157",
+  "prompts": {},
+  "sessions": {
+    "s_8b943f1cf08ddc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a208c8-ca7c-7b83-9b3d-8bbf4e32d617",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
