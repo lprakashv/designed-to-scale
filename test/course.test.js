@@ -26,6 +26,8 @@ test('the learner build serves a migrated board at a published step link', async
   const course = JSON.parse(await readFile(join(site, 'course.json'), 'utf8'));
   const lessons = course.chapters.flatMap(chapter => chapter.lessons);
   const { getRoute } = await import(pathToFileURL(join(site, '_board/navigation.js')));
+  assert.equal(getRoute('', lessons), null);
+  assert.equal(getRoute('#/', lessons), null);
   const route = getRoute('#/request-lifecycle/2', lessons);
   const step = route.lesson.steps[route.step];
 

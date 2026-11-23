@@ -10,7 +10,7 @@ The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Desi
 
 ## Use the course
 
-Select a lesson in the outline. Use the step links, **Previous**, **Next**, or the arrow keys to move between steps. On a narrow screen, select **Outline** to open the outline.
+Select a lesson on the home page or in the outline. Select **Home** to return to the course index. Use the step links, **Previous**, **Next**, or the arrow keys to move between steps. On a narrow screen, select **Outline** to open the outline.
 
 Use **Find a lesson** to search chapters, lessons, and step titles. Select **Mark complete** at the end of a lesson. Course Board saves the completion status in your browser. Use the display controls to change the theme. On a wide screen, drag the pane dividers or use the arrow keys to resize the panes.
 
@@ -27,7 +27,7 @@ npm run dev
 
 Open [the development preview](http://127.0.0.1:4173/). Save a source file and reload the page to build it again. Set `PORT` to use a different port.
 
-The lockfile pins [Course Board commit `d3dc5f0`](https://github.com/lprakashv/course-board/commit/d3dc5f02b00f5aeeb35ea256c73147561593a3b4).
+The lockfile pins [Course Board v0.3.0, commit `9e76c08`](https://github.com/lprakashv/course-board/commit/9e76c08de42190571454631d64c8f90572bcc89f).
 
 ## Edit in Studio
 
@@ -41,11 +41,11 @@ node src/cli.js author ../designed-to-scale
 
 Open [Course Board Studio](http://127.0.0.1:4175/). Edit the outline, lesson text, diagrams, and course settings. Select **Save course** to write the source files. Reload the learner preview to see the saved changes.
 
-The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/d3dc5f02b00f5aeeb35ea256c73147561593a3b4/docs/authoring.md#edit-a-course-in-the-browser).
+The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/9e76c08de42190571454631d64c8f90572bcc89f/docs/authoring.md#edit-a-course-in-the-browser).
 
 ## Add content
 
-Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/d3dc5f02b00f5aeeb35ea256c73147561593a3b4/src/browser/course.css).
+Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/9e76c08de42190571454631d64c8f90572bcc89f/src/browser/course.css).
 
 Add a Markdown file in `content/lessons/` and list its ID in the chapter that will contain it. Use a top-level `##` heading for each step. Put an optional fenced `step` block just after the heading. A diagram `src` is relative to `public/`.
 
@@ -71,7 +71,7 @@ Keep lesson IDs and the order of published steps stable to preserve numbered lin
 
 ### Import a course bundle
 
-Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/d3dc5f02b00f5aeeb35ea256c73147561593a3b4/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
+Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/9e76c08de42190571454631d64c8f90572bcc89f/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
 
 ```sh
 npm run ingest -- /path/to/course-bundle.json /path/to/review-course
