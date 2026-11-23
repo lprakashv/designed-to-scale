@@ -27,7 +27,7 @@ npm run dev
 
 Open [the development preview](http://127.0.0.1:4173/). Save a source file and reload the page to build it again. Set `PORT` to use a different port.
 
-The lockfile pins [Course Board commit `eec136f`](https://github.com/lprakashv/course-board/commit/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772). It includes the CLI importer and Studio added after the v0.1.2 tag.
+The lockfile pins [Course Board commit `9940134`](https://github.com/lprakashv/course-board/commit/9940134f43064955555b3fb6012f013a50cbfc9d).
 
 ## Edit in Studio
 
@@ -41,11 +41,11 @@ node src/cli.js author ../designed-to-scale
 
 Open [Course Board Studio](http://127.0.0.1:4175/). Edit the outline, lesson text, diagrams, and course settings. Select **Save course** to write the source files. Reload the learner preview to see the saved changes.
 
-The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772/docs/authoring.md#edit-a-course-in-the-browser).
+The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/9940134f43064955555b3fb6012f013a50cbfc9d/docs/authoring.md#edit-a-course-in-the-browser).
 
 ## Add content
 
-Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772/src/browser/course.css).
+Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/9940134f43064955555b3fb6012f013a50cbfc9d/src/browser/course.css).
 
 Add a Markdown file in `content/lessons/` and list its ID in the chapter that will contain it. Use a top-level `##` heading for each step. Put an optional fenced `step` block just after the heading. A diagram `src` is relative to `public/`.
 
@@ -71,7 +71,7 @@ Keep lesson IDs and the order of published steps stable to preserve numbered lin
 
 ### Import a course bundle
 
-Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/eec136fdf7177e3eeaf1f2ada8e15c32df3c9772/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
+Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/9940134f43064955555b3fb6012f013a50cbfc9d/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
 
 ```sh
 npm run ingest -- /path/to/course-bundle.json /path/to/review-course
@@ -90,6 +90,8 @@ npm start
 ```
 
 Open [the production preview](http://127.0.0.1:4174/). The build writes the learner site to `dist/`. Publish that directory to a static host. The Pages workflow builds on pushes to `main` and publishes `dist/` to the `gh-pages` branch.
+
+The Pages build reads the `GOOGLE_TAG_ID` GitHub Actions repository secret. Set it to a GA4 measurement ID to enable Google Analytics. An empty value disables analytics. The published HTML contains the ID. Course Board records the initial page view and views for step link changes. Disable GA4 enhanced measurement for browser history changes if it also records these views.
 
 The integration tests check the course data and the learner build. Run `npm run coverage` in the Course Board source checkout to measure Course Board's code coverage.
 

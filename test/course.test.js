@@ -22,7 +22,7 @@ test('the learner build serves a migrated board at a published step link', async
   await Promise.all(['content', 'public'].map(path =>
     cp(new URL(`../${path}`, import.meta.url), join(root, path), { recursive: true })));
 
-  const site = await buildSite(root);
+  const site = await buildSite(root, { analytics: {} });
   const course = JSON.parse(await readFile(join(site, 'course.json'), 'utf8'));
   const lessons = course.chapters.flatMap(chapter => chapter.lessons);
   const { getRoute } = await import(pathToFileURL(join(site, '_board/navigation.js')));
@@ -35,4 +35,10 @@ test('the learner build serves a migrated board at a published step link', async
   assert.match(step.html, /<td><strong>Address found<\/strong><\/td>/);
   assert.equal(step.diagram.type, 'svg');
   assert.match(await readFile(join(site, 'media', step.diagram.src), 'utf8'), /<svg[^>]*xmlns=/);
+  assert.doesNotMatch(await readFile(join(site, 'index.html'), 'utf8'), /googletagmanager\.com/);
+
+  await buildSite(root, { analytics: { GOOGLE_TAG_ID: 'G-TEST123' } });
+  const html = await readFile(join(site, 'index.html'), 'utf8');
+  assert.match(html, /googletagmanager\.com\/gtag\/js\?id=G-TEST123/);
+  assert.match(html, /addEventListener\('hashchange'.*page_view/);
 });
