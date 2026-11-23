@@ -1,20 +1,22 @@
 ---
-original: true
 title: HLD & LLD
 summary: Move from a system's requirements to components, contracts, capacity, and failure behavior.
-nodes: [["Client","Creates and reads notes"],["Requirements","Scope and targets"],["Load balancer","Routes requests"],["Note API","Validates and handles notes"],["Note store","Persists notes and owners"],["Owner index","Lists notes by owner"],["Monitoring","Checks targets and failures"]]
-layout: [[0,0],[0,1],[1,0],[2,0],[1,1],[2,1],[0,2]]
-statusLabels: [Stage, Question, Outcome]
+data:
+  original: true
+  nodes: [["Client","Creates and reads notes"],["Requirements","Scope and targets"],["Load balancer","Routes requests"],["Note API","Validates and handles notes"],["Note store","Persists notes and owners"],["Owner index","Lists notes by owner"],["Monitoring","Checks targets and failures"]]
+  layout: [[0,0],[0,1],[1,0],[2,0],[1,1],[2,1],[0,2]]
+  statusLabels: [Stage, Question, Outcome]
 ---
 
 ## Start with the problem
 
 ```step
-active: [0,1]
-links: [[0,1,"Identify needs"]]
-callouts: [[1,"Private notes only"]]
-status: ["Requirements","Who needs what?","Define scope"]
-visualNote: "Identify the users and operations before selecting components."
+data:
+  active: [0,1]
+  links: [[0,1,"Identify needs"]]
+  callouts: [[1,"Private notes only"]]
+  status: ["Requirements","Who needs what?","Define scope"]
+  visualNote: "Identify the users and operations before selecting components."
 ```
 
 | Level | What it describes |
@@ -29,11 +31,12 @@ Ask about availability, retention, access, and latency before you choose a datab
 ## Size the workload
 
 ```step
-active: [0,1]
-links: [[0,1,"Estimate traffic"]]
-callouts: [[1,"347 peak reads/s"]]
-status: ["Sizing","10M reads/day","347 peak reads/s"]
-visualNote: "The workload estimate gives the API and storage a starting capacity target."
+data:
+  active: [0,1]
+  links: [[0,1,"Estimate traffic"]]
+  callouts: [[1,"347 peak reads/s"]]
+  status: ["Sizing","10M reads/day","347 peak reads/s"]
+  visualNote: "The workload estimate gives the API and storage a starting capacity target."
 ```
 
 Assume **1 million users**. Each reads **10 notes per day**.
@@ -47,11 +50,12 @@ Assume **1 million users**. Each reads **10 notes per day**.
 ## Draw the high-level path
 
 ```step
-active: [0,2,3,4]
-links: [[0,2,"Create or read"],[2,3,"Route to API"],[3,4,"Read or write note"],[4,3,"Return store result"],[3,2,"Return HTTP result"],[2,0,"Relay the response"]]
-callouts: [[3,"Stateless API instances"]]
-status: ["HLD","Where does a request go?","Stateless API + store"]
-visualNote: "The load balancer routes requests to an API, which reads and writes the store."
+data:
+  active: [0,2,3,4]
+  links: [[0,2,"Create or read"],[2,3,"Route to API"],[3,4,"Read or write note"],[4,3,"Return store result"],[3,2,"Return HTTP result"],[2,0,"Relay the response"]]
+  callouts: [[3,"Stateless API instances"]]
+  status: ["HLD","Where does a request go?","Stateless API + store"]
+  visualNote: "The load balancer routes requests to an API, which reads and writes the store."
 ```
 
 Trace a create and a read through the **client**, **load balancer**, **note API**, and **note store**.
@@ -65,11 +69,12 @@ Use this path for peak-load and failure tests.
 ## Specify the interface
 
 ```step
-active: [0,2,3,4]
-links: [[0,2,"POST /notes"],[2,3,"Forward create"],[3,4,"Store note + owner"],[4,3,"Return new ID"],[3,2,"Return 201"],[2,0,"Relay note ID"]]
-callouts: [[3,"Check caller and input"]]
-status: ["LLD","What is the contract?","Validated request + response"]
-visualNote: "The API validates input and returns a clear result for each operation."
+data:
+  active: [0,2,3,4]
+  links: [[0,2,"POST /notes"],[2,3,"Forward create"],[3,4,"Store note + owner"],[4,3,"Return new ID"],[3,2,"Return 201"],[2,0,"Relay note ID"]]
+  callouts: [[3,"Check caller and input"]]
+  status: ["LLD","What is the contract?","Validated request + response"]
+  visualNote: "The API validates input and returns a clear result for each operation."
 ```
 
 | Endpoint | Result |
@@ -82,11 +87,12 @@ Define size limits, authentication, errors, and retry behavior. If creates must 
 ## Model data and indexes
 
 ```step
-active: [3,4,5]
-links: [[3,4,"List owner's notes"],[4,5,"Seek owner + time"]]
-callouts: [[5,"Stable order for pagination"]]
-status: ["LLD","How is data accessed?","ID key + owner index"]
-visualNote: "An ID identifies a note; an owner index supports listing a user's notes."
+data:
+  active: [3,4,5]
+  links: [[3,4,"List owner's notes"],[4,5,"Seek owner + time"]]
+  callouts: [[5,"Stable order for pagination"]]
+  status: ["LLD","How is data accessed?","ID key + owner index"]
+  visualNote: "An ID identifies a note; an owner index supports listing a user's notes."
 ```
 
 A note stores an **ID**, **owner ID**, **body**, and **timestamps**.
@@ -100,11 +106,12 @@ Check ownership on each request. Measure the index's write and storage costs.
 ## Examine a failure
 
 ```step
-active: [0,2,3,4]
-links: [[0,2,"Retry with same key"],[2,3,"Forward retry"],[3,4,"Check prior outcome"]]
-callouts: [[4,"Write and key commit together"]]
-status: ["Failure","What if the store times out?","Bounded retry + idempotency"]
-visualNote: "A timeout can leave the client unsure whether the write succeeded."
+data:
+  active: [0,2,3,4]
+  links: [[0,2,"Retry with same key"],[2,3,"Forward retry"],[3,4,"Check prior outcome"]]
+  callouts: [[4,"Write and key commit together"]]
+  status: ["Failure","What if the store times out?","Bounded retry + idempotency"]
+  visualNote: "A timeout can leave the client unsure whether the write succeeded."
 ```
 
 The store can time out after it saves a note. The API may have received no result.
@@ -116,11 +123,12 @@ Set a deadline. Limit retries and add backoff. Return a clear error during an ou
 ## Check the design against the goal
 
 ```step
-active: [0,2,3,4,6]
-links: [[0,2,"Send peak load"],[2,3,"Distribute requests"],[3,4,"Test store paths"],[3,6,"Report telemetry"]]
-callouts: [[6,"Measure p95 and p99"]]
-status: ["Validation","Does the design meet the target?","Load and failure tests"]
-visualNote: "Measurements connect the high-level design and low-level choices to the original requirements."
+data:
+  active: [0,2,3,4,6]
+  links: [[0,2,"Send peak load"],[2,3,"Distribute requests"],[3,4,"Test store paths"],[3,6,"Report telemetry"]]
+  callouts: [[6,"Measure p95 and p99"]]
+  status: ["Validation","Does the design meet the target?","Load and failure tests"]
+  visualNote: "Measurements connect the high-level design and low-level choices to the original requirements."
 ```
 
 Run the full path at and above the estimated peak.
@@ -134,11 +142,12 @@ If the store is slow, measure its access patterns before adding an index or cach
 ## Recap: connect HLD and LLD
 
 ```step
-active: [0,1,2,3,4,5,6]
-links: [[0,2,"Submit request"],[2,3,"Route to API"],[3,4,"Validate and save"],[4,5,"Use the owner index"],[3,6,"Check targets"],[0,1,"Define needs"]]
-callouts: [[1,"Tie choices to requirements"]]
-status: ["Recap","Requirements → evidence","Revisit assumptions"]
-visualNote: "The same board ties the private-note requirements to the API, store, index, and tests."
+data:
+  active: [0,1,2,3,4,5,6]
+  links: [[0,2,"Submit request"],[2,3,"Route to API"],[3,4,"Validate and save"],[4,5,"Use the owner index"],[3,6,"Check targets"],[0,1,"Define needs"]]
+  callouts: [[1,"Tie choices to requirements"]]
+  status: ["Recap","Requirements → evidence","Revisit assumptions"]
+  visualNote: "The same board ties the private-note requirements to the API, store, index, and tests."
 ```
 
 | Decision | Why it matters |

@@ -28,18 +28,20 @@ See the [URL shortener example](showcase/url-shortener.jpg) and [dark theme](sho
 
 | Path | Purpose |
 | --- | --- |
-| `content/index.json`, `content/lessons/` | Chapter order and Markdown lesson sources |
+| `content/course.json`, `content/lessons/` | Chapter order and Markdown lesson sources |
 | `app.js`, `index.html`, `styles.css` | Course interface, navigation, and styling |
 | `scripts/` | Content compiler, validation, diagrams, pane controls, and local server |
 | `test/` | Node tests for content and interface logic |
 | `showcase/` | Screenshots and the walkthrough recording |
 | `.github/workflows/` | Pull request checks and Pages deployment |
 
-The compiler converts lesson sources into `content/course.json` in the build. The browser loads and validates this data, then renders the selected lesson and diagram. See [AGENTS.md](AGENTS.md) for development conventions.
+Course Board validates the manifest and compiles the lessons. A custom shell adapts the course data and builds the existing interface. The browser loads the compiled data from `dist/content/course.json`. The shell uses the existing Rough.js renderer through Course Board. See [AGENTS.md](AGENTS.md) for development conventions.
 
 ## Requirements
 
 Node.js 20.19 or later and npm. The development server and build use Markdown-it and YAML. A deployed site serves static files.
+
+The development, lint, and build commands copy the Course Board diagram module from the installed package to `scripts/vendor/`. This generated directory is not tracked in Git. The dependency is pinned to the Course Board v0.1.1 GitHub Release asset.
 
 ## Run locally
 
@@ -80,28 +82,30 @@ Review Google's data collection and privacy settings for your audience and regio
 ## Add content
 
 1. Create a Markdown file in [content/lessons](content/lessons), with a name such as `cache-example.md`. Use lowercase letters, digits, and hyphens for the lesson ID.
-2. Add the ID without `.md` to a chapter’s `lessons` list in [content/index.json](content/index.json). Set the chapter title with `title`. The index sets chapter and lesson order.
+2. Add the ID without `.md` to a chapter’s `lessons` list in [content/course.json](content/course.json). Set the chapter title with `title`. The index sets chapter and lesson order.
 3. Run `npm run lint` to check the documents. Reload the development preview to see your changes.
 
-Start the document with YAML front matter. Use a top-level `##` heading for each step. Place a fenced `step` block with its YAML settings immediately after the heading. Then write the lesson prose in Markdown.
+Start the document with YAML front matter. Put shared diagram settings in the lesson `data` mapping. Use a top-level `##` heading for each step. Place a fenced `step` block with its `data` mapping immediately after the heading. Then write the lesson prose in Markdown.
 
 ````markdown
 ---
 title: Cache Example
 summary: Compare a cache hit with a cache miss.
-nodes: [[Service, Handles reads], [Cache, Temporary copies], [Database, Source of truth]]
-statusLabels: [Cache state]
+data:
+  nodes: [[Service, Handles reads], [Cache, Temporary copies], [Database, Source of truth]]
+  statusLabels: [Cache state]
 ---
 
 ## Read from the cache
 
 ```step
-active: [0, 1]
-links: [[0, 1, Look up record], [1, 0, Return cached record]]
-callouts: [[1, Fresh entry]]
-status: [Hit]
-note: A hit can avoid a database read.
-visualNote: The request stops at the cache.
+data:
+  active: [0, 1]
+  links: [[0, 1, Look up record], [1, 0, Return cached record]]
+  callouts: [[1, Fresh entry]]
+  status: [Hit]
+  note: A hit can avoid a database read.
+  visualNote: The request stops at the cache.
 ```
 
 The service asks the cache for a record. The cache has a **fresh entry** and returns it.
@@ -109,11 +113,12 @@ The service asks the cache for a record. The cache has a **fresh entry** and ret
 ## Read from the database
 
 ```step
-active: [0, 1, 2]
-links: [[0, 1, Look up record], [1, 0, Report miss], [0, 2, Read source record], [2, 0, Return record]]
-callouts: [[2, Read only on a miss]]
-status: [Miss]
-visualNote: The service reads the source after a cache miss.
+data:
+  active: [0, 1, 2]
+  links: [[0, 1, Look up record], [1, 0, Report miss], [0, 2, Read source record], [2, 0, Return record]]
+  callouts: [[2, Read only on a miss]]
+  status: [Miss]
+  visualNote: The service reads the source after a cache miss.
 ```
 
 The service reads the record from the database and fills the cache for the next request.
@@ -146,7 +151,7 @@ npm test
 npm run coverage
 ```
 
-`lint` checks the source documents. `build` runs the same checks and writes the static site. Tests cover the authoring example, invalid metadata, and the diagram renderer.
+`lint` checks the source documents and course-specific data. `build` uses the Course Board build lifecycle and the custom shell to write the static site. Tests cover the authoring example, invalid metadata, and the diagram renderer.
 
 ## Contributing 🤝
 

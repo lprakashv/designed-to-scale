@@ -1,8 +1,13 @@
 {
+  "version": 1,
+  "id": "designed-to-scale",
+  "title": "System Design",
   "chapters": [
     {
       "title": "Foundations",
-      "color": "sand",
+      "data": {
+        "color": "sand"
+      },
       "lessons": [
         "request-lifecycle",
         "latency-throughput",
@@ -11,7 +16,9 @@
     },
     {
       "title": "Scaling",
-      "color": "green",
+      "data": {
+        "color": "green"
+      },
       "lessons": [
         "vertical-horizontal",
         "load-balancing",
@@ -22,7 +29,9 @@
     },
     {
       "title": "Data & Storage",
-      "color": "purple",
+      "data": {
+        "color": "purple"
+      },
       "lessons": [
         "sql-nosql",
         "indexes",
@@ -39,7 +48,9 @@
     },
     {
       "title": "Communication",
-      "color": "orange",
+      "data": {
+        "color": "orange"
+      },
       "lessons": [
         "apis",
         "queues",
@@ -49,7 +60,9 @@
     },
     {
       "title": "Reliability",
-      "color": "blue",
+      "data": {
+        "color": "blue"
+      },
       "lessons": [
         "redundancy",
         "rate-limiting",
@@ -59,7 +72,9 @@
     },
     {
       "title": "Architecture",
-      "color": "teal",
+      "data": {
+        "color": "teal"
+      },
       "lessons": [
         "microservices",
         "service-discovery",
@@ -69,7 +84,9 @@
     },
     {
       "title": "Security",
-      "color": "rose",
+      "data": {
+        "color": "rose"
+      },
       "lessons": [
         "authentication",
         "authorization",
@@ -78,7 +95,9 @@
     },
     {
       "title": "Shipping",
-      "color": "olive",
+      "data": {
+        "color": "olive"
+      },
       "lessons": [
         "testing",
         "cicd"
@@ -86,7 +105,9 @@
     },
     {
       "title": "Whole Systems",
-      "color": "slate",
+      "data": {
+        "color": "slate"
+      },
       "lessons": [
         "hld-lld",
         "design-url-shortener",

@@ -1,20 +1,22 @@
 ---
-original: true
 title: SQL vs NoSQL
 summary: Select a data model based on access patterns and guarantees.
-nodes: [["Application","Order workflow"],["SQL store","Tables and joins"],["NoSQL store","Model varies by product"]]
-layout: [[0,0.5],[1,0],[1,1]]
-statusLabels: ["Main decision","SQL example","NoSQL example"]
+data:
+  original: true
+  nodes: [["Application","Order workflow"],["SQL store","Tables and joins"],["NoSQL store","Model varies by product"]]
+  layout: [[0,0.5],[1,0],[1,1]]
+  statusLabels: ["Main decision","SQL example","NoSQL example"]
 ---
 
 ## Model the data
 
 ```step
-active: [0,1,2]
-links: [[0,1,"Store order rows"],[0,2,"Store a document"]]
-callouts: [[2,"Embed items for one read"]]
-status: ["Order and items","Join related tables","Read one document"]
-visualNote: "Sketch how a single user operation reads or changes the data in each model."
+data:
+  active: [0,1,2]
+  links: [[0,1,"Store order rows"],[0,2,"Store a document"]]
+  callouts: [[2,"Embed items for one read"]]
+  status: ["Order and items","Join related tables","Read one document"]
+  visualNote: "Sketch how a single user operation reads or changes the data in each model."
 ```
 
 Start with one query. How does the application load an order and its items?
@@ -29,10 +31,11 @@ Also compare how each model handles updates.
 ## Compare guarantees
 
 ```step
-active: [1,2]
-callouts: [[1,"Check transaction scope"],[2,"Check document limits"]]
-status: ["Guarantees","Check isolation","Check product behavior"]
-visualNote: "Compare the guarantees of the specific database and configuration."
+data:
+  active: [1,2]
+  callouts: [[1,"Check transaction scope"],[2,"Check document limits"]]
+  status: ["Guarantees","Check isolation","Check product behavior"]
+  visualNote: "Compare the guarantees of the specific database and configuration."
 ```
 
 Assume one operation must reserve inventory and record payment state together.
@@ -43,11 +46,12 @@ Assume one operation must reserve inventory and record payment state together.
 ## Start with queries
 
 ```step
-active: [0,1]
-links: [[0,1,"Query open orders"]]
-callouts: [[0,"List reads and invariants"]]
-status: ["Query fit","Joins and constraints","Key-based lookup"]
-visualNote: "Start with the reads and writes you need most often."
+data:
+  active: [0,1]
+  links: [[0,1,"Query open orders"]]
+  callouts: [[0,"List reads and invariants"]]
+  status: ["Query fit","Joins and constraints","Key-based lookup"]
+  visualNote: "Start with the reads and writes you need most often."
 ```
 
 Choose a store after you write down:

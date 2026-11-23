@@ -1,6 +1,6 @@
 export const courseAsset = 'content/course.json';
 export const pageAssets = [
-  'index.html', 'styles.css', 'app.js', 'scripts/analytics.js', 'scripts/schema.js', 'scripts/diagram.js', 'scripts/diagram-layout.js', 'scripts/diagram-viewport.js', 'scripts/panes.js',
+  'index.html', 'styles.css', 'app.js', 'scripts/analytics.js', 'scripts/schema.js', 'scripts/diagram.js', 'scripts/diagram-layout.js', 'scripts/diagram-viewport.js', 'scripts/panes.js', 'scripts/vendor/course-board.js',
   'assets/Virgil.woff2', 'assets/Virgil-LICENSE.md',
   'assets/rough.js', 'assets/rough-LICENSE.txt',
 ];

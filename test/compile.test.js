@@ -43,3 +43,10 @@ test('styles a warning while preserving its visible label', () => {
   assert.match(sections[1].bodyHtml, /<blockquote class="warning">\s+<p><strong>Warning\.<\/strong>/);
   assert.match(sections[1].bodyHtml, /<blockquote>\s+<p><strong>Note\.<\/strong>/);
 });
+
+test('Course Board parses the course-specific data in its authoring format', async () => {
+  const { parseLesson: parseBoardLesson } = await import('@lprakashv/course-board');
+  const lesson = parseBoardLesson(example, 'cache-example');
+  assert.equal(lesson.data.nodes[0][0], 'Service');
+  assert.deepEqual(lesson.steps[0].data.active, [0, 1]);
+});

@@ -1,20 +1,22 @@
 ---
-original: true
 title: Design a URL Shortener
 summary: Work from requirements and estimates to a redirect service, explaining each design choice.
-nodes: [["Client","Creates and follows links"],["Load balancer","Distributes requests"],["API servers","Shortener API and redirect"],["Cache","Holds active mappings"],["Link store","Durable code mappings"],["Replicas","Copies across zones"],["ID allocator","Reserves unique ID blocks"],["Hash candidate","Truncated URL hash"],["Click queue","Buffers redirect events"],["Count store","Aggregated clicks"],["Rate limiter","Limits link creation"],["Safety checks","Validate destinations"]]
-layout: [[0,0],[1,0],[2,0],[1,2],[2,2],[2,3],[1,1],[0,2],[1,3],[0,3],[0,1],[2,1]]
-statusLabels: [Traffic, Codes, Storage, Read path]
+data:
+  original: true
+  nodes: [["Client","Creates and follows links"],["Load balancer","Distributes requests"],["API servers","Shortener API and redirect"],["Cache","Holds active mappings"],["Link store","Durable code mappings"],["Replicas","Copies across zones"],["ID allocator","Reserves unique ID blocks"],["Hash candidate","Truncated URL hash"],["Click queue","Buffers redirect events"],["Count store","Aggregated clicks"],["Rate limiter","Limits link creation"],["Safety checks","Validate destinations"]]
+  layout: [[0,0],[1,0],[2,0],[1,2],[2,2],[2,3],[1,1],[0,2],[1,3],[0,3],[0,1],[2,1]]
+  statusLabels: [Traffic, Codes, Storage, Read path]
 ---
 
 ## Define the brief
 
 ```step
-active: [0,2]
-links: [[0,2,"Create or open"],[2,0,"Link or redirect"]]
-callouts: [[2,"Internal design undecided"]]
-status: ["Estimate next","Undecided","Undecided","Undecided"]
-visualNote: "The client creates a link or opens an existing short link. Internal components are not chosen yet."
+data:
+  active: [0,2]
+  links: [[0,2,"Create or open"],[2,0,"Link or redirect"]]
+  callouts: [[2,"Internal design undecided"]]
+  status: ["Estimate next","Undecided","Undecided","Undecided"]
+  visualNote: "The client creates a link or opens an existing short link. Internal components are not chosen yet."
 ```
 
 Users need to:
@@ -28,11 +30,12 @@ Users need to:
 ## Estimate the load
 
 ```step
-active: [0,2]
-links: [[0,2,"Estimate traffic"]]
-callouts: [[2,"100 redirects per create"]]
-status: ["40 writes/s · 4,000 reads/s","Undecided","6 billion links · 3 TB","Undecided"]
-visualNote: "The estimate adds a read-heavy workload and five years of retained mappings to the design."
+data:
+  active: [0,2]
+  links: [[0,2,"Estimate traffic"]]
+  callouts: [[2,"100 redirects per create"]]
+  status: ["40 writes/s · 4,000 reads/s","Undecided","6 billion links · 3 TB","Undecided"]
+  visualNote: "The estimate adds a read-heavy workload and five years of retained mappings to the design."
 ```
 
 Use **30 days per month** and assume **100 million new links/month**, **100 redirects/link**, and **500 bytes/mapping**. Keep mappings for **five years**.
@@ -49,11 +52,12 @@ These estimates make caching and partitioning worth evaluating.
 ## Build a first version
 
 ```step
-active: [0,1,2,4]
-links: [[0,1,"POST or GET"],[1,2,"Forward HTTP"],[2,4,"Read or write"],[4,2,"Return result"]]
-callouts: [[2,"Stateless instances"]]
-status: ["40 writes/s · 4,000 reads/s","Undecided","6 billion links · 3 TB","Direct store lookup"]
-visualNote: "Stateless API servers sit behind a load balancer and read or write a mapping in the store."
+data:
+  active: [0,1,2,4]
+  links: [[0,1,"POST or GET"],[1,2,"Forward HTTP"],[2,4,"Read or write"],[4,2,"Return result"]]
+  callouts: [[2,"Stateless instances"]]
+  status: ["40 writes/s · 4,000 reads/s","Undecided","6 billion links · 3 TB","Direct store lookup"]
+  visualNote: "Stateless API servers sit behind a load balancer and read or write a mapping in the store."
 ```
 
 | Endpoint | Purpose |
@@ -68,11 +72,12 @@ The load balancer routes requests to stateless API servers. The first version re
 ## Try a truncated hash
 
 ```step
-active: [2,4,7]
-links: [[2,7,"Propose code"],[2,4,"Insert unique code"]]
-callouts: [[7,"Candidate can collide"],[4,"Reject duplicate code"]]
-status: ["40 writes/s · 4,000 reads/s","Truncated hash","6 billion links · 3 TB","Direct store lookup"]
-visualNote: "The hash is a candidate design. The API checks its proposed code against the store."
+data:
+  active: [2,4,7]
+  links: [[2,7,"Propose code"],[2,4,"Insert unique code"]]
+  callouts: [[7,"Candidate can collide"],[4,"Reject duplicate code"]]
+  status: ["40 writes/s · 4,000 reads/s","Truncated hash","6 billion links · 3 TB","Direct store lookup"]
+  visualNote: "The hash is a candidate design. The API checks its proposed code against the store."
 ```
 
 A **truncated hash** gives a short code. Different URLs can produce the same code.
@@ -86,11 +91,12 @@ A **truncated hash** gives a short code. Different URLs can produce the same cod
 ## Allocate IDs and encode them
 
 ```step
-active: [2,4,6]
-links: [[2,6,"Reserve ID block"],[6,2,"Return ID block"],[2,4,"Store encoded key"]]
-callouts: [[6,"Persist allocation before reply"],[7,"Candidate rejected"]]
-status: ["40 writes/s · 4,000 reads/s","Unique ID · base 62","6 billion links · 3 TB","Direct store lookup"]
-visualNote: "The allocator replaces the hash candidate. API servers reserve disjoint blocks before encoding."
+data:
+  active: [2,4,6]
+  links: [[2,6,"Reserve ID block"],[6,2,"Return ID block"],[2,4,"Store encoded key"]]
+  callouts: [[6,"Persist allocation before reply"],[7,"Candidate rejected"]]
+  status: ["40 writes/s · 4,000 reads/s","Unique ID · base 62","6 billion links · 3 TB","Direct store lookup"]
+  visualNote: "The allocator replaces the hash candidate. API servers reserve disjoint blocks before encoding."
 ```
 
 1. Reserve ID blocks in a durable allocator. Each server gets a distinct block.
@@ -104,11 +110,12 @@ For example, **125 = 2 × 62 + 1**, which encodes as `21` with digits first. Sev
 ## Reduce enumeration
 
 ```step
-active: [2,4,6]
-links: [[2,6,"Reserve IDs"],[2,4,"Write permuted code"]]
-callouts: [[2,"Permute then encode in base 62"]]
-status: ["40 writes/s · 4,000 reads/s","Permuted ID · base 62","6 billion links · 3 TB","Direct store lookup"]
-visualNote: "A keyed permutation changes the order of IDs before encoding while retaining uniqueness within its domain."
+data:
+  active: [2,4,6]
+  links: [[2,6,"Reserve IDs"],[2,4,"Write permuted code"]]
+  callouts: [[2,"Permute then encode in base 62"]]
+  status: ["40 writes/s · 4,000 reads/s","Permuted ID · base 62","6 billion links · 3 TB","Direct store lookup"]
+  visualNote: "A keyed permutation changes the order of IDs before encoding while retaining uniqueness within its domain."
 ```
 
 Sequential IDs make nearby codes easy to guess. Use a **one-to-one keyed permutation** before encoding. The permutation works over a fixed ID range.
@@ -120,11 +127,12 @@ The permutation makes guessing harder. Use **authorization** to protect private 
 ## Cache popular mappings
 
 ```step
-active: [0,1,2,3,4]
-links: [[0,1,"Open a short link"],[1,2,"Forward lookup"],[2,3,"Look up cached code"],[2,4,"Read on miss"],[4,2,"Return mapping"]]
-callouts: [[3,"Assume 90% hit rate"]]
-status: ["4,000 reads/s average","Permuted ID · base 62","6 billion links · 3 TB","90% hit · 400 store reads/s"]
-visualNote: "A cache hit returns the mapping; a miss reads the store and fills the cache."
+data:
+  active: [0,1,2,3,4]
+  links: [[0,1,"Open a short link"],[1,2,"Forward lookup"],[2,3,"Look up cached code"],[2,4,"Read on miss"],[4,2,"Return mapping"]]
+  callouts: [[3,"Assume 90% hit rate"]]
+  status: ["4,000 reads/s average","Permuted ID · base 62","6 billion links · 3 TB","90% hit · 400 store reads/s"]
+  visualNote: "A cache hit returns the mapping; a miss reads the store and fills the cache."
 ```
 
 Assume the cache serves **90%** of reads.
@@ -143,11 +151,12 @@ Assume the cache serves **90%** of reads.
 ## Choose the redirect response
 
 ```step
-active: [0,1,2,3]
-links: [[0,1,"GET /code"],[1,2,"Forward request"],[2,3,"Look up code"],[2,1,"302 + Location"],[1,0,"Relay redirect"]]
-callouts: [[2,"Set explicit cache headers"]]
-status: ["4,000 reads/s average","Permuted ID · base 62","6 billion links · 3 TB","302 · cache first"]
-visualNote: "The server returns a temporary redirect so later visits can still reach the service."
+data:
+  active: [0,1,2,3]
+  links: [[0,1,"GET /code"],[1,2,"Forward request"],[2,3,"Look up code"],[2,1,"302 + Location"],[1,0,"Relay redirect"]]
+  callouts: [[2,"Set explicit cache headers"]]
+  status: ["4,000 reads/s average","Permuted ID · base 62","6 billion links · 3 TB","302 · cache first"]
+  visualNote: "The server returns a temporary redirect so later visits can still reach the service."
 ```
 
 | Status | Effect |
@@ -160,11 +169,12 @@ Set **`Cache-Control: no-store`** when each visit must go through the shortener.
 ## Partition and replicate storage
 
 ```step
-active: [2,4,5]
-links: [[2,4,"Read on miss"],[4,5,"Replicate by zone"]]
-callouts: [[4,"Hash the code to a partition"],[5,"Three total copies"]]
-status: ["400 store reads/s average","Permuted ID · base 62","3 TB logical · 3 copies","302 · cache first"]
-visualNote: "The store routes a code to a partition and keeps copies across failure zones."
+data:
+  active: [2,4,5]
+  links: [[2,4,"Read on miss"],[4,5,"Replicate by zone"]]
+  callouts: [[4,"Hash the code to a partition"],[5,"Three total copies"]]
+  status: ["400 store reads/s average","Permuted ID · base 62","3 TB logical · 3 copies","302 · cache first"]
+  visualNote: "The store routes a code to a partition and keeps copies across failure zones."
 ```
 
 Use a key-value lookup by **code**. Hash the code to pick a partition. Keep copies in separate zones.
@@ -176,11 +186,12 @@ Use a key-value lookup by **code**. Hash the code to pick a partition. Keep copi
 ## Move click counting off the response path
 
 ```step
-active: [0,1,2,8,9]
-links: [[2,1,"Return 302 promptly"],[1,0,"Relay redirect"],[2,8,"Publish click event"],[8,9,"Aggregate by code"]]
-callouts: [[8,"Stable event ID for deduplication"]]
-status: ["4,000 redirects/s average","Permuted ID · base 62","Partitioned · 3 copies","302 · asynchronous counts"]
-visualNote: "Redirects return from the API; click events travel through a separate aggregation path."
+data:
+  active: [0,1,2,8,9]
+  links: [[2,1,"Return 302 promptly"],[1,0,"Relay redirect"],[2,8,"Publish click event"],[8,9,"Aggregate by code"]]
+  callouts: [[8,"Stable event ID for deduplication"]]
+  status: ["4,000 redirects/s average","Permuted ID · base 62","Partitioned · 3 copies","302 · asynchronous counts"]
+  visualNote: "Redirects return from the API; click events travel through a separate aggregation path."
 ```
 
 Return the redirect without updating a counter on the request path. Send a click event to a queue. A worker aggregates counts later.
@@ -193,11 +204,12 @@ Return the redirect without updating a counter on the request path. Send a click
 ## Limit abuse
 
 ```step
-active: [0,1,2,10,11]
-links: [[0,1,"Submit a long URL"],[1,10,"Check create limit"],[10,2,"Forward create"],[2,11,"Check destination"]]
-callouts: [[10,"Limit creates by account"],[11,"Support disable and expiry"]]
-status: ["Creation rate limited","Permuted ID · base 62","Partitioned · 3 copies","302 · asynchronous counts"]
-visualNote: "Creation passes through rate limits and destination checks; existing links also need a disable path."
+data:
+  active: [0,1,2,10,11]
+  links: [[0,1,"Submit a long URL"],[1,10,"Check create limit"],[10,2,"Forward create"],[2,11,"Check destination"]]
+  callouts: [[10,"Limit creates by account"],[11,"Support disable and expiry"]]
+  status: ["Creation rate limited","Permuted ID · base 62","Partitioned · 3 copies","302 · asynchronous counts"]
+  visualNote: "Creation passes through rate limits and destination checks; existing links also need a disable path."
 ```
 
 - Limit creation by **account** and **IP**.
@@ -210,11 +222,12 @@ visualNote: "Creation passes through rate limits and destination checks; existin
 ## Recap: explain the design
 
 ```step
-active: [0,1,2,3,4,6,8,9]
-links: [[0,1,"Open a short link"],[1,2,"Forward request"],[2,3,"Look up cache"],[2,4,"Read on miss"],[2,1,"302 to destination"],[1,0,"Relay redirect"],[2,6,"IDs on create"],[2,8,"Publish click event"],[8,9,"Aggregate by code"]]
-callouts: [[6,"Unique IDs on create"],[8,"Counts update asynchronously"]]
-status: ["40 writes/s · 4,000 reads/s","Permuted ID · base 62","3 TB logical · 3 copies","302 · cache · async counts"]
-visualNote: "Trace the redirect through the balancer and API. The ID allocator serves creation. The queue and count store handle click counts."
+data:
+  active: [0,1,2,3,4,6,8,9]
+  links: [[0,1,"Open a short link"],[1,2,"Forward request"],[2,3,"Look up cache"],[2,4,"Read on miss"],[2,1,"302 to destination"],[1,0,"Relay redirect"],[2,6,"IDs on create"],[2,8,"Publish click event"],[8,9,"Aggregate by code"]]
+  callouts: [[6,"Unique IDs on create"],[8,"Counts update asynchronously"]]
+  status: ["40 writes/s · 4,000 reads/s","Permuted ID · base 62","3 TB logical · 3 copies","302 · cache · async counts"]
+  visualNote: "Trace the redirect through the balancer and API. The ID allocator serves creation. The queue and count store handle click counts."
 ```
 
 | Decision | Benefit and cost |

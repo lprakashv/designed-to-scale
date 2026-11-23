@@ -1,20 +1,22 @@
 ---
-original: true
 title: Latency & Throughput
 summary: Use latency, throughput, and concurrency to find and relieve bottlenecks.
-nodes: [["Clients","Send and time requests"],["Service","Processes requests"],["Database","Reads the source records"],["Queue","Holds waiting work"],["Cache","Serves repeated reads"]]
-layout: [[0,0],[1,0],[2,0],[2,1],[1,1]]
-statusLabels: [Load, Latency, Throughput]
+data:
+  original: true
+  nodes: [["Clients","Send and time requests"],["Service","Processes requests"],["Database","Reads the source records"],["Queue","Holds waiting work"],["Cache","Serves repeated reads"]]
+  layout: [[0,0],[1,0],[2,0],[2,1],[1,1]]
+  statusLabels: [Load, Latency, Throughput]
 ---
 
 ## Measure a request
 
 ```step
-active: [0,1,2]
-links: [[0,1,"Send one request"],[1,2,"Read source record"],[2,1,"Return after 70 ms"],[1,0,"Reply after 120 ms"]]
-callouts: [[1,"30 ms processing"]]
-status: ["One request","120 ms example","One completion"]
-visualNote: "Latency spans the time from request start until the client receives the response."
+data:
+  active: [0,1,2]
+  links: [[0,1,"Send one request"],[1,2,"Read source record"],[2,1,"Return after 70 ms"],[1,0,"Reply after 120 ms"]]
+  callouts: [[1,"30 ms processing"]]
+  status: ["One request","120 ms example","One completion"]
+  visualNote: "Latency spans the time from request start until the client receives the response."
 ```
 
 **Latency** is the elapsed time for one operation. Assume these steps run in order:
@@ -31,11 +33,12 @@ visualNote: "Latency spans the time from request start until the client receives
 ## Count completed work
 
 ```step
-active: [0,1]
-links: [[0,1,"Parallel requests"],[1,0,"6,000 completions"]]
-callouts: [[0,"Count over 60 seconds"]]
-status: ["6,000 completions/min","Varies per request","100 requests/s"]
-visualNote: "Throughput counts completed operations in a time interval."
+data:
+  active: [0,1]
+  links: [[0,1,"Parallel requests"],[1,0,"6,000 completions"]]
+  callouts: [[0,"Count over 60 seconds"]]
+  status: ["6,000 completions/min","Varies per request","100 requests/s"]
+  visualNote: "Throughput counts completed operations in a time interval."
 ```
 
 **Throughput** is completed work per unit of time.
@@ -47,11 +50,12 @@ Requests can run at the same time even when each takes a long time. Count failur
 ## Read the tail
 
 ```step
-active: [0,1]
-links: [[0,1,"Send 100 requests"],[1,0,"Collect timings"]]
-callouts: [[0,"p95 is about 120 ms"]]
-status: ["100 requests","p95 = 120 ms","Measure the tail"]
-visualNote: "The percentile describes a distribution, not the duration of every request."
+data:
+  active: [0,1]
+  links: [[0,1,"Send 100 requests"],[1,0,"Collect timings"]]
+  callouts: [[0,"p95 is about 120 ms"]]
+  status: ["100 requests","p95 = 120 ms","Measure the tail"]
+  visualNote: "The percentile describes a distribution, not the duration of every request."
 ```
 
 A **p95 of 120 ms** means roughly 95% of requests finished within 120 ms. The result depends on the percentile method. The slowest requests can take much longer.
@@ -63,11 +67,12 @@ Record the workload and time window. Report **p99** and errors as well as the me
 ## Relate latency and concurrency
 
 ```step
-active: [0,1]
-links: [[0,1,"Send concurrently"],[1,0,"Complete 100/s"]]
-callouts: [[1,"12 requests in flight on average"]]
-status: ["100 requests/s","0.12 s average","12 requests in flight"]
-visualNote: "Requests overlap while the system processes them."
+data:
+  active: [0,1]
+  links: [[0,1,"Send concurrently"],[1,0,"Complete 100/s"]]
+  callouts: [[1,"12 requests in flight on average"]]
+  status: ["100 requests/s","0.12 s average","12 requests in flight"]
+  visualNote: "Requests overlap while the system processes them."
 ```
 
 In a stable system:
@@ -81,11 +86,12 @@ At **100 completions/s** and **0.12 s** average latency, about **12 requests** a
 ## Find the queue
 
 ```step
-active: [0,1,2,3]
-links: [[0,1,"Arrival: 120/s"],[1,3,"Queue work"],[3,2,"Drain: 100/s"]]
-callouts: [[3,"Backlog grows by 20/s"]]
-status: ["Arrival exceeds capacity","Tail latency rises","Backlog grows"]
-visualNote: "Work waits in the queue when the database completes requests more slowly than they arrive."
+data:
+  active: [0,1,2,3]
+  links: [[0,1,"Arrival: 120/s"],[1,3,"Queue work"],[3,2,"Drain: 100/s"]]
+  callouts: [[3,"Backlog grows by 20/s"]]
+  status: ["Arrival exceeds capacity","Tail latency rises","Backlog grows"]
+  visualNote: "Work waits in the queue when the database completes requests more slowly than they arrive."
 ```
 
 The system receives **120 requests/s**. The database finishes **100/s**.
@@ -97,11 +103,12 @@ Measure queue depth and wait time. Longer timeouts do not increase database capa
 ## Change the bottleneck
 
 ```step
-active: [0,1,2,4]
-links: [[0,1,"Arrive: 120 reads/s"],[1,4,"Look up cache"],[1,2,"Read on a miss"]]
-callouts: [[4,"Assume 50% hit rate"],[2,"60 reads/s on misses"]]
-status: ["120 requests/s","Measure after change","60 database reads/s"]
-visualNote: "With the assumed hit rate, half of the requests avoid a database read."
+data:
+  active: [0,1,2,4]
+  links: [[0,1,"Arrive: 120 reads/s"],[1,4,"Look up cache"],[1,2,"Read on a miss"]]
+  callouts: [[4,"Assume 50% hit rate"],[2,"60 reads/s on misses"]]
+  status: ["120 requests/s","Measure after change","60 database reads/s"]
+  visualNote: "With the assumed hit rate, half of the requests avoid a database read."
 ```
 
 Assume a cache serves **50% of 120 reads/s**. Only **60 reads/s** reach the database. Its assumed capacity is **100/s**.
@@ -113,11 +120,12 @@ Measure p95, p99, cache hit rate, and database saturation after the change.
 ## Recap: interpret the numbers
 
 ```step
-active: [0,1,2,3,4]
-links: [[0,1,"Measure arrivals"],[1,4,"Measure hit rate"],[1,2,"Measure store reads"],[1,0,"Count completions"],[1,3,"Observe backlog"]]
-callouts: [[0,"Record p95 and p99"],[3,"Watch for backlog under load"]]
-status: ["Compare arrival and completion","Track percentiles","Verify under load"]
-visualNote: "Measure each component and the end-to-end path to locate waiting and saturation."
+data:
+  active: [0,1,2,3,4]
+  links: [[0,1,"Measure arrivals"],[1,4,"Measure hit rate"],[1,2,"Measure store reads"],[1,0,"Count completions"],[1,3,"Observe backlog"]]
+  callouts: [[0,"Record p95 and p99"],[3,"Watch for backlog under load"]]
+  status: ["Compare arrival and completion","Track percentiles","Verify under load"]
+  visualNote: "Measure each component and the end-to-end path to locate waiting and saturation."
 ```
 
 | Measure | Example and use |

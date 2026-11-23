@@ -6,8 +6,8 @@ This is a static system design course. It uses vanilla browser JavaScript, CSS, 
 
 ## Find the right place
 
-- `content/index.json` sets chapter and lesson order; `content/lessons/*.md` holds the source lessons.
-- `scripts/compile.js` parses lessons; `scripts/schema.js` validates their shared contract in Node and the browser.
+- `content/course.json` sets chapter and lesson order; `content/lessons/*.md` holds the source lessons.
+- `scripts/compile.js` adapts Course Board lessons; `scripts/schema.js` validates their shared contract in Node and the browser.
 - `app.js` handles navigation, search, saved preferences, and lesson rendering. `scripts/diagram*.js` handles the board; `scripts/panes.js` handles resizing.
 - `scripts/site.js` lists the assets served and copied into `dist/`. Add browser assets there when needed. `scripts/serve.js` serves development and built previews.
 - `test/` covers the compiler, contract, diagrams, panes, and viewport. The README authoring example is also a test fixture.

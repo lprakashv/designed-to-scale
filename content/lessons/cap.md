@@ -1,20 +1,22 @@
 ---
-original: true
 title: CAP & Consistency
 summary: Understand availability and consistency during a network partition.
-nodes: [["Client","Requests reads and writes"],["Replica A","Reachable side A"],["Replica B","Reachable side B"]]
-layout: [[0.5,0],[0,1],[1,1]]
-statusLabels: ["Replica link","Request behavior","Data guarantee"]
+data:
+  original: true
+  nodes: [["Client","Requests reads and writes"],["Replica A","Reachable side A"],["Replica B","Reachable side B"]]
+  layout: [[0.5,0],[0,1],[1,1]]
+  statusLabels: ["Replica link","Request behavior","Data guarantee"]
 ---
 
 ## A partition occurs
 
 ```step
-active: [0,1,2]
-links: [[0,1,"Reach replica A"],[0,2,"Reach replica B"]]
-callouts: [[1,"Cannot reach B"],[2,"Cannot reach A"]]
-status: ["Partitioned","Both sides reachable","Replication interrupted"]
-visualNote: "This example assumes requests can still reach both sides of the partition."
+data:
+  active: [0,1,2]
+  links: [[0,1,"Reach replica A"],[0,2,"Reach replica B"]]
+  callouts: [[1,"Cannot reach B"],[2,"Cannot reach A"]]
+  status: ["Partitioned","Both sides reachable","Replication interrupted"]
+  visualNote: "This example assumes requests can still reach both sides of the partition."
 ```
 
 A network split separates **Replica A** from **Replica B**. Clients can still reach both sides.
@@ -24,11 +26,12 @@ The replicas cannot reliably exchange updates during the split.
 ## Choose behavior
 
 ```step
-active: [0,1]
-links: [[0,1,"Write during split"]]
-callouts: [[1,"Accept or reject per contract"]]
-status: ["Partitioned","Reject some or respond","Depends on chosen behavior"]
-visualNote: "Set the failure behavior per operation. A stale response can be acceptable for some reads."
+data:
+  active: [0,1]
+  links: [[0,1,"Write during split"]]
+  callouts: [[1,"Accept or reject per contract"]]
+  status: ["Partitioned","Reject some or respond","Depends on chosen behavior"]
+  visualNote: "Set the failure behavior per operation. A stale response can be acceptable for some reads."
 ```
 
 During the split, choose which guarantee a request needs.
@@ -43,11 +46,12 @@ With **linearizability**, operations appear to occur in one order that respects 
 ## Resolve changes
 
 ```step
-active: [1,2]
-links: [[1,2,"Send changes"],[2,1,"Reconcile writes"]]
-callouts: [[2,"Apply conflict rule"]]
-status: ["Restored","Reconcile writes","Resolve conflicts"]
-visualNote: "State how to handle updates accepted on both sides before the link recovered."
+data:
+  active: [1,2]
+  links: [[1,2,"Send changes"],[2,1,"Reconcile writes"]]
+  callouts: [[2,"Apply conflict rule"]]
+  status: ["Restored","Reconcile writes","Resolve conflicts"]
+  visualNote: "State how to handle updates accepted on both sides before the link recovered."
 ```
 
 If both sides accepted writes, reconcile them after the link returns.
