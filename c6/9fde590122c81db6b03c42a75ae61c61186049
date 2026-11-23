@@ -1,0 +1,125 @@
+content/lessons/sharding.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/rate-limiting.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/service-discovery.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,44-49
+content/lessons/microservices.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,46-51
+content/lessons/indexes.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/caching.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,30-35,45-50
+content/lessons/files.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,43-48
+content/lessons/pubsub.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/realtime.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,29-34,45-50
+README.md
+  s_ca5246ed41ee83::t_5428cc2ada16c6 44
+  s_ca5246ed41ee83::t_52ba26544d2c7f 31,38,85,88,94-96,102-108,116-121,154
+  s_ca5246ed41ee83::t_49d7e95c3f119b 45
+content/lessons/design-chat.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,33-38,55-60,72-77,93-98,111-116,130-135,147-152,166-171
+content/lessons/queues.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,44-49
+content/lessons/stateless.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,44-49
+content/lessons/storage-engines.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,30-35,46-51
+test/compile.test.js
+  s_ca5246ed41ee83::t_004760194b44c2 46-52
+content/lessons/apis.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,34-39,49-54
+content/lessons/unique-ids.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,31-35,45-49
+content/lessons/authentication.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,44-49
+content/lessons/load-balancing.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,30-36,50-56,72-77,87-93,104-110,122-126,136-141,154-160,170-175,190-196,209-214
+content/lessons/replication.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,44-49
+.gitignore
+  s_ca5246ed41ee83::t_377b71b1c3fdc8 3
+content/lessons/design-url-shortener.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,33-38,55-60,75-80,94-99,113-118,130-135,154-159,172-177,189-194,207-212,225-230
+content/lessons/cicd.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/observability.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,31-36,46-51
+content/lessons/encryption.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/design-news-feed.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,33-38,53-58,72-77,89-94,108-113,128-133,147-152,164-169
+content/lessons/latency-throughput.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,36-41,53-58,70-75,89-94,106-111,123-128
+scripts/site.js
+  s_ca5246ed41ee83::t_377b71b1c3fdc8 3
+content/lessons/request-lifecycle.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-18,32-38,50-56,68-73,83-88,98-103,117-122,135-141,154-159,169-175
+content/lessons/sagas.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,44-49
+content/lessons/transactions.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,33-38,48-53
+content/lessons/cdn.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,45-50
+content/lessons/sql-nosql.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,34-38,49-54
+content/lessons/batch-stream.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,26-31,41-46
+content/lessons/vertical-horizontal.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,31-36,46-50
+content/course.json
+  s_ca5246ed41ee83::t_9646e29233ea2b 1-119
+scripts/compile.js
+  s_ca5246ed41ee83::t_004760194b44c2 2,48
+  s_ca5246ed41ee83::t_dca60ab9091d64 3,15-17,19,22-27,29,32-34,36-45,47
+package.json
+  s_ca5246ed41ee83::t_e5a301e4ef1fb2 22
+  s_ca5246ed41ee83::t_7df488eb7a787f 12-16
+content/lessons/consensus.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+content/lessons/napkin-math.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,32-37,52-57,70-75,88-93,108-113,125-130,144-149
+content/lessons/timeouts-retries.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,28-33,43-48
+scripts/check.js
+  s_ca5246ed41ee83::t_d0897f0eb89783 26
+  s_ca5246ed41ee83::t_004760194b44c2 3,31
+  s_ca5246ed41ee83::t_dca60ab9091d64 1-2,4-5,8-9,11-13,18,23-25,34
+content/lessons/consistent-hashing.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,45-50
+content/lessons/cap.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,49-54
+AGENTS.md
+  s_ca5246ed41ee83::t_52ba26544d2c7f 9-10
+content/lessons/redundancy.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,29-34,46-51
+content/lessons/authorization.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,30-35,45-50
+app.js
+  s_ca5246ed41ee83::t_377b71b1c3fdc8 5,122-125,166
+content/lessons/testing.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-7,13-18,29-34,44-48
+content/lessons/hld-lld.md
+  s_ca5246ed41ee83::t_9646e29233ea2b 4-8,14-19,34-39,53-58,72-77,90-95,109-114,126-131,145-150
+package-lock.json
+  s_ca5246ed41ee83::t_907fc79e59be3b 11,20-70,101-124,132-138,229-238
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c69fde590122c81db6b03c42a75ae61c61186049",
+  "prompts": {},
+  "sessions": {
+    "s_ca5246ed41ee83": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207bc-aa91-7a21-898c-aa46af6e6a73",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
