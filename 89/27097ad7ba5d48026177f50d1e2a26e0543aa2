@@ -1,0 +1,28 @@
+.github/workflows/main.yml
+  s_b48a5a251f350e::t_a230464dc01aed 26-27
+package.json
+  s_b48a5a251f350e::t_da0ad73f37ea96 19
+README.md
+  s_b48a5a251f350e::t_a230464dc01aed 30,44,48,74,94
+  s_b48a5a251f350e::t_5f74c5901230cb 95
+test/course.test.js
+  s_b48a5a251f350e::t_05b1fea74933ba 25,38-43
+package-lock.json
+  s_b48a5a251f350e::t_9c983e815b7364 11,19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8927097ad7ba5d48026177f50d1e2a26e0543aa2",
+  "prompts": {},
+  "sessions": {
+    "s_b48a5a251f350e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20951-2757-7dd3-9b71-204283065145",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
