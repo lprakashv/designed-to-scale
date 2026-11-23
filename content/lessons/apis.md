@@ -3,19 +3,16 @@ title: REST, RPC & GraphQL
 summary: Compare ways services expose operations and data.
 data:
   original: true
-  nodes: [["Client","API consumer"],["API","Public contract"],["Service","Implements the operation"]]
-  statusLabels: ["Contract","Design focus","Check"]
 ---
 
 ## Choose a contract
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"GET /orders/42"],[1,2,"Load order 42"]]
-  callouts: [[1,"Choose request and response"]]
-  status: ["REST, RPC, or GraphQL","Resources, operations, fields","Match client needs"]
-  visualNote: "Compare how a client would make the same request with each interface."
+diagram:
+  type: svg
+  alt: "Client (in focus): API consumer. API (in focus): Public contract. Choose request and response. Service (in focus): Implements the operation. Flow: Client to API: GET /orders/42. API to Service: Load order 42."
+  caption: Compare how a client would make the same request with each interface.
+  src: diagrams/apis/1.svg
 ```
 
 Compare three ways to return the same order:
@@ -28,30 +25,44 @@ Compare three ways to return the same order:
 
 Choose the contract that fits the clients.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Contract | REST, RPC, or GraphQL |
+| Design focus | Resources, operations, fields |
+| Check | Match client needs |
+
 ## Plan evolution
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"List with cursor"]]
-  callouts: [[1,"Keep old clients compatible"]]
-  status: ["Versioned contract","Compatible changes","Test older clients"]
-  visualNote: "Add a new field before you remove one that deployed clients still use."
+diagram:
+  type: svg
+  alt: "Client (in focus): API consumer. API (in focus): Public contract. Keep old clients compatible. Service (context): Implements the operation. Flow: Client to API: List with cursor."
+  caption: Add a new field before you remove one that deployed clients still use.
+  src: diagrams/apis/2.svg
 ```
 
 Define the **schema**, **error responses**, and **pagination**.
 
 Add a new field as optional first. Test the old client against the new API.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Contract | **Versioned contract** |
+| Design focus | **Compatible changes** |
+| Check | **Test older clients** |
+
 ## Operate the API
 
 ```step
-data:
-  active: [1,2]
-  links: [[1,2,"Send with deadline"]]
-  callouts: [[1,"Check caller and deadline"]]
-  status: ["Running API","Deadlines and limits","Observe failures"]
-  visualNote: "Apply authentication and rate limits at the entry point and authorization where the action is enforced."
+diagram:
+  type: svg
+  alt: "Client (context): API consumer. API (in focus): Public contract. Check caller and deadline. Service (in focus): Implements the operation. Flow: API to Service: Send with deadline."
+  caption: Apply authentication and rate limits at the entry point and authorization where the action is enforced.
+  src: diagrams/apis/3.svg
 ```
 
 For each request:
@@ -60,3 +71,11 @@ For each request:
 2. Check access to the order.
 3. Apply a deadline.
 4. Record latency and outcome.
+
+### Example state
+
+| Item | State |
+| --- | --- |
+| Contract | **Running API** |
+| Design focus | **Deadlines and limits** |
+| Check | **Observe failures** |

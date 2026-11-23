@@ -4,24 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch scripts/serve.js --dev",
-    "start": "node scripts/serve.js",
-    "build": "node scripts/check.js --build",
-    "lint": "node scripts/check.js",
+    "dev": "course-board dev",
+    "start": "course-board preview",
+    "build": "course-board build",
+    "lint": "course-board check",
     "test": "node --test",
     "coverage": "node --experimental-test-coverage --test",
-    "setup:course-board": "course-board vendor scripts/vendor/course-board.js",
-    "predev": "npm run setup:course-board",
-    "prelint": "npm run setup:course-board",
-    "prebuild": "npm run setup:course-board"
+    "ingest": "course-board ingest"
   },
   "engines": {
     "node": ">=20.19.0"
   },
   "devDependencies": {
-    "@lprakashv/course-board": "https://github.com/lprakashv/course-board/releases/download/v0.1.1/lprakashv-course-board-0.1.1.tgz",
-    "markdown-it": "^15.0.3",
-    "roughjs": "4.6.6",
-    "yaml": "^2.9.1"
+    "@lprakashv/course-board": "https://codeload.github.com/lprakashv/course-board/tar.gz/046dd2ca02dfdea90ac7a94d817898096b712c6c"
   }
 }

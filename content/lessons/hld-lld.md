@@ -3,20 +3,16 @@ title: HLD & LLD
 summary: Move from a system's requirements to components, contracts, capacity, and failure behavior.
 data:
   original: true
-  nodes: [["Client","Creates and reads notes"],["Requirements","Scope and targets"],["Load balancer","Routes requests"],["Note API","Validates and handles notes"],["Note store","Persists notes and owners"],["Owner index","Lists notes by owner"],["Monitoring","Checks targets and failures"]]
-  layout: [[0,0],[0,1],[1,0],[2,0],[1,1],[2,1],[0,2]]
-  statusLabels: [Stage, Question, Outcome]
 ---
 
 ## Start with the problem
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"Identify needs"]]
-  callouts: [[1,"Private notes only"]]
-  status: ["Requirements","Who needs what?","Define scope"]
-  visualNote: "Identify the users and operations before selecting components."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (in focus): Scope and targets. Private notes only. Flow: Client to Requirements: Identify needs."
+  caption: Identify the users and operations before selecting components.
+  src: diagrams/hld-lld/1.svg
 ```
 
 | Level | What it describes |
@@ -28,15 +24,22 @@ Design a service for **private notes**. Users can create, read, and list their o
 
 Ask about availability, retention, access, and latency before you choose a database.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | Requirements |
+| Question | Who needs what? |
+| Outcome | Define scope |
+
 ## Size the workload
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"Estimate traffic"]]
-  callouts: [[1,"347 peak reads/s"]]
-  status: ["Sizing","10M reads/day","347 peak reads/s"]
-  visualNote: "The workload estimate gives the API and storage a starting capacity target."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (in focus): Scope and targets. 347 peak reads/s. Flow: Client to Requirements: Estimate traffic."
+  caption: The workload estimate gives the API and storage a starting capacity target.
+  src: diagrams/hld-lld/2.svg
 ```
 
 Assume **1 million users**. Each reads **10 notes per day**.
@@ -47,15 +50,22 @@ Assume **1 million users**. Each reads **10 notes per day**.
 
 > **Assumption.** Measure note sizes, bursts, and retention before committing to capacity.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | **Sizing** |
+| Question | **10M reads/day** |
+| Outcome | **347 peak reads/s** |
+
 ## Draw the high-level path
 
 ```step
-data:
-  active: [0,2,3,4]
-  links: [[0,2,"Create or read"],[2,3,"Route to API"],[3,4,"Read or write note"],[4,3,"Return store result"],[3,2,"Return HTTP result"],[2,0,"Relay the response"]]
-  callouts: [[3,"Stateless API instances"]]
-  status: ["HLD","Where does a request go?","Stateless API + store"]
-  visualNote: "The load balancer routes requests to an API, which reads and writes the store."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (context): Scope and targets. Load balancer (added) (in focus): Routes requests. Note API (added) (in focus): Validates and handles notes. Stateless API instances. Note store (added) (in focus): Persists notes and owners. Flow: Client to Load balancer: Create or read. Load balancer to Note API: Route to API. Note API to Note store: Read or write note. Note store to Note API: Return store result. Note API to Load balancer: Return HTTP result. Load balancer to Client: Relay the response."
+  caption: The load balancer routes requests to an API, which reads and writes the store.
+  src: diagrams/hld-lld/3.svg
 ```
 
 Trace a create and a read through the **client**, **load balancer**, **note API**, and **note store**.
@@ -66,15 +76,22 @@ Trace a create and a read through the **client**, **load balancer**, **note API*
 
 Use this path for peak-load and failure tests.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | **HLD** |
+| Question | **Where does a request go?** |
+| Outcome | **Stateless API + store** |
+
 ## Specify the interface
 
 ```step
-data:
-  active: [0,2,3,4]
-  links: [[0,2,"POST /notes"],[2,3,"Forward create"],[3,4,"Store note + owner"],[4,3,"Return new ID"],[3,2,"Return 201"],[2,0,"Relay note ID"]]
-  callouts: [[3,"Check caller and input"]]
-  status: ["LLD","What is the contract?","Validated request + response"]
-  visualNote: "The API validates input and returns a clear result for each operation."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (context): Scope and targets. Load balancer (in focus): Routes requests. Note API (in focus): Validates and handles notes. Check caller and input. Note store (in focus): Persists notes and owners. Flow: Client to Load balancer: POST /notes. Load balancer to Note API: Forward create. Note API to Note store: Store note + owner. Note store to Note API: Return new ID. Note API to Load balancer: Return 201. Load balancer to Client: Relay note ID."
+  caption: The API validates input and returns a clear result for each operation.
+  src: diagrams/hld-lld/4.svg
 ```
 
 | Endpoint | Result |
@@ -84,15 +101,22 @@ data:
 
 Define size limits, authentication, errors, and retry behavior. If creates must be safe to retry, define the scope and lifetime of an **idempotency key**.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | **LLD** |
+| Question | **What is the contract?** |
+| Outcome | **Validated request + response** |
+
 ## Model data and indexes
 
 ```step
-data:
-  active: [3,4,5]
-  links: [[3,4,"List owner's notes"],[4,5,"Seek owner + time"]]
-  callouts: [[5,"Stable order for pagination"]]
-  status: ["LLD","How is data accessed?","ID key + owner index"]
-  visualNote: "An ID identifies a note; an owner index supports listing a user's notes."
+diagram:
+  type: svg
+  alt: "Client (context): Creates and reads notes. Requirements (context): Scope and targets. Load balancer (context): Routes requests. Note API (in focus): Validates and handles notes. Note store (in focus): Persists notes and owners. Owner index (added) (in focus): Lists notes by owner. Stable order for pagination. Flow: Note API to Note store: List owner's notes. Note store to Owner index: Seek owner + time."
+  caption: An ID identifies a note; an owner index supports listing a user's notes.
+  src: diagrams/hld-lld/5.svg
 ```
 
 A note stores an **ID**, **owner ID**, **body**, and **timestamps**.
@@ -103,15 +127,22 @@ A note stores an **ID**, **owner ID**, **body**, and **timestamps**.
 
 Check ownership on each request. Measure the index's write and storage costs.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | LLD |
+| Question | **How is data accessed?** |
+| Outcome | **ID key + owner index** |
+
 ## Examine a failure
 
 ```step
-data:
-  active: [0,2,3,4]
-  links: [[0,2,"Retry with same key"],[2,3,"Forward retry"],[3,4,"Check prior outcome"]]
-  callouts: [[4,"Write and key commit together"]]
-  status: ["Failure","What if the store times out?","Bounded retry + idempotency"]
-  visualNote: "A timeout can leave the client unsure whether the write succeeded."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (context): Scope and targets. Load balancer (in focus): Routes requests. Note API (in focus): Validates and handles notes. Note store (in focus): Persists notes and owners. Write and key commit together. Owner index (context): Lists notes by owner. Flow: Client to Load balancer: Retry with same key. Load balancer to Note API: Forward retry. Note API to Note store: Check prior outcome."
+  caption: A timeout can leave the client unsure whether the write succeeded.
+  src: diagrams/hld-lld/6.svg
 ```
 
 The store can time out after it saves a note. The API may have received no result.
@@ -120,15 +151,22 @@ The store can time out after it saves a note. The API may have received no resul
 
 Set a deadline. Limit retries and add backoff. Return a clear error during an outage. Test recovery from a backup.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | **Failure** |
+| Question | **What if the store times out?** |
+| Outcome | **Bounded retry + idempotency** |
+
 ## Check the design against the goal
 
 ```step
-data:
-  active: [0,2,3,4,6]
-  links: [[0,2,"Send peak load"],[2,3,"Distribute requests"],[3,4,"Test store paths"],[3,6,"Report telemetry"]]
-  callouts: [[6,"Measure p95 and p99"]]
-  status: ["Validation","Does the design meet the target?","Load and failure tests"]
-  visualNote: "Measurements connect the high-level design and low-level choices to the original requirements."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (context): Scope and targets. Load balancer (in focus): Routes requests. Note API (in focus): Validates and handles notes. Note store (in focus): Persists notes and owners. Owner index (context): Lists notes by owner. Monitoring (added) (in focus): Checks targets and failures. Measure p95 and p99. Flow: Client to Load balancer: Send peak load. Load balancer to Note API: Distribute requests. Note API to Note store: Test store paths. Note API to Monitoring: Report telemetry."
+  caption: Measurements connect the high-level design and low-level choices to the original requirements.
+  src: diagrams/hld-lld/7.svg
 ```
 
 Run the full path at and above the estimated peak.
@@ -139,15 +177,22 @@ Run the full path at and above the estimated peak.
 
 If the store is slow, measure its access patterns before adding an index or cache. Set freshness and invalidation rules for any cache.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | **Validation** |
+| Question | **Does the design meet the target?** |
+| Outcome | **Load and failure tests** |
+
 ## Recap: connect HLD and LLD
 
 ```step
-data:
-  active: [0,1,2,3,4,5,6]
-  links: [[0,2,"Submit request"],[2,3,"Route to API"],[3,4,"Validate and save"],[4,5,"Use the owner index"],[3,6,"Check targets"],[0,1,"Define needs"]]
-  callouts: [[1,"Tie choices to requirements"]]
-  status: ["Recap","Requirements → evidence","Revisit assumptions"]
-  visualNote: "The same board ties the private-note requirements to the API, store, index, and tests."
+diagram:
+  type: svg
+  alt: "Client (in focus): Creates and reads notes. Requirements (in focus): Scope and targets. Tie choices to requirements. Load balancer (in focus): Routes requests. Note API (in focus): Validates and handles notes. Note store (in focus): Persists notes and owners. Owner index (in focus): Lists notes by owner. Monitoring (in focus): Checks targets and failures. Flow: Client to Load balancer: Submit request. Load balancer to Note API: Route to API. Note API to Note store: Validate and save. Note store to Owner index: Use the owner index. Note API to Monitoring: Check targets. Client to Requirements: Define needs."
+  caption: The same board ties the private-note requirements to the API, store, index, and tests.
+  src: diagrams/hld-lld/8.svg
 ```
 
 | Decision | Why it matters |
@@ -160,3 +205,11 @@ data:
 | Test load and recovery | Check the design against its targets. |
 
 **HLD** chooses the major paths. **LLD** makes them specific enough to build, test, and operate.
+
+### Example state
+
+| Item | State |
+| --- | --- |
+| Stage | **Recap** |
+| Question | **Requirements → evidence** |
+| Outcome | **Revisit assumptions** |

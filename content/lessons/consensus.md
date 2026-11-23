@@ -3,50 +3,69 @@ title: Consensus & Leaders
 summary: Coordinate a replicated state machine across failures.
 data:
   original: true
-  nodes: [["Client","Submits writes"],["Leader","Coordinates the log"],["Followers","Voting replicas"]]
-  statusLabels: ["Leader state","Agreement","Progress"]
 ---
 
 ## Elect a leader
 
 ```step
-data:
-  active: [1,2]
-  links: [[2,1,"Grant votes"],[1,2,"Leader heartbeat"]]
-  callouts: [[1,"New term"]]
-  status: ["Election","Majority vote","Wait for leader"]
-  visualNote: "A majority requirement prevents two disjoint groups from electing different leaders for the same term."
+diagram:
+  type: svg
+  alt: "Leader (in focus): Coordinates the log. New term. Followers (in focus): Voting replicas. Flow: Followers to Leader: Grant votes. Leader to Followers: Leader heartbeat."
+  caption: A majority requirement prevents two disjoint groups from electing different leaders for the same term.
+  src: diagrams/consensus/1.svg
 ```
 
 In a **three-member Raft cluster**, a candidate needs **two votes** to become leader.
 
 The leader sends heartbeats to maintain its role.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Leader state | Election |
+| Agreement | Majority vote |
+| Progress | Wait for leader |
+
 ## Commit a change
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"Propose change"],[1,2,"Append log entry"],[2,1,"Acknowledge append"]]
-  callouts: [[1,"Current term + majority"]]
-  status: ["Leader available","Quorum replication","Commit per protocol"]
-  visualNote: "The leader waits for the required replicas before it reports a committed change."
+diagram:
+  type: svg
+  alt: "Client (added) (in focus): Submits writes. Leader (in focus): Coordinates the log. Current term + majority. Followers (in focus): Voting replicas. Flow: Client to Leader: Propose change. Leader to Followers: Append log entry. Followers to Leader: Acknowledge append."
+  caption: The leader waits for the required replicas before it reports a committed change.
+  src: diagrams/consensus/2.svg
 ```
 
 The leader can commit an entry from its current term once a **majority** stores that entry.
 
 In a three-member cluster, copies on the leader and one follower are enough.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Leader state | **Leader available** |
+| Agreement | **Quorum replication** |
+| Progress | **Commit per protocol** |
+
 ## Handle failure
 
 ```step
-data:
-  active: [1,2]
-  links: [[2,1,"Elect a replacement"]]
-  callouts: [[2,"Requires two of three votes"]]
-  status: ["Leader failed","Needs a quorum","Restarts after election"]
-  visualNote: "If too few replicas remain reachable, operations that need agreement must wait."
+diagram:
+  type: svg
+  alt: "Client (context): Submits writes. Leader (in focus): Coordinates the log. Followers (in focus): Voting replicas. Requires two of three votes. Flow: Followers to Leader: Elect a replacement."
+  caption: If too few replicas remain reachable, operations that need agreement must wait.
+  src: diagrams/consensus/3.svg
 ```
 
 - **Two members can communicate:** They can elect a replacement if the candidate's log meets the protocol rules.
 - **Only one member is reachable:** It cannot elect a leader or commit a new entry.
+
+### Example state
+
+| Item | State |
+| --- | --- |
+| Leader state | **Leader failed** |
+| Agreement | **Needs a quorum** |
+| Progress | **Restarts after election** |

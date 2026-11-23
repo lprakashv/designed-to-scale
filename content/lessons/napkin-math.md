@@ -3,20 +3,16 @@ title: Napkin Math
 summary: Turn explicit workload assumptions into traffic, bandwidth, and storage estimates.
 data:
   original: true
-  nodes: [["Users","Upload and view photos"],["Photo service","Handles reads and uploads"],["Object storage","Holds original images"],["Replicas","Additional copies"],["Cache","Serves repeated views"],["Load balancer","Distributes requests"]]
-  layout: [[0,0],[1,0],[2,0],[2,1],[1,1],[0,1]]
-  statusLabels: [Input, Estimate, Decision]
 ---
 
 ## Define the example
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"View or upload"]]
-  callouts: [[0,"Assume 1M daily users"]]
-  status: ["1M daily users","Estimate next","State assumptions"]
-  visualNote: "Users produce requests; the service must handle both normal and peak traffic."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Assume 1M daily users. Photo service (in focus): Handles reads and uploads. Flow: Users to Photo service: View or upload."
+  caption: Users produce requests; the service must handle both normal and peak traffic.
+  src: diagrams/napkin-math/1.svg
 ```
 
 Assume a photo service has **1 million daily active users**. Each person:
@@ -26,15 +22,22 @@ Assume a photo service has **1 million daily active users**. Each person:
 
 > **Units.** This example uses decimal sizes. **1 MB = 1,000,000 bytes**. **1 TB = 1,000 GB**.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | 1M daily users |
+| Estimate | Estimate next |
+| Decision | State assumptions |
+
 ## Convert daily traffic to a rate
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"20M reads/day"]]
-  callouts: [[1,"231 reads/s on average"]]
-  status: ["20 reads/user/day","≈231 reads/s average","Separate reads and writes"]
-  visualNote: "Divide daily requests by the number of seconds in a day."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Photo service (in focus): Handles reads and uploads. 231 reads/s on average. Flow: Users to Photo service: 20M reads/day."
+  caption: Divide daily requests by the number of seconds in a day.
+  src: diagrams/napkin-math/2.svg
 ```
 
 There are **86,400 seconds** in a day.
@@ -46,15 +49,22 @@ There are **86,400 seconds** in a day.
 
 Keep these rates separate. Reads and uploads can use different resources.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **20 reads/user/day** |
+| Estimate | **≈231 reads/s average** |
+| Decision | **Separate reads and writes** |
+
 ## Allow for peak load
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"Model the 3× peak"]]
-  callouts: [[1,"694 peak reads/s"]]
-  status: ["Assume 3× peak","≈694 reads/s peak","Reserve headroom"]
-  visualNote: "A peak multiplier raises the capacity target above the daily average."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Photo service (in focus): Handles reads and uploads. 694 peak reads/s. Flow: Users to Photo service: Model the 3× peak."
+  caption: A peak multiplier raises the capacity target above the daily average.
+  src: diagrams/napkin-math/3.svg
 ```
 
 Assume peak traffic is **3×** the daily average.
@@ -64,15 +74,22 @@ Assume peak traffic is **3×** the daily average.
 
 > **Assumption.** Events, regions, and retries can change the peak. Use measured traffic when available.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **Assume 3× peak** |
+| Estimate | **≈694 reads/s peak** |
+| Decision | **Reserve headroom** |
+
 ## Calculate ingress bandwidth
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"Upload a 2 MB image"],[1,2,"Store the image"]]
-  callouts: [[1,"23 MB/s average ingress"]]
-  status: ["2 MB/upload","≈23 MB/s average","Size network and storage"]
-  visualNote: "Upload bytes cross the network before the service stores them."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Photo service (in focus): Handles reads and uploads. 23 MB/s average ingress. Object storage (added) (in focus): Holds original images. Flow: Users to Photo service: Upload a 2 MB image. Photo service to Object storage: Store the image."
+  caption: Upload bytes cross the network before the service stores them.
+  src: diagrams/napkin-math/4.svg
 ```
 
 At **2 MB per upload**:
@@ -82,15 +99,22 @@ At **2 MB per upload**:
 
 > **Warning.** Capital **B** means bytes. Lowercase **b** means bits. One byte has **8 bits**.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **2 MB/upload** |
+| Estimate | **≈23 MB/s average** |
+| Decision | **Size network and storage** |
+
 ## Calculate storage and replication
 
 ```step
-data:
-  active: [1,2,3]
-  links: [[1,2,"Store 2 TB/day"],[2,3,"Write two copies"]]
-  callouts: [[3,"About 6 TB/day in all copies"]]
-  status: ["1M uploads/day · 2 MB","2 TB/day logical","3 copies ≈ 6 TB/day"]
-  visualNote: "The logical image is stored and replicated; copies increase physical capacity."
+diagram:
+  type: svg
+  alt: "Users (context): Upload and view photos. Photo service (in focus): Handles reads and uploads. Object storage (in focus): Holds original images. Replicas (added) (in focus): Additional copies. About 6 TB/day in all copies. Flow: Photo service to Object storage: Store 2 TB/day. Object storage to Replicas: Write two copies."
+  caption: The logical image is stored and replicated; copies increase physical capacity.
+  src: diagrams/napkin-math/5.svg
 ```
 
 Each day brings **1 million uploads × 2 MB = 2 TB** of logical data.
@@ -102,15 +126,22 @@ Each day brings **1 million uploads × 2 MB = 2 TB** of logical data.
 
 This estimate excludes backups, indexes, other image sizes, and storage overhead. Count backups separately from replicas.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **1M uploads/day · 2 MB** |
+| Estimate | **2 TB/day logical** |
+| Decision | **3 copies ≈ 6 TB/day** |
+
 ## Estimate outgoing traffic and caching
 
 ```step
-data:
-  active: [0,2,4]
-  links: [[0,4,"Request a photo"],[4,2,"Fetch on miss"],[2,4,"Return original"],[4,0,"Serve the photo"]]
-  callouts: [[4,"90% byte hit rate"]]
-  status: ["20M reads/day · 2 MB","40 TB/day delivered","90% hit → 4 TB origin"]
-  visualNote: "The cache serves hits; misses still read from origin storage."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Photo service (context): Handles reads and uploads. Object storage (in focus): Holds original images. Replicas (context): Additional copies. Cache (added) (in focus): Serves repeated views. 90% byte hit rate. Flow: Users to Cache: Request a photo. Cache to Object storage: Fetch on miss. Object storage to Cache: Return original. Cache to Users: Serve the photo."
+  caption: The cache serves hits; misses still read from origin storage.
+  src: diagrams/napkin-math/6.svg
 ```
 
 Clients read **20 million photos/day × 2 MB = 40 TB/day**.
@@ -119,15 +150,22 @@ If caches serve **90% of the bytes**, the origin serves **4 TB/day**.
 
 > **Note.** The byte hit rate can differ from the request hit rate. A few large misses can account for most of the bytes.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **20M reads/day · 2 MB** |
+| Estimate | **40 TB/day delivered** |
+| Decision | **90% hit → 4 TB origin** |
+
 ## Test a capacity choice
 
 ```step
-data:
-  active: [0,1,5]
-  links: [[0,5,"Send peak reads"],[5,1,"Route to replicas"]]
-  callouts: [[1,"Four serving + one spare"]]
-  status: ["694 peak reads/s","200 reads/s per replica","5 replicas with one spare"]
-  visualNote: "The load balancer distributes requests among service replicas."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Photo service (in focus): Handles reads and uploads. Four serving + one spare. Object storage (context): Holds original images. Replicas (context): Additional copies. Cache (context): Serves repeated views. Load balancer (added) (in focus): Distributes requests. Flow: Users to Load balancer: Send peak reads. Load balancer to Photo service: Route to replicas."
+  caption: The load balancer distributes requests among service replicas.
+  src: diagrams/napkin-math/7.svg
 ```
 
 Assume one replica can serve **200 reads/s** at the target latency.
@@ -138,15 +176,22 @@ Assume one replica can serve **200 reads/s** at the target latency.
 
 > **Check.** Verify latency under concurrent load. Test uneven routing and downstream failures.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **694 peak reads/s** |
+| Estimate | **200 reads/s per replica** |
+| Decision | **5 replicas with one spare** |
+
 ## Recap: a repeatable method
 
 ```step
-data:
-  active: [0,1,2,3,4,5]
-  links: [[0,5,"Send reads"],[5,1,"Distribute requests"],[1,4,"Read from cache"],[4,2,"Fetch on miss"],[2,3,"Replicate uploads"]]
-  callouts: [[1,"Verify peak capacity"],[2,"730 TB/year logical"]]
-  status: ["Assumptions stated","694 peak reads/s · 730 TB/year","Measure and revise"]
-  visualNote: "The estimates inform capacity for the service, cache, network, and storage."
+diagram:
+  type: svg
+  alt: "Users (in focus): Upload and view photos. Photo service (in focus): Handles reads and uploads. Verify peak capacity. Object storage (in focus): Holds original images. 730 TB/year logical. Replicas (in focus): Additional copies. Cache (in focus): Serves repeated views. Load balancer (in focus): Distributes requests. Flow: Users to Load balancer: Send reads. Load balancer to Photo service: Distribute requests. Photo service to Cache: Read from cache. Cache to Object storage: Fetch on miss. Object storage to Replicas: Replicate uploads."
+  caption: The estimates inform capacity for the service, cache, network, and storage.
+  src: diagrams/napkin-math/8.svg
 ```
 
 | Quantity | Estimate and implication |
@@ -157,3 +202,11 @@ data:
 | Origin traffic | **4 TB/day** when caches serve 90% of bytes. |
 
 Write down units and assumptions before sizing. Compare the estimates with measured load.
+
+### Example state
+
+| Item | State |
+| --- | --- |
+| Input | **Assumptions stated** |
+| Estimate | **694 peak reads/s · 730 TB/year** |
+| Decision | **Measure and revise** |

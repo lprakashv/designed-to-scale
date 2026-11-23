@@ -3,34 +3,38 @@ title: Content Delivery
 summary: Place static content closer to users.
 data:
   original: true
-  nodes: [["User","Browser near the edge"],["Edge cache","Regional HTTP cache"],["Origin","Source server"]]
-  statusLabels: ["Where served","Edge state","Origin traffic"]
 ---
 
 ## Serve from the edge
 
 ```step
-data:
-  active: [0,1]
-  links: [[0,1,"Request logo"],[1,0,"Return cached logo"]]
-  callouts: [[1,"Fresh copy nearby"]]
-  status: ["Nearby edge","Hit","No read for this hit"]
-  visualNote: "A fresh public asset can leave the edge without a trip to the origin."
+diagram:
+  type: svg
+  alt: "User (in focus): Browser near the edge. Edge cache (in focus): Regional HTTP cache. Fresh copy nearby. Flow: User to Edge cache: Request logo. Edge cache to User: Return cached logo."
+  caption: A fresh public asset can leave the edge without a trip to the origin.
+  src: diagrams/cdn/1.svg
 ```
 
 A browser requests a public logo. A nearby **edge cache** has a fresh copy.
 
 The edge returns the logo without a trip to the origin server.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Where served | Nearby edge |
+| Edge state | Hit |
+| Origin traffic | No read for this hit |
+
 ## Fetch on a miss
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"Request image"],[1,2,"Fetch from origin"],[2,1,"Cacheable response"],[1,0,"Serve image"]]
-  callouts: [[2,"Origin handles the miss"]]
-  status: ["Origin via edge","Miss","Fetch in progress"]
-  visualNote: "The edge can keep an eligible origin response for the next visitor."
+diagram:
+  type: svg
+  alt: "User (in focus): Browser near the edge. Edge cache (in focus): Regional HTTP cache. Origin (added) (in focus): Source server. Origin handles the miss. Flow: User to Edge cache: Request image. Edge cache to Origin: Fetch from origin. Origin to Edge cache: Cacheable response. Edge cache to User: Serve image."
+  caption: The edge can keep an eligible origin response for the next visitor.
+  src: diagrams/cdn/2.svg
 ```
 
 An edge cache receives a request for an image. It has no fresh copy.
@@ -39,17 +43,32 @@ An edge cache receives a request for an image. It has no fresh copy.
 2. Save it only if the cache policy allows it.
 3. Return the image to the browser.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Where served | **Origin via edge** |
+| Edge state | **Miss** |
+| Origin traffic | **Fetch in progress** |
+
 ## Control freshness
 
 ```step
-data:
-  active: [1,2]
-  links: [[2,1,"Cache headers"]]
-  callouts: [[1,"Cache by versioned URL"],[2,"Mark private responses"]]
-  status: ["Edge or origin","Versioned or expired","Fetch on miss"]
-  visualNote: "A new versioned file name lets the previous cache entry expire on its own."
+diagram:
+  type: svg
+  alt: "User (context): Browser near the edge. Edge cache (in focus): Regional HTTP cache. Cache by versioned URL. Origin (in focus): Source server. Mark private responses. Flow: Origin to Edge cache: Cache headers."
+  caption: A new versioned file name lets the previous cache entry expire on its own.
+  src: diagrams/cdn/3.svg
 ```
 
 Give a changed logo a **new URL**. Cache each version for a long period.
 
 > **Warning.** Set the correct cache headers for private content. A shared cache must not serve one user's data to someone else.
+
+### Example state
+
+| Item | State |
+| --- | --- |
+| Where served | **Edge or origin** |
+| Edge state | **Versioned or expired** |
+| Origin traffic | **Fetch on miss** |

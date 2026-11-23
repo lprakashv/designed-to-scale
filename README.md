@@ -1,162 +1,111 @@
 # System Design Study Course
 
-A local, editable course for learning system design one step at a time. 📚 Explore 40 lessons in nine chapters, from request lifecycles and caching to URL shorteners, news feeds, and chat systems.
+Study system design in 40 lessons across nine chapters. Follow requests through a system, compare ways to store and share data, and design a URL shortener, news feed, and chat service.
 
-**[Open the course](https://www.lprakashv.com/designed-to-scale/)** · [Run locally](#run-locally) · [Add a lesson](#add-content) · [Contribute](CONTRIBUTING.md)
+**[Open the course](https://www.lprakashv.com/designed-to-scale/)** · [Run locally](#run-locally) · [Edit in Studio](#edit-in-studio) · [Contribute](CONTRIBUTING.md)
 
-![A request lifecycle lesson with its reading guide, state cards, and whiteboard](showcase/request-lifecycle.jpg)
+![The Course Board learner view for the request lifecycle lesson](showcase/request-lifecycle.jpg)
 
-The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The local text and diagrams are independently written. Foundations, load balancing, and Whole Systems have expanded walkthroughs. The remaining 32 lessons give three-step introductions.
+The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The lesson text and diagrams are independently written.
 
-## Explore the course 🔍
+## Use the course
 
-Browse chapters in the navigation pane. The current chapter opens automatically. Use **Back**, **Next**, the step selector, or the arrow keys to move between steps. Use **/** or **Ctrl+K** (**Command+K** on Mac) to search. Enter opens the first result; Escape closes and clears the search.
+Select a lesson in the outline. Use the step links, **Previous**, **Next**, or the arrow keys to move between steps. On a narrow screen, select **Course** to open the outline.
 
-On wide screens, drag the dividers to resize the navigation, guide, and whiteboard. With a divider focused, use **Left** and **Right** to resize or **Home** and **End** to reach its limits. On narrow screens, the board and guide stack. The title and lesson controls stay visible as you scroll.
+Use **Search** to find chapters, lessons, and step titles. Select **Mark complete** at the end of a lesson. Course Board saves the completion status in your browser.
 
-The board starts fitted to the diagram. Use **+** or pinch outward to zoom, then drag to pan. Select **Fit** to restore the full view. With the board focused, use **+**, **−**, or **0** to change zoom; the arrow keys pan while zoomed in. The view stays in place between steps of the same lesson.
-
-Each lesson builds one board with fixed component positions. **Added** marks a component's first step. Purple boxes show the current focus; plain boxes show context. Box notes explain decisions or state changes. Labeled arrows show the current operations and animate once in link order. Steps without arrows and browsers set to reduce motion show static diagrams. State cards compare each step with the preceding step, including when you open a direct link.
-
-The Excalidraw-style boards use [Rough.js](https://github.com/rough-stuff/rough) and [Virgil](https://github.com/excalidraw/virgil). The build serves the drawing code and font locally.
-
-![A walkthrough of successive request lifecycle steps](showcase/walkthrough.gif)
-
-See the [URL shortener example](showcase/url-shortener.jpg) and [dark theme](showcase/dark-mode.jpg) for more views.
-
-## Project map 🗂️
-
-| Path | Purpose |
-| --- | --- |
-| `content/course.json`, `content/lessons/` | Chapter order and Markdown lesson sources |
-| `app.js`, `index.html`, `styles.css` | Course interface, navigation, and styling |
-| `scripts/` | Content compiler, validation, diagrams, pane controls, and local server |
-| `test/` | Node tests for content and interface logic |
-| `showcase/` | Screenshots and the walkthrough recording |
-| `.github/workflows/` | Pull request checks and Pages deployment |
-
-Course Board validates the manifest and compiles the lessons. A custom shell adapts the course data and builds the existing interface. The browser loads the compiled data from `dist/content/course.json`. The shell uses the existing Rough.js renderer through Course Board. See [AGENTS.md](AGENTS.md) for development conventions.
-
-## Requirements
-
-Node.js 20.19 or later and npm. The development server and build use Markdown-it and YAML. A deployed site serves static files.
-
-The development, lint, and build commands copy the Course Board diagram module from the installed package to `scripts/vendor/`. This generated directory is not tracked in Git. The dependency is pinned to the Course Board v0.1.1 GitHub Release asset.
+Share a step with a link such as [Find the address](https://www.lprakashv.com/designed-to-scale/#/request-lifecycle/2). The course uses one whiteboard image for each existing step. The diagrams keep the component positions across steps. Green marks a component that first appears in that step. Purple marks a component in focus.
 
 ## Run locally
+
+Install Node.js 20.19 or later and npm.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open <http://127.0.0.1:4173>. Save a course document and reload the page to see the changes. The server restarts when its JavaScript modules change. Press `Ctrl+C` to stop it. Set `PORT` to use another port:
+Open [the development preview](http://127.0.0.1:4173/). Save a source file and reload the page to build it again. Set `PORT` to use a different port.
+
+The lockfile pins [Course Board commit `046dd2c`](https://github.com/lprakashv/course-board/commit/046dd2ca02dfdea90ac7a94d817898096b712c6c). It includes the CLI importer and Studio added after the v0.1.2 tag.
+
+## Edit in Studio
+
+Use a separate Course Board source checkout at the pinned commit. Install its editor dependencies and pass the path to this course. This example assumes both checkouts have the same parent directory.
 
 ```sh
-PORT=4174 npm run dev
+cd ../course-board
+npm ci
+node src/cli.js author ../designed-to-scale
 ```
 
-## Deploy
+Open [Course Board Studio](http://127.0.0.1:4175/). Edit the outline, lesson text, diagrams, and course settings. Select **Save course** to write the source files. Reload the learner preview to see the saved changes.
 
-Pushes to `main` run the GitHub Actions workflow. The workflow installs the locked dependencies, validates and builds the course, and publishes `dist/` to the `gh-pages` branch. GitHub Pages serves that branch at <https://www.lprakashv.com/designed-to-scale/>.
+The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/046dd2ca02dfdea90ac7a94d817898096b712c6c/docs/authoring.md#edit-a-course-in-the-browser).
 
-To preview the static build locally, use these commands after `npm ci`.
+## Add content
+
+Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/046dd2ca02dfdea90ac7a94d817898096b712c6c/src/browser/course.css).
+
+Add a Markdown file in `content/lessons/` and list its ID in the chapter that will contain it. Use a top-level `##` heading for each step. Put an optional fenced `step` block just after the heading. A diagram `src` is relative to `public/`.
+
+````markdown
+---
+title: DNS Lookup
+summary: Follow a browser as it finds a server address.
+---
+
+## Ask the resolver
+
+```step
+diagram:
+  type: svg
+  alt: The browser asks the resolver for the server address.
+  src: diagrams/request-lifecycle/2.svg
+```
+
+If the browser has no valid cache entry, it asks a DNS resolver for the server address.
+````
+
+Keep lesson IDs and the order of published steps stable to preserve numbered links. For a new step, add an optional `id` in its step block to give it a link that follows the step when it moves.
+
+### Import a course bundle
+
+Use the [Course Board bundle format](https://github.com/lprakashv/course-board/blob/046dd2ca02dfdea90ac7a94d817898096b712c6c/docs/authoring.md#import-a-course-from-the-cli) to supply the complete outline, lessons, and asset mappings. Import into a separate directory to review the result before updating the course.
 
 ```sh
+npm run ingest -- /path/to/course-bundle.json /path/to/review-course
+```
+
+Use `.` as the target to apply the bundle to this checkout. The import replaces the outline and updates the lessons and assets listed in the bundle. Course Board validates the new files before it writes them.
+
+## Build and deploy
+
+```sh
+npm run lint
+npm test
+npm run coverage
 npm run build
 npm start
 ```
 
-To use another static host, publish the contents of `dist/`. The build writes the compiled data to `dist/content/course.json`. Edit the source documents to change it. The browser downloads the compiled course, so keep secrets out of the lesson files.
+Open [the production preview](http://127.0.0.1:4174/). The build writes the learner site to `dist/`. Publish that directory to a static host. The Pages workflow builds on pushes to `main` and publishes `dist/` to the `gh-pages` branch.
 
-## Website analytics
+The integration tests check the course data and the learner build. Run `npm run coverage` in the Course Board source checkout to measure Course Board's code coverage.
 
-The site uses Google Analytics 4 (GA4) for page-view tracking. The integration tracks the first view and each lesson or step change. The Pages workflow reads `GOOGLE_TAG_ID` from a GitHub Actions repository variable and injects it into the built site. Local previews on `localhost` and `127.0.0.1` are not tracked.
+## Project map
 
-Add the ID from the GA4 web stream setup as a repository variable named `GOOGLE_TAG_ID`: open **Settings → Secrets and variables → Actions → Variables**, then select **New repository variable**. This tag ID is public in the website source, so a variable is sufficient; do not store it in the code. Make sure that its Google tag sends data to this stream. Google recommends managing tag destinations in the Google tag interface.
-
-To verify tracking, open the deployed site and check **Reports → Realtime** in Analytics. Google says initial data can take up to 30 minutes to appear; use [Tag Assistant](https://tagassistant.google.com/) to check the tag.
-
-Review Google's data collection and privacy settings for your audience and region, and update the site's privacy notice if required. See Google's [GA4 setup guide](https://support.google.com/analytics/answer/14183469), [Google tag setup guide](https://developers.google.com/tag-platform/gtagjs), and [tag destination settings](https://support.google.com/analytics/answer/12329709).
-
-## Add content
-
-1. Create a Markdown file in [content/lessons](content/lessons), with a name such as `cache-example.md`. Use lowercase letters, digits, and hyphens for the lesson ID.
-2. Add the ID without `.md` to a chapter’s `lessons` list in [content/course.json](content/course.json). Set the chapter title with `title`. The index sets chapter and lesson order.
-3. Run `npm run lint` to check the documents. Reload the development preview to see your changes.
-
-Start the document with YAML front matter. Put shared diagram settings in the lesson `data` mapping. Use a top-level `##` heading for each step. Place a fenced `step` block with its `data` mapping immediately after the heading. Then write the lesson prose in Markdown.
-
-````markdown
----
-title: Cache Example
-summary: Compare a cache hit with a cache miss.
-data:
-  nodes: [[Service, Handles reads], [Cache, Temporary copies], [Database, Source of truth]]
-  statusLabels: [Cache state]
----
-
-## Read from the cache
-
-```step
-data:
-  active: [0, 1]
-  links: [[0, 1, Look up record], [1, 0, Return cached record]]
-  callouts: [[1, Fresh entry]]
-  status: [Hit]
-  note: A hit can avoid a database read.
-  visualNote: The request stops at the cache.
-```
-
-The service asks the cache for a record. The cache has a **fresh entry** and returns it.
-
-## Read from the database
-
-```step
-data:
-  active: [0, 1, 2]
-  links: [[0, 1, Look up record], [1, 0, Report miss], [0, 2, Read source record], [2, 0, Return record]]
-  callouts: [[2, Read only on a miss]]
-  status: [Miss]
-  visualNote: The service reads the source after a cache miss.
-```
-
-The service reads the record from the database and fills the cache for the next request.
-````
-
-| Field | Use |
+| Path | Purpose |
 | --- | --- |
-| `title`, `summary` | Set the lesson title and introduction. |
-| `nodes` | List the components once for the whole lesson, using `[name, caption]` pairs. Keep labels and captions short. |
-| `layout` | Optionally set a list of `[column, row]` positions in node order. Positions start at zero and may use half steps to center a component between rows or columns. |
-| `original` | Set to `true` if Designed to Scale has a lesson with the same ID. This is source metadata. |
-| `active` | List the component indexes to highlight. The first component has index 0. |
-| `links` | Add `[from, to, label]` entries in the order to animate them. Use a short label that fits next to the arrow. Omit this field for a step without a flow. |
-| `callouts` | Add at least one `[node, note]` pair to each step. Keep the note short enough to read inside its component. |
-| `statusLabels`, `status` | Set optional labels for the lesson and one value per label for each step. Quote numeric values so YAML reads them as text. |
-| `note`, `visualNote` | Add an optional key idea in the guide and a required caption below the whiteboard. |
+| `content/course.json` | Course title, theme preset, and outline |
+| `content/lessons/` | Lesson text, steps, and diagram references |
+| `public/diagrams/` | Whiteboard images |
+| `test/` | Course Board integration checks |
+| `showcase/` | Course screenshots and recordings |
+| `.github/workflows/` | CI and GitHub Pages deployment |
 
-A component first appears when a step references it in `active`, `links`, or `callouts`. It stays visible in later steps. Use stable names when the component changes state. Use the default layout for a simple chain. For a branch or a return path, set positions that keep connected components close and leave space for their arrows.
-
-Write short paragraphs and put one action in each list item. Use numbered lists for a sequence and tables for comparisons. Prefer two columns so tables fit in the reading pane. Use bold for facts and values to remember. Use `> **Note.**` for a note and `> **Warning.**` for a caution. The prose also supports links and fenced code. Use `###` or smaller headings within a step. The renderer displays raw HTML as text.
-
-Keep existing lesson IDs stable to preserve links and saved position. The order of the step headings sets the step numbers in local links. The browser saves pane widths, the last lesson and step, and the theme locally. Opening a direct lesson link takes you to that step.
-
-## Checks
-
-```sh
-npm run lint
-npm run build
-npm test
-npm run coverage
-```
-
-`lint` checks the source documents and course-specific data. `build` uses the Course Board build lifecycle and the custom shell to write the static site. Tests cover the authoring example, invalid metadata, and the diagram renderer.
-
-## Contributing 🤝
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, content guidelines, checks, and pull requests. The CI workflow runs lint, tests, and build on Node.js 20 and 22.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) for contribution guidelines.
 
 ## License
 
-The original work in this repository is available under the [MIT License](LICENSE). The referenced Designed to Scale course and third-party assets remain subject to their own terms; see the notices in `assets/` and the Rough.js package.
+The original work in this repository is available under the [MIT License](LICENSE). See [the Virgil license notice](assets/Virgil-LICENSE.md) for the font in earlier showcase images.

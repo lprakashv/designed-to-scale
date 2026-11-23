@@ -1,26 +1,23 @@
 # Contributing
 
-Thanks for helping improve the course. Small, focused changes are easier to review.
-
 ## Get started
 
 1. Fork and clone the repository.
 2. Install Node.js 20.19 or later and run `npm ci`.
-3. Run `npm run dev` and open <http://127.0.0.1:4173>.
+3. Run `npm run dev` and open [the learner preview](http://127.0.0.1:4173/).
 4. Create a branch for your change.
 
-See the [README](README.md#add-content) for the lesson format and the [project map](README.md#project-map) for the code structure. Read [AGENTS.md](AGENTS.md) for the conventions that apply to all contributors.
+See [Edit in Studio](README.md#edit-in-studio) to edit the course in your browser. See [Add content](README.md#add-content) for the Markdown format and CLI import. Read [AGENTS.md](AGENTS.md) for the project guidelines.
 
 ## Make a change
 
-- Keep lesson IDs stable: they are part of the saved position and direct links. Keep step order stable where possible; links use step numbers.
-- Write original lesson text and diagrams. Check facts and state assumptions. Do not copy course material or assets without permission.
-- Keep examples concise and diagrams legible. Check keyboard navigation, screen reader labels, reduced motion, and both narrow and wide layouts when relevant.
-- Update the README or other affected documentation when behavior or commands change. Add or update tests for behavior changes.
-- Do not edit `dist/`: the build generates it. Never put secrets in lesson files; the compiled course is public.
+- Keep lesson IDs and the order of published steps stable. Readers use both in direct links.
+- Write original text and diagrams. Check facts and state assumptions. Check permissions before you use external content.
+- Use short examples and legible diagrams. Add alternative text to each diagram.
+- Update the README and affected tests when a command or behavior changes. Edit the source files. Course Board generates `dist/` from them.
 
 ## Check and submit
 
-Run `npm run lint`, `npm test`, and `npm run build`. Run `npm run coverage` when assessing test coverage. For a UI change, also check the affected flow in the browser. See the README for the static preview commands.
+Run `npm run lint`, `npm test`, and `npm run build`. Run `npm run coverage` to check test coverage. For a visible change, check the result in the learner preview with the keyboard and at wide and narrow screen sizes.
 
-Open a pull request with the problem, the change, and the checks you ran. Include screenshots for visible changes. CI runs the checks for pull requests; the Pages workflow deploys pushes to `main`.
+Open a pull request with the problem, the change, and the checks you ran. Include screenshots for visible changes. CI checks pull requests, and the Pages workflow deploys pushes to `main`.

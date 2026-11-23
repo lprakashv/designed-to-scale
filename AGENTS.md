@@ -1,26 +1,24 @@
 # Agent and contributor guide
 
-## Project
+This repository contains the Designed to Scale course. Course Board imports course bundles, validates and builds the saved source, and provides the learner interface and Studio. Use its existing data formats and CLI.
 
-This is a static system design course. It uses vanilla browser JavaScript, CSS, Markdown with YAML metadata, Markdown-it, YAML, and Rough.js. Keep changes small and use the existing modules and dependencies. Avoid adding a framework or a dependency for a small task.
+## Find the source
 
-## Find the right place
+- `content/course.json` sets the title, theme preset, chapter order, and lesson order.
+- `content/lessons/*.md` holds the lesson text, step settings, and diagram references.
+- `public/diagrams/` holds the whiteboards. Studio can save Excalidraw scenes and SVG exports here.
+- `package-lock.json` pins Course Board. Use the matching Course Board source checkout for Studio.
+- `test/` checks the build and compatibility with published links.
 
-- `content/course.json` sets chapter and lesson order; `content/lessons/*.md` holds the source lessons.
-- `scripts/compile.js` adapts Course Board lessons; `scripts/schema.js` validates their shared contract in Node and the browser.
-- `app.js` handles navigation, search, saved preferences, and lesson rendering. `scripts/diagram*.js` handles the board; `scripts/panes.js` handles resizing.
-- `scripts/site.js` lists the assets served and copied into `dist/`. Add browser assets there when needed. `scripts/serve.js` serves development and built previews.
-- `test/` covers the compiler, contract, diagrams, panes, and viewport. The README authoring example is also a test fixture.
+## Make changes
 
-## Constraints
-
-- Keep lesson IDs and existing direct links stable. Step numbers come from heading order. The browser stores the position, theme, and pane widths locally.
-- Write original course prose and diagrams. The chapter and lesson structure follows the credited source; do not copy its content or assume its license applies here.
-- Preserve keyboard access, semantic labels, reduced-motion behavior, responsive layouts, and safe text rendering. Never put secrets in course content.
-- Prefer readable, modular code and plain, concise documentation. Record assumptions in the relevant content. Update parent documentation when behavior changes.
-- Do not edit generated `dist/` or `node_modules/`. Preserve third-party license notices. Keep the private LinkedIn draft under `.private-showcase/` out of Git.
-- Before changing a shared contract, check its callers, authoring example, tests, and asset list. Add focused tests for behavior changes.
+- Keep lesson IDs and numbered step links stable. Add stable IDs to new steps when useful.
+- Write original text and diagrams. The chapter and lesson structure follows the source credited in the README. Check permissions before you reuse external material.
+- Use the Course Board manifest, Markdown, supported diagram types, and theme settings for course changes.
+- Preserve keyboard access and check layouts on narrow and wide screens. Add alternative text to every diagram.
+- Keep secrets out of lesson files and public assets. Keep `dist/`, `node_modules/`, and the private LinkedIn draft under `.private-showcase/` out of Git. Preserve third-party license notices.
+- Record assumptions in the relevant content. Update parent documentation when commands, behavior, or formats change. Use ASD-STE100 style.
 
 ## Verify
 
-Run `npm run lint`, `npm test`, and `npm run build`. Use `npm run coverage` to assess coverage. For interface changes, inspect the affected flow in the browser, including the relevant screen sizes and keyboard behavior. See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [README.md](README.md) for setup and authoring.
+Run `npm run lint`, `npm test`, and `npm run build`. Run `npm run coverage` to check test coverage. For interface changes, check the affected pages at wide and narrow screen sizes. Check keyboard navigation and a direct step link. See the [README](README.md) and [CONTRIBUTING.md](CONTRIBUTING.md).

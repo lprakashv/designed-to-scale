@@ -5,9 +5,6 @@
   "chapters": [
     {
       "title": "Foundations",
-      "data": {
-        "color": "sand"
-      },
       "lessons": [
         "request-lifecycle",
         "latency-throughput",
@@ -16,9 +13,6 @@
     },
     {
       "title": "Scaling",
-      "data": {
-        "color": "green"
-      },
       "lessons": [
         "vertical-horizontal",
         "load-balancing",
@@ -29,9 +23,6 @@
     },
     {
       "title": "Data & Storage",
-      "data": {
-        "color": "purple"
-      },
       "lessons": [
         "sql-nosql",
         "indexes",
@@ -48,9 +39,6 @@
     },
     {
       "title": "Communication",
-      "data": {
-        "color": "orange"
-      },
       "lessons": [
         "apis",
         "queues",
@@ -60,9 +48,6 @@
     },
     {
       "title": "Reliability",
-      "data": {
-        "color": "blue"
-      },
       "lessons": [
         "redundancy",
         "rate-limiting",
@@ -72,9 +57,6 @@
     },
     {
       "title": "Architecture",
-      "data": {
-        "color": "teal"
-      },
       "lessons": [
         "microservices",
         "service-discovery",
@@ -84,9 +66,6 @@
     },
     {
       "title": "Security",
-      "data": {
-        "color": "rose"
-      },
       "lessons": [
         "authentication",
         "authorization",
@@ -95,9 +74,6 @@
     },
     {
       "title": "Shipping",
-      "data": {
-        "color": "olive"
-      },
       "lessons": [
         "testing",
         "cicd"
@@ -105,9 +81,6 @@
     },
     {
       "title": "Whole Systems",
-      "data": {
-        "color": "slate"
-      },
       "lessons": [
         "hld-lld",
         "design-url-shortener",
@@ -115,5 +88,8 @@
         "design-chat"
       ]
     }
-  ]
+  ],
+  "$schema": "../node_modules/@lprakashv/course-board/schemas/manifest.json",
+  "description": "Learn system design one step at a time.",
+  "preset": "slate"
 }

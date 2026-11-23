@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 204" width="1024" height="204" role="img" aria-label="Browser (in focus): Opens the book page. Empty DNS cache.">
+<style>.node-stroke,.arrow-ink,.arrow-halo{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.node-stroke{stroke:#383542;stroke-width:1.4}
+.node-paper{fill:#fffefa}
+.is-active .node-paper{fill:#e9e6ff}
+.is-active .node-stroke{stroke:#5140a0;stroke-width:1.9}
+.is-new .node-paper,.node-added rect{fill:#d9f4e6}
+.is-new .node-stroke,.node-added rect{stroke:#216342}
+text{font-family:system-ui,sans-serif}
+.node-added text{fill:#216342;font-size:12px;font-weight:750}
+.node-name{fill:#383542;font-size:20px;font-weight:650}
+.node-caption{fill:#383542;font-size:16px}
+.node-note{fill:#674110;font-size:16px;font-weight:650}
+.note-rule{stroke:#674110;stroke-dasharray:3 2}
+.arrow-halo{stroke:#fffefa;stroke-width:6}
+.arrow-ink{stroke:#5140a0;stroke-width:1.6}
+.arrow-label rect{fill:#fffefa;stroke:#5140a0;stroke-opacity:.22}
+.arrow-label text{fill:#5140a0;font-size:15px;font-weight:650}</style>
+<g aria-hidden="true"><g class="board-node is-active" data-node="0">
+      <rect class="node-paper" x="60" y="36" width="180" height="132"/><path class="node-stroke" d="M60.81440027533099 36.91569050224498 C95.6970430730842 36.758470197888094, 131.4695009152405 34.00980077323504, 239.24608507631348 36.372718727309255 M59.383767714956775 36.251368678500874 C100.26082044863142 36.03478053677827, 139.7687537765596 35.49359155315906, 239.44864442781545 36.71517507969402 M241.4598690318875 34.33803824158385 C240.46496038587577 65.87904966110365, 241.12191948147304 91.86185766952113, 241.32102036653086 167.17411281140522 M240.28279382423497 35.240689646592365 C240.62468202212824 70.61112795597874, 239.69703691551462 106.88242624117993, 240.38653300390578 168.33463153629563 M241.00016153035685 167.7972318557091 C202.15786116486416 169.50825590378605, 160.7584947402589 168.9919074553903, 61.74463376877829 167.61665269704537 M239.1037447629962 167.86345459013245 C172.25225534983912 168.44635294208302, 105.42759684831836 168.18846178332345, 60.89200223223306 168.03975212215445 M59.315426086168735 167.73260545106604 C60.28765715551935 128.68920826623219, 58.64184544575773 92.4533364300616, 60.56221031723544 34.854223271925 M60.207059068838134 168.948311885586 C58.49154212801158 119.36161096445284, 58.97229383765161 71.11023962362668, 60.41870354101993 36.93862857311033"/>
+      <text class="node-name" x="150" y="78" text-anchor="middle">Browser</text><text class="node-caption" x="150" y="100" text-anchor="middle">Opens the book</text><text class="node-caption" x="150" y="117" text-anchor="middle">page</text><path class="note-rule" d="M79.51999999999998 124h140.96000000000004"/><text class="node-note" x="150" y="139" text-anchor="middle">Empty DNS cache</text>
+
+
+    </g></g></svg>

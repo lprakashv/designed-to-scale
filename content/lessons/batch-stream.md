@@ -3,49 +3,68 @@ title: Batch & Stream Processing
 summary: Choose how and when to process incoming data.
 data:
   original: true
-  nodes: [["Events","Input records"],["Processor","Aggregates results"],["Output","Published totals"]]
-  statusLabels: ["Processing","Input boundary","Result"]
 ---
 
 ## Process in batches
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"Read daily files"],[1,2,"Publish daily total"]]
-  callouts: [[1,"Bounded input by day"]]
-  status: ["Batch","Bounded input","Scheduled output"]
-  visualNote: "Choose a batch when the result can wait until the next scheduled run."
+diagram:
+  type: svg
+  alt: "Events (in focus): Input records. Processor (in focus): Aggregates results. Bounded input by day. Output (in focus): Published totals. Flow: Events to Processor: Read daily files. Processor to Output: Publish daily total."
+  caption: Choose a batch when the result can wait until the next scheduled run.
+  src: diagrams/batch-stream/1.svg
 ```
 
 A batch job runs on a schedule. It reads yesterday's completed order files and publishes the **daily sales total**.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Processing | Batch |
+| Input boundary | Bounded input |
+| Result | Scheduled output |
+
 ## Process a stream
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"Stream orders"],[1,2,"Update window total"]]
-  callouts: [[1,"Define allowed lateness"]]
-  status: ["Stream","Arriving events","Incremental updates"]
-  visualNote: "Define how late events affect results that may already have been published."
+diagram:
+  type: svg
+  alt: "Events (in focus): Input records. Processor (in focus): Aggregates results. Define allowed lateness. Output (in focus): Published totals. Flow: Events to Processor: Stream orders. Processor to Output: Update window total."
+  caption: Define how late events affect results that may already have been published.
+  src: diagrams/batch-stream/2.svg
 ```
 
 A stream updates sales totals as orders arrive.
 
 Use the **event time**. Decide whether late orders can change totals that you have already published.
 
+### Example state
+
+| Item | State |
+| --- | --- |
+| Processing | **Stream** |
+| Input boundary | **Arriving events** |
+| Result | **Incremental updates** |
+
 ## Define correctness
 
 ```step
-data:
-  active: [0,1,2]
-  links: [[0,1,"Replay checkpoint"],[1,2,"Idempotent write"]]
-  callouts: [[2,"Upsert by window ID"]]
-  status: ["Starts again after failure","Checkpoint or replay","Verify duplicate handling"]
-  visualNote: "Test recovery with the same inputs to check whether it changes the result."
+diagram:
+  type: svg
+  alt: "Events (in focus): Input records. Processor (in focus): Aggregates results. Output (in focus): Published totals. Upsert by window ID. Flow: Events to Processor: Replay checkpoint. Processor to Output: Idempotent write."
+  caption: Test recovery with the same inputs to check whether it changes the result.
+  src: diagrams/batch-stream/3.svg
 ```
 
 Recover from a checkpoint and replay the same events.
 
 Use event IDs or a stable output key to prevent a restart from counting an order twice.
+
+### Example state
+
+| Item | State |
+| --- | --- |
+| Processing | **Starts again after failure** |
+| Input boundary | **Checkpoint or replay** |
+| Result | **Verify duplicate handling** |
