@@ -27,7 +27,7 @@ npm run dev
 
 Open [the development preview](http://127.0.0.1:4173/). Save a source file and reload the page to build it again. Set `PORT` to use a different port.
 
-The lockfile pins [Course Board v0.3.0, commit `9e76c08`](https://github.com/lprakashv/course-board/commit/9e76c08de42190571454631d64c8f90572bcc89f).
+The lockfile pins [Course Board v0.3.5, commit `7cc9105`](https://github.com/lprakashv/course-board/commit/7cc91059153fad3950601aca8b69e7b2d52fcfc1).
 
 ## Edit in Studio
 
@@ -41,11 +41,11 @@ node src/cli.js author ../designed-to-scale
 
 Open [Course Board Studio](http://127.0.0.1:4175/). Edit the outline, lesson text, diagrams, and course settings. Select **Save course** to write the source files. Reload the learner preview to see the saved changes.
 
-The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/9e76c08de42190571454631d64c8f90572bcc89f/docs/authoring.md#edit-a-course-in-the-browser).
+The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/7cc91059153fad3950601aca8b69e7b2d52fcfc1/docs/authoring.md#edit-a-course-in-the-browser).
 
 ## Add content
 
-Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/9e76c08de42190571454631d64c8f90572bcc89f/src/browser/course.css).
+Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/7cc91059153fad3950601aca8b69e7b2d52fcfc1/src/browser/course.css).
 
 Add a Markdown file in `content/lessons/` and list its ID in the chapter that will contain it. Use a top-level `##` heading for each step. Put an optional fenced `step` block just after the heading. A diagram `src` is relative to `public/`.
 
