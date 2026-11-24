@@ -1,17 +1,19 @@
 export function setupPaneResize(divider, pane, { width, save }) {
   const grid = divider.parentElement;
   const style = getComputedStyle(grid);
-  let drag;
+  let activeDrag;
 
-  function limits() {
+  function widthLimits() {
     const pixels = property => Number.parseFloat(style.getPropertyValue(property));
-    return [pixels('--pane-min'), Math.min(pixels('--pane-max'),
-      grid.clientWidth - pixels('--divider-width') - pixels('--other-min'))];
+    const minimum = pixels('--pane-min');
+    const available = grid.clientWidth - pixels('--divider-width') - pixels('--other-min');
+    const maximum = Math.max(minimum, Math.min(pixels('--pane-max'), available));
+    return { minimum, maximum };
   }
 
   function updateRange() {
     if (!divider.offsetWidth) return;
-    const [minimum, maximum] = limits();
+    const { minimum, maximum } = widthLimits();
     const current = Math.round(pane.getBoundingClientRect().width);
     divider.setAttribute('aria-valuemin', minimum);
     divider.setAttribute('aria-valuemax', maximum);
@@ -20,7 +22,7 @@ export function setupPaneResize(divider, pane, { width, save }) {
   }
 
   function resize(value) {
-    const [minimum, maximum] = limits();
+    const { minimum, maximum } = widthLimits();
     width = Math.max(minimum, Math.min(Math.round(value), maximum));
     grid.style.setProperty('--pane-width', `${width}px`);
   }
@@ -32,20 +34,22 @@ export function setupPaneResize(divider, pane, { width, save }) {
   observer.observe(pane);
 
   divider.addEventListener('pointerdown', event => {
-    if (event.button !== 0 || drag) return;
-    drag = { id: event.pointerId, start: event.clientX, width: pane.getBoundingClientRect().width };
+    if (event.button !== 0 || activeDrag) return;
+    activeDrag = { pointerId: event.pointerId, startX: event.clientX, width: pane.getBoundingClientRect().width };
     divider.setPointerCapture(event.pointerId);
     divider.focus({ preventScroll: true });
     divider.classList.add('is-dragging');
     event.preventDefault();
   });
   divider.addEventListener('pointermove', event => {
-    if (drag?.id === event.pointerId) resize(drag.width + event.clientX - drag.start);
+    if (activeDrag?.pointerId === event.pointerId) {
+      resize(activeDrag.width + event.clientX - activeDrag.startX);
+    }
   });
   for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
     divider.addEventListener(type, event => {
-      if (drag?.id !== event.pointerId) return;
-      drag = undefined;
+      if (activeDrag?.pointerId !== event.pointerId) return;
+      activeDrag = undefined;
       divider.classList.remove('is-dragging');
       if (Number.isFinite(width)) save(width);
     });
@@ -53,7 +57,7 @@ export function setupPaneResize(divider, pane, { width, save }) {
 
   divider.addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
-    const [minimum, maximum] = limits();
+    const { minimum, maximum } = widthLimits();
     const current = pane.getBoundingClientRect().width;
     const increment = event.shiftKey ? 32 : 12;
     const widths = { ArrowLeft: current - increment, ArrowRight: current + increment, Home: minimum, End: maximum };
