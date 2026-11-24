@@ -1,0 +1,21 @@
+README.md
+  s_dbbbc0a9e8784d::t_268947022af90f 5,7,9-11,26
+scripts/schema.js
+  s_dbbbc0a9e8784d::t_b23d44885932ae 4-6,8,16,18-21,26-27,29-30,36,40,42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "66f8145ddcf6bc429f1b7f033b5041931a1d5952",
+  "prompts": {},
+  "sessions": {
+    "s_dbbbc0a9e8784d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a201da-ea00-7171-bbf6-76d69e25ccc1",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}

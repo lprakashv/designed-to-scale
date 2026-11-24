@@ -1,0 +1,32 @@
+AGENTS.md
+  s_dbbbc0a9e8784d::t_f0b7d9f2af7da7 1-26
+LICENSE
+  s_dbbbc0a9e8784d::t_f0b7d9f2af7da7 1-21
+CONTRIBUTING.md
+  s_dbbbc0a9e8784d::t_f0b7d9f2af7da7 1-15,17-26
+  s_dbbbc0a9e8784d::t_6b634b82c8c7dc 16
+.github/workflows/ci.yml
+  s_dbbbc0a9e8784d::t_f0b7d9f2af7da7 1-27
+README.md
+  s_dbbbc0a9e8784d::t_e4d41b9724b35d 3-11,23-39,128,140-147
+.github/workflows/main.yml
+  s_dbbbc0a9e8784d::t_6b634b82c8c7dc 28
+.gitignore
+  s_dbbbc0a9e8784d::t_f0b7d9f2af7da7 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4654ca77ad97c8487e17b31204424fa3c9def7b5",
+  "prompts": {},
+  "sessions": {
+    "s_dbbbc0a9e8784d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a201da-ea00-7171-bbf6-76d69e25ccc1",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}

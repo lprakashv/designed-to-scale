@@ -1,0 +1,41 @@
+README.md
+  s_e1c2f274d3f3aa::t_16601a96f66be8 1-61
+app.js
+  s_e1c2f274d3f3aa::t_61f83077156128 1-250
+content/course.json
+  s_e1c2f274d3f3aa::t_72e44b724cf164 1-62
+index.html
+  s_e1c2f274d3f3aa::t_0d70d00f173bf8 1-25
+package.json
+  s_e1c2f274d3f3aa::t_5a269eddb1eedf 1-15
+scripts/check.js
+  s_e1c2f274d3f3aa::t_15d761d7bde8aa 1-4
+scripts/diagram.js
+  s_e1c2f274d3f3aa::t_1c7e9a3e79e3db 1-75
+scripts/schema.js
+  s_e1c2f274d3f3aa::t_ec1585a478704d 1-18
+scripts/serve.js
+  s_e1c2f274d3f3aa::t_d183a4144efe20 1-17
+styles.css
+  s_e1c2f274d3f3aa::t_d385fee5d2b1af 1-54
+test/diagram.test.js
+  s_e1c2f274d3f3aa::t_51282ad730a00b 1-26
+test/schema.test.js
+  s_e1c2f274d3f3aa::t_8c24bef55b5e88 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5c513ee77b4d105d0d10d06c7f33d7d02ef18d5",
+  "prompts": {},
+  "sessions": {
+    "s_e1c2f274d3f3aa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1fd75-35cb-7231-8045-16b4ddfe64b6",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
