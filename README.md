@@ -91,7 +91,7 @@ npm start
 
 Open [the production preview](http://127.0.0.1:4174/). The build writes the learner site to `dist/`. Publish that directory to a static host. The Pages workflow builds on pushes to `main` and publishes `dist/` to the `gh-pages` branch.
 
-The Pages build reads the `GOOGLE_TAG_ID` GitHub Actions repository secret. Set it to a GA4 measurement ID to enable Google Analytics. An empty value disables analytics. The published HTML contains the ID. Course Board sends a page view after it sets the title for the initial route and for each step link change. The home page uses the manifest title, and lesson pages use the lesson title followed by the course title. Disable GA4 enhanced measurement for browser history changes if it also records these views.
+The build reads the `GOOGLE_TAG_ID` GitHub Actions repository secret. Use a GA4 measurement ID or a Google Tag Manager container ID. An empty value disables analytics. The ID is visible in the published site. The home page uses the manifest title. Lesson pages use the lesson title followed by the course title. With a GA4 measurement ID, Course Board sends page views after it sets each title. With a container ID, configure page views and their timing in Google Tag Manager. Avoid duplicate history-change tracking. Verify the page titles in Analytics DebugView. [Analytics guide](https://github.com/lprakashv/course-board/blob/5f01a3d794ad1798f6a7162fb24f41c81041def9/docs/publishing.md#add-analytics-to-the-default-site)
 
 The integration tests check the course data and the learner build. Run `npm run coverage` in the Course Board source checkout to measure Course Board's code coverage.
 
