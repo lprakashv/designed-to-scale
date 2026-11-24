@@ -1,7 +1,7 @@
 import { assetUrl, escapeHtml, renderDiagram } from './diagrams.js';
 import { getRoute, lessonHref } from './navigation.js';
 import { setupPaneResize } from './panes.js';
-import { createCourseShell } from './shell.js';
+import { createCourseShell, setPageTitle } from './shell.js';
 
 const byId = id => document.getElementById(id);
 
@@ -173,7 +173,6 @@ function startCourse(course, extension) {
 
   function renderHome() {
     currentLesson = undefined;
-    document.title = course.title;
     byId('breadcrumb').textContent = '';
     byId('lesson-count').textContent = '';
     renderOutline();
@@ -193,7 +192,6 @@ function startCourse(course, extension) {
     if (lesson !== currentLesson) {
       currentLesson = lesson;
       visibleState = undefined;
-      document.title = `${lesson.title} · ${course.title}`;
       byId('breadcrumb').textContent = lesson.chapter.title;
       byId('lesson-count').textContent = `Lesson ${index + 1} of ${lessons.length}`;
       byId('lesson-title').textContent = lesson.title;
@@ -247,6 +245,7 @@ function startCourse(course, extension) {
 
   function renderRoute() {
     const route = shell.route();
+    setPageTitle(course, route, extension.pageTitle);
     byId('home').hidden = Boolean(route);
     byId('lesson-view').hidden = !route;
     const homeLink = document.querySelector('.home-link');
@@ -259,6 +258,7 @@ function startCourse(course, extension) {
     }
     main.removeAttribute('aria-busy');
     focusAfterNavigation = false;
+    window.dispatchEvent(new Event('course-board:navigate'));
   }
 
   outlineToggle.addEventListener('click', () => setOutline(!outline.classList.contains('is-open')));
