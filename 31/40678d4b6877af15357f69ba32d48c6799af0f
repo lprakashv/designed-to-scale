@@ -1,0 +1,23 @@
+package.json
+  s_e7a8a9a1161055::t_d2677a5b7e7c8f 19
+README.md
+  s_e7a8a9a1161055::t_d2677a5b7e7c8f 30,44,48
+package-lock.json
+  s_e7a8a9a1161055::t_db0b8f775c92b7 11,18-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3140678d4b6877af15357f69ba32d48c6799af0f",
+  "prompts": {},
+  "sessions": {
+    "s_e7a8a9a1161055": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20c6a-f4ac-7642-a680-72bfc2dbcd32",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
