@@ -42,5 +42,6 @@ test('the learner build serves a migrated board at a published step link', async
   await buildSite(root, { analytics: { GOOGLE_TAG_ID: 'G-TEST123' } });
   const html = await readFile(join(site, 'index.html'), 'utf8');
   assert.match(html, /googletagmanager\.com\/gtag\/js\?id=G-TEST123/);
-  assert.match(html, /addEventListener\('hashchange'.*page_view/);
+  assert.match(html, /addEventListener\('course-board:navigate'.*page_view/);
+  assert.match(html, /page_title: document.title/);
 });

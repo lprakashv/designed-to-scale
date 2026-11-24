@@ -16,6 +16,6 @@
     "node": ">=20.19.0"
   },
   "devDependencies": {
-    "@lprakashv/course-board": "https://codeload.github.com/lprakashv/course-board/tar.gz/7cc91059153fad3950601aca8b69e7b2d52fcfc1"
+    "@lprakashv/course-board": "https://codeload.github.com/lprakashv/course-board/tar.gz/5f01a3d794ad1798f6a7162fb24f41c81041def9"
   }
 }

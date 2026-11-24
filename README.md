@@ -27,7 +27,7 @@ npm run dev
 
 Open [the development preview](http://127.0.0.1:4173/). Save a source file and reload the page to build it again. Set `PORT` to use a different port.
 
-The lockfile pins [Course Board v0.3.5, commit `7cc9105`](https://github.com/lprakashv/course-board/commit/7cc91059153fad3950601aca8b69e7b2d52fcfc1).
+The lockfile pins [Course Board v0.3.6, commit `5f01a3d`](https://github.com/lprakashv/course-board/commit/5f01a3d794ad1798f6a7162fb24f41c81041def9).
 
 ## Edit in Studio
 
@@ -41,11 +41,11 @@ node src/cli.js author ../designed-to-scale
 
 Open [Course Board Studio](http://127.0.0.1:4175/). Edit the outline, lesson text, diagrams, and course settings. Select **Save course** to write the source files. Reload the learner preview to see the saved changes.
 
-The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/7cc91059153fad3950601aca8b69e7b2d52fcfc1/docs/authoring.md#edit-a-course-in-the-browser).
+The existing whiteboards are SVG attachments. To add an editable whiteboard, open the Excalidraw editor in Studio and apply the board. Studio saves the Excalidraw scene and its SVG export when you save the course. [Course Board authoring guide](https://github.com/lprakashv/course-board/blob/5f01a3d794ad1798f6a7162fb24f41c81041def9/docs/authoring.md#edit-a-course-in-the-browser).
 
 ## Add content
 
-Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/7cc91059153fad3950601aca8b69e7b2d52fcfc1/src/browser/course.css).
+Set the title, description, chapter order, and theme preset in [the course manifest](content/course.json). For an optional theme, put a CSS file under `public/` and set its relative path in the manifest's `theme` field. Use the [Course Board theme properties](https://github.com/lprakashv/course-board/blob/5f01a3d794ad1798f6a7162fb24f41c81041def9/src/browser/course.css).
 
 Add a Markdown file in `content/lessons/` and list its ID in the chapter that will contain it. Use a top-level `##` heading for each step. Put an optional fenced `step` block just after the heading. A diagram `src` is relative to `public/`.
 
@@ -91,7 +91,7 @@ npm start
 
 Open [the production preview](http://127.0.0.1:4174/). The build writes the learner site to `dist/`. Publish that directory to a static host. The Pages workflow builds on pushes to `main` and publishes `dist/` to the `gh-pages` branch.
 
-The Pages build reads the `GOOGLE_TAG_ID` GitHub Actions repository secret. Set it to a GA4 measurement ID to enable Google Analytics. An empty value disables analytics. The published HTML contains the ID. Course Board records the initial page view and views for step link changes. Disable GA4 enhanced measurement for browser history changes if it also records these views.
+The Pages build reads the `GOOGLE_TAG_ID` GitHub Actions repository secret. Set it to a GA4 measurement ID to enable Google Analytics. An empty value disables analytics. The published HTML contains the ID. Course Board sends a page view after it sets the title for the initial route and for each step link change. The home page uses the manifest title, and lesson pages use the lesson title followed by the course title. Disable GA4 enhanced measurement for browser history changes if it also records these views.
 
 The integration tests check the course data and the learner build. Run `npm run coverage` in the Course Board source checkout to measure Course Board's code coverage.
 
