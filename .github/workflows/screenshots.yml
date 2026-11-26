@@ -1,0 +1,32 @@
+name: Screenshots
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - uses: lprakashv/capture-and-update-screenshot-action@7427188b6422a213e031886a059ede1b1d9f6f2f
+        with:
+          config: screenshots.json
+          source: repository
+          build-command: npm ci && npm run build
+          start-command: npm start
+          base-url: http://127.0.0.1:4174
+          publish: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}

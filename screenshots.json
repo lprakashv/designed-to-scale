@@ -1,0 +1,14 @@
+{
+  "publish": {
+    "directory": "showcase",
+    "file": "README.md",
+    "marker": "course-screenshots"
+  },
+  "pages": [
+    {
+      "name": "request-lifecycle",
+      "path": "/#/request-lifecycle/1",
+      "waitFor": "#lesson:not([aria-busy]) #lesson-title"
+    }
+  ]
+}

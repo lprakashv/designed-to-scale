@@ -4,7 +4,9 @@ Study system design in 40 lessons across nine chapters. Follow requests through 
 
 **[Open the course](https://www.lprakashv.com/designed-to-scale/)** · [Run locally](#run-locally) · [Edit in Studio](#edit-in-studio) · [Contribute](CONTRIBUTING.md)
 
+<!-- course-screenshots:start -->
 ![The Course Board learner view for the request lifecycle lesson](showcase/request-lifecycle.jpg)
+<!-- course-screenshots:end -->
 
 The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The lesson text and diagrams are independently written.
 
@@ -92,6 +94,8 @@ npm start
 Open [the production preview](http://127.0.0.1:4174/). The build writes the learner site to `dist/`. Publish that directory to a static host. The Pages workflow builds on pushes to `main` and publishes `dist/` to the `gh-pages` branch.
 
 The build reads the `GOOGLE_TAG_ID` GitHub Actions repository secret. Use a GA4 measurement ID or a Google Tag Manager container ID. An empty value disables analytics. The ID is visible in the published site. The home page uses the manifest title. Lesson pages use the lesson title followed by the course title. With a GA4 measurement ID, Course Board sends page views after it sets each title. With a container ID, configure page views and their timing in Google Tag Manager. Avoid duplicate history-change tracking. Verify the page titles in Analytics DebugView. [Analytics guide](https://github.com/lprakashv/course-board/blob/5f01a3d794ad1798f6a7162fb24f41c81041def9/docs/publishing.md#add-analytics-to-the-default-site)
+
+The Screenshots workflow captures the request lifecycle lesson from the current build. On a push to `main`, it proposes image and README updates in a pull request. Enable **Allow GitHub Actions to create and approve pull requests** in the repository Actions settings. Review the image and run required checks before merging the pull request.
 
 The integration tests check the course data and the learner build. Run `npm run coverage` in the Course Board source checkout to measure Course Board's code coverage.
 
