@@ -1,0 +1,25 @@
+package.json
+  s_a1e35e1bb1e5e1::t_e599642feba832 19
+test/course.test.js
+  s_a1e35e1bb1e5e1::t_76419f426f1b70 45-46
+README.md
+  s_a1e35e1bb1e5e1::t_712ef5d50e7ee2 30,44,48,94
+package-lock.json
+  s_a1e35e1bb1e5e1::t_c2fa526d11275b 11,18-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "de4099337582ec505c1318961492d7eaa329c71c",
+  "prompts": {},
+  "sessions": {
+    "s_a1e35e1bb1e5e1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20cb8-c044-72b2-bef3-ff4bfa3fa7ef",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lvatsal@splunk.com>"
+    }
+  }
+}
