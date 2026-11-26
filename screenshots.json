@@ -1,9 +1,4 @@
 {
-  "publish": {
-    "directory": "showcase",
-    "file": "README.md",
-    "marker": "course-screenshots"
-  },
   "pages": [
     {
       "name": "request-lifecycle",
