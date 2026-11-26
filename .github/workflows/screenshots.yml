@@ -7,62 +7,26 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-
-concurrency:
-  group: screenshots-${{ github.event.pull_request.number || 'main' }}
-  cancel-in-progress: true
+  contents: write
+  pull-requests: write
 
 jobs:
   screenshots:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v6
         with:
-          persist-credentials: false
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
 
-      - id: capture
-        uses: lprakashv/capture-and-update-screenshot-action@7427188b6422a213e031886a059ede1b1d9f6f2f
+      - uses: lprakashv/capture-and-update-screenshot-action@7427188b6422a213e031886a059ede1b1d9f6f2f
         with:
           config: screenshots.json
           source: repository
           build-command: npm ci && npm run build
           start-command: npm start
           base-url: http://127.0.0.1:4174
-          publish: 'false'
-
-      - name: Check out screenshot branch
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        uses: actions/checkout@v6
-        with:
-          ref: screenshot-updates
-          path: screenshot-branch
-
-      - name: Update screenshot branch
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        working-directory: screenshot-branch
-        env:
-          SCREENSHOT_DIR: ${{ steps.capture.outputs.directory }}
-          CAPTURE_COMMIT: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-          current_main=$(git ls-remote origin refs/heads/main | cut -f1)
-          if [ "$current_main" != "$CAPTURE_COMMIT" ]; then
-            echo 'Main changed after capture. A newer run will update the screenshot.'
-            exit 1
-          fi
-          mkdir -p showcase
-          cp "$SCREENSHOT_DIR/request-lifecycle.png" showcase/request-lifecycle.png
-          git add showcase/request-lifecycle.png
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'Update screenshots'
-            git push origin HEAD:screenshot-updates
-          fi
+          publish: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
