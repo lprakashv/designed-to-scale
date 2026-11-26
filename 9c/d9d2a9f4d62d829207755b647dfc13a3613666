@@ -1,0 +1,21 @@
+README.md
+  s_386aad7594cbcc::t_c1cfe4a5d143aa 7,96
+.github/workflows/screenshots.yml
+  s_386aad7594cbcc::t_c1cfe4a5d143aa 10-14,19-20,24,30-31,38-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9cd9d2a9f4d62d829207755b647dfc13a3613666",
+  "prompts": {},
+  "sessions": {
+    "s_386aad7594cbcc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a21775-7346-7321-b97f-c26cf5048ba1",
+        "model": "gpt-6.1-terra"
+      },
+      "human_author": "Lalit Vatsal <lprakashv@gmail.com>"
+    }
+  }
+}
