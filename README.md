@@ -5,7 +5,7 @@ Study system design in 40 lessons across nine chapters. Follow requests through 
 **[Open the course](https://www.lprakashv.com/designed-to-scale/)** · [Run locally](#run-locally) · [Edit in Studio](#edit-in-studio) · [Contribute](CONTRIBUTING.md)
 
 <!-- course-screenshots:start -->
-![The Course Board learner view for the request lifecycle lesson](showcase/request-lifecycle.jpg)
+![request-lifecycle](showcase/request-lifecycle.png)
 <!-- course-screenshots:end -->
 
 The chapter names, lesson names, and lesson order follow Dilum Sanjaya’s [Designed to Scale course](https://designed-to-scale.vercel.app/). The lesson text and diagrams are independently written.
